@@ -32,7 +32,7 @@ export function DataProvider(props) {
   const [cases, setCases] = useState(null);
 
   function fetchCases() {
-    firebase.database().ref('/features').once('value').then(snapshot => {
+    firebase.database().ref('/cases').once('value').then(snapshot => {
       setCases(snapshot.val());
       setIsLoading(false);
     });

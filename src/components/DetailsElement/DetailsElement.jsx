@@ -17,7 +17,7 @@ function CountLoader() {
       backgroundColor="#f3f3f3"
       foregroundColor="#ecebeb"
     >
-      <rect x="0" y="5" rx="0" ry="0" width="40" height="54" />
+      <rect x="0" y="5" rx="2" ry="2" width="40" height="54" />
     </ContentLoader>
   );
 }
