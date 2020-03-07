@@ -6,8 +6,11 @@ import { divIcon } from 'leaflet';
 import { useStyletron, styled } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Spinner } from 'baseui/spinner';
-import { Paragraph2 } from 'baseui/typography';
+import { Paragraph2, Paragraph4, Label2 } from 'baseui/typography';
 import { ReactComponent as MapPin } from './../../assets/svg/pin.svg';
+import { StyledCard } from './..';
+import { StyledBody } from 'baseui/card';
+import { StyledLink } from "baseui/link";
 
 import { useData } from '../../contexts/DataContext';
 
@@ -50,28 +53,38 @@ export default function Map() {
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
       <MarkerClusterGroup>
-        {cases && cases.map((_case, index) => (
+        {cases && cases.map((data, index) => (
           <Marker
             key={index}
             position={[
-              _case.geometry.coordinates[0],
-              _case.geometry.coordinates[1],
+              data.location[0],
+              data.location[1],
             ]}
             icon={customIconMarker}
-            onClick={() => setActiveCase(_case)}
+            onClick={() => setActiveCase(data)}
           />
         ))}
       </MarkerClusterGroup>
       {activeCase && <Popup
         position={[
-          activeCase.geometry.coordinates[0],
-          activeCase.geometry.coordinates[1]
+          activeCase.location[0],
+          activeCase.location[1]
         ]}
         onClose={() => setActiveCase(null)}
       >
-        <Block padding={"20px"} backgroundColor={'backgroundPrimary'}>
-          {activeCase.properties.date}
-        </Block>
+        <StyledCard>
+          <StyledBody>
+            <Label2>{activeCase.city}</Label2>
+            <Paragraph4>
+              Data zgłoszenia: {activeCase.reportedAt}
+            </Paragraph4>
+            <Paragraph4>
+              Źródło: <StyledLink target={'_blank'} href={activeCase.source}>
+                {activeCase.source}
+              </StyledLink>
+            </Paragraph4>
+          </StyledBody>
+        </StyledCard>
       </Popup>}
     </LeafletMap>
   );

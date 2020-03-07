@@ -7,7 +7,7 @@ export default function StyledCard({ children, ...props }) {
       overrides={{
         Root: {
           style: ({ $theme }) => ({
-            width: '328px',
+            width: props.width || '328px',
             borderRadius: $theme.borders.radius200,
             boxShadow: $theme.lighting.shadow500
           })
