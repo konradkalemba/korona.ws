@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.leaflet-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.leaflet-container, .leaflet-pane:not(.leaflet-popup-pane) {
+  z-index: unset;
+}
+
+.leaflet-popup-content-wrapper {
+  background: none;
+  box-shadow: none;
+  color: unset;
+  border-radius: 0;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+}
+
+.leaflet-popup-tip-container, .leaflet-popup-close-button {
+  display: none;
+}
+
+.leaflet-div-icon {
+  background: none;
+  border: none;
+}
