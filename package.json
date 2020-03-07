@@ -8,9 +8,11 @@
     "@testing-library/user-event": "^7.1.2",
     "baseui": "^9.62.0",
     "leaflet": "^1.6.0",
+    "leaflet.markercluster": "^1.4.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-leaflet": "^2.6.1",
+    "react-leaflet-markercluster": "2.0.0-rc3",
     "react-scripts": "3.4.0",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7"
