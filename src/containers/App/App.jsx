@@ -63,6 +63,11 @@ export default function App() {
               </Button>
             </Block>
           </Layer>
+          <Layer>
+            <Block position={'fixed'} bottom={'40px'} right={'40px'}>
+              <div class="fb-share-button" data-href="https://korona.ws" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Udostępnij</a></div>
+            </Block>
+          </Layer>
         </DataProvider>
       </BaseProvider>
     </StyletronProvider>
