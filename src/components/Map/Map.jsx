@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
-import { Block } from "baseui/block";
 import { divIcon } from 'leaflet';
 import { useStyletron, styled } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';

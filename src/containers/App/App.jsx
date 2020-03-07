@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
-import { BaseProvider, lightThemePrimitives, createTheme, styled } from 'baseui';
-import { Map, StyledCard } from '../../components';
+import { BaseProvider, lightThemePrimitives, createTheme } from 'baseui';
+import { Map } from '../../components';
 
 import { Layer } from 'baseui/layer';
 import { Button, KIND } from 'baseui/button';
 import { Block } from 'baseui/block';
-import {
-  Card,
-  StyledBody,
-  StyledAction,
-  StyledThumbnail,
-} from 'baseui/card';
-import {
-  Display2
-} from 'baseui/typography';
 
 import { DataProvider } from './../../contexts/DataContext';
 import DetailsElement from '../../components/DetailsElement/DetailsElement';
