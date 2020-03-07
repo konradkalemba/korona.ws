@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "baseui": "^9.62.0",
+    "firebase": "^7.10.0",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "react": "^16.13.0",
