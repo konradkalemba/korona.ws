@@ -6,10 +6,10 @@ import { useStyletron, styled } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Spinner } from 'baseui/spinner';
 import { Paragraph2, Paragraph4, Label2 } from 'baseui/typography';
-import { ReactComponent as MapPin } from './../../assets/svg/pin.svg';
 import { StyledCard } from './..';
 import { StyledBody } from 'baseui/card';
 import { StyledLink } from "baseui/link";
+import { Marker as MarkerIcon } from './..';
 
 import { useData } from '../../contexts/DataContext';
 
@@ -25,14 +25,14 @@ export default function Map() {
   const position = [51.984880, 19.368896];
   const [activeCase, setActiveCase] = useState(null);
   
-  const [, theme] = useStyletron();
+  const [css, theme] = useStyletron();
 
   const { cases, isLoading } = useData();
 
   const customIconMarker = divIcon({
     iconSize: [32, 32],
     html: renderToStaticMarkup(
-      <MapPin fill={theme.colors.negative} width={'32px'} height={'32px'} />
+      <MarkerIcon />
     )
   });
 
