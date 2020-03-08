@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import { divIcon } from 'leaflet';
-import { useStyletron, styled } from 'baseui';
+import { styled } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Spinner } from 'baseui/spinner';
 import { Paragraph2, Paragraph4, Label2 } from 'baseui/typography';
-import { ReactComponent as MapPin } from './../../assets/svg/pin.svg';
 import { StyledCard } from './..';
 import { StyledBody } from 'baseui/card';
 import { StyledLink } from "baseui/link";
+import { Marker as MarkerIcon } from './..';
+import { StyledTable, StyledBody as StyledTableBody, StyledHead, StyledHeadCell, StyledRow, StyledCell } from 'baseui/table';
 
 import { useData } from '../../contexts/DataContext';
+import groupBy from 'lodash.groupby';
 
 const Centered = styled('div', {
   display: 'flex',
@@ -21,20 +23,22 @@ const Centered = styled('div', {
   height: '98vh',
 });
 
-export default function Map() {
-  const position = [51.984880, 19.368896];
-  const [activeCase, setActiveCase] = useState(null);
-  
-  const [, theme] = useStyletron();
+function createMarkerIcon(count) {
+  const size = count > 1 ? 60 : 40;
 
-  const { cases, isLoading } = useData();
-
-  const customIconMarker = divIcon({
-    iconSize: [32, 32],
+  return divIcon({
+    iconSize: [size, size],
     html: renderToStaticMarkup(
-      <MapPin fill={theme.colors.negative} width={'32px'} height={'32px'} />
+      <MarkerIcon size={size} count={count} />
     )
   });
+}
+
+export default function Map() {
+  const position = [51.984880, 19.368896];
+  const [activeCity, setActiveCity] = useState(null);
+  
+  const { cases, isLoading } = useData();
 
   if (isLoading) { 
     return (
@@ -51,37 +55,51 @@ export default function Map() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
-      <MarkerClusterGroup>
-        {cases && cases.map((data, index) => (
+      <MarkerClusterGroup
+        showCoverageOnHover={false}
+        iconCreateFunction={(cluster) => createMarkerIcon(cluster.getChildCount())}
+      >
+        {cases && Object.entries(groupBy(cases, 'city')).map(([name, data], index) => (
           <Marker
             key={index}
             position={[
-              data.location[0],
-              data.location[1],
+              data[0].location[0],
+              data[0].location[1],
             ]}
-            icon={customIconMarker}
-            onClick={() => setActiveCase(data)}
+            icon={createMarkerIcon(data.length)}
+            onClick={() => setActiveCity({ name, data })}
           />
         ))}
       </MarkerClusterGroup>
-      {activeCase && <Popup
+      {activeCity && <Popup
         position={[
-          activeCase.location[0],
-          activeCase.location[1]
+          activeCity.data[0].location[0],
+          activeCity.data[0].location[1]
         ]}
-        onClose={() => setActiveCase(null)}
+        onClose={() => setActiveCity(null)}
       >
         <StyledCard>
           <StyledBody>
-            <Label2>{activeCase.city}</Label2>
-            <Paragraph4>
-              Data zgłoszenia: {activeCase.reportedAt}
-            </Paragraph4>
-            <Paragraph4>
-              Źródło: <StyledLink target={'_blank'} href={activeCase.source}>
-                {activeCase.source}
-              </StyledLink>
-            </Paragraph4>
+            <Label2>{activeCity.name}</Label2>
+            <Paragraph4>Liczba przypadków: {activeCity.data.length}</Paragraph4>
+            
+            {activeCity.data && (
+              <StyledTable>  
+     
+                <StyledTableBody>
+                  {activeCity.data.map(({ reportedAt, source }, index) => (
+                    <StyledRow key={index}>
+                      <StyledCell><Paragraph4>{reportedAt}</Paragraph4></StyledCell>
+                      <StyledCell>
+                        <Paragraph4>
+                          <StyledLink href={source} target="_blank" >Źródło</StyledLink>
+                        </Paragraph4>
+                      </StyledCell>
+                    </StyledRow>
+                  ))}
+                </StyledTableBody>
+              </StyledTable>
+            )}
           </StyledBody>
         </StyledCard>
       </Popup>}
