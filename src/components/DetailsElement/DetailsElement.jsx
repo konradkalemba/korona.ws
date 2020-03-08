@@ -28,6 +28,7 @@ export default function DetailsElement() {
   return (
     <StyledCard
       title="Koronawirus w Polsce"
+      width={'100%'}
     >
       <StyledBody>
         {isLoading && <CountLoader />}

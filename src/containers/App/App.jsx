@@ -30,12 +30,12 @@ export default function App() {
             <Map />
           </Layer>
           <Layer>
-            <Block position={'fixed'} top={'40px'} left={'40px'}>
+            <Block position={'fixed'} top={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '40px']}>
               <DetailsElement />
             </Block>
           </Layer>
           <Layer>
-            <Block position={'fixed'} top={'40px'} right={'40px'}>
+            <Block display={['none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'}>
               <Button
                 $as="a"
                 target="_blank"
@@ -56,7 +56,7 @@ export default function App() {
           </Layer>
           <Layer>
             <Block position={'fixed'} bottom={'40px'} right={'40px'}>
-              <div class="fb-share-button" data-href="https://korona.ws" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Udostępnij</a></div>
+              <div className="fb-share-button" data-href="https://korona.ws" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Udostępnij</a></div>
             </Block>
           </Layer>
         </DataProvider>
