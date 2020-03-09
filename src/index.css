@@ -39,6 +39,10 @@ code {
   border: none;
 }
 
+.leaflet-marker-icon {
+  z-index: 2 !important;
+}
+
 .leaflet-popup-content p {
   margin: 0;
 }
