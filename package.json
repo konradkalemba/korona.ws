@@ -17,6 +17,7 @@
     "react-leaflet": "^2.6.1",
     "react-leaflet-markercluster": "2.0.0-rc3",
     "react-scripts": "3.4.0",
+    "recharts": "^2.0.0-beta.1",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7"
   },
