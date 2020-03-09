@@ -39,6 +39,10 @@ code {
   border: none;
 }
 
+.leaflet-popup-content p {
+  margin: 0;
+}
+
 .pulse {
   fill: none;
   transform-origin: 50% 50%;
