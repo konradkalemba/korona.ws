@@ -81,7 +81,9 @@ export default function Map() {
         <StyledCard>
           <StyledBody>
             <Label2>{activeCity.name}</Label2>
-            <Paragraph4>Liczba przypadków: {activeCity.data.length}</Paragraph4>
+            <Paragraph4>
+              Liczba przypadków: {activeCity.data.length}
+            </Paragraph4>
             
             {activeCity.data && (
               <StyledTable>  
@@ -89,9 +91,17 @@ export default function Map() {
                 <StyledTableBody>
                   {activeCity.data.map(({ reportedAt, source }, index) => (
                     <StyledRow key={index}>
-                      <StyledCell><Paragraph4>{reportedAt}</Paragraph4></StyledCell>
                       <StyledCell>
-                        <Paragraph4>
+                        <Paragraph4
+                          margin={0}
+                        >
+                          {reportedAt}
+                        </Paragraph4>
+                      </StyledCell>
+                      <StyledCell>
+                        <Paragraph4
+                          margin={0}
+                        >
                           <StyledLink href={source} target="_blank" >Źródło</StyledLink>
                         </Paragraph4>
                       </StyledCell>
