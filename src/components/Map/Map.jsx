@@ -57,7 +57,13 @@ export default function Map() {
       />
       <MarkerClusterGroup
         showCoverageOnHover={false}
-        iconCreateFunction={(cluster) => createMarkerIcon(cluster.getChildCount())}
+        iconCreateFunction={(cluster) => {
+          return createMarkerIcon(
+            cluster
+              .getAllChildMarkers()
+              .reduce((total, marker) => marker.options.count + total, 0)
+          );
+        }}
       >
         {cases && Object.entries(groupBy(cases, 'city')).map(([name, data], index) => (
           <Marker
@@ -68,6 +74,7 @@ export default function Map() {
             ]}
             icon={createMarkerIcon(data.length)}
             onClick={() => setActiveCity({ name, data })}
+            count={data.length}
           />
         ))}
       </MarkerClusterGroup>
@@ -87,7 +94,6 @@ export default function Map() {
             
             {activeCity.data && (
               <StyledTable>  
-     
                 <StyledTableBody>
                   {activeCity.data.map(({ reportedAt, source }, index) => (
                     <StyledRow key={index}>
