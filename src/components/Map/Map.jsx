@@ -10,7 +10,7 @@ import { StyledCard } from './..';
 import { StyledBody } from 'baseui/card';
 import { StyledLink } from "baseui/link";
 import { Marker as MarkerIcon } from './..';
-import { StyledTable, StyledBody as StyledTableBody, StyledHead, StyledHeadCell, StyledRow, StyledCell } from 'baseui/table';
+import { StyledTable, StyledBody as StyledTableBody, StyledRow, StyledCell } from 'baseui/table';
 
 import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
