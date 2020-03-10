@@ -61,7 +61,7 @@ export default function Map() {
   const max = Math.max(...(groupByCity(cases).map(([, data]) => data.length)));
 
   return (
-    <LeafletMap center={position} zoom={7} zoomControl={false} maxZoom={11}>
+    <LeafletMap center={position} zoom={7} zoomControl={false} maxZoom={11} minZoom={4}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
