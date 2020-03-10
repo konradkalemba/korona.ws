@@ -16,7 +16,7 @@ import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
 
 const MIN_MARKER_SIZE = 32;
-const MAX_MARKER_SIZE = 80;
+const MAX_MARKER_SIZE = 64;
 
 const Centered = styled('div', {
   display: 'flex',
