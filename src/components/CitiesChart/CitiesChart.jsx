@@ -58,14 +58,22 @@ export default function CitiesChart() {
             setActiveKey(activeKey);
           }}
           activeKey={activeKey}
+          overrides={{
+            TabContent: {
+              style: {
+                height: '200px',
+                overflow: 'auto'
+              }
+            }
+          }}
         >
           <Tab title="Podział na miasta">
             {isLoading && <Loader />}
-            {cases &&
+            {cases && (data => (
               <BarChart
                 width={400}
-                height={200}
-                data={prepareData(cases)}
+                height={data.length * 32}
+                data={data}
                 layout="vertical"
               >
                 <YAxis dataKey="city" type="category" width={100} />
@@ -74,7 +82,8 @@ export default function CitiesChart() {
                   formatter={value => [value, 'Liczba']}
                 />
                 <Bar dataKey="count" fill={theme.colors.accent} />
-              </BarChart>}
+              </BarChart>
+            ))(prepareData(cases))}
           </Tab>
         </Tabs>
       </StyledBody>
