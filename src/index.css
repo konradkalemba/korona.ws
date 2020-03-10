@@ -48,22 +48,25 @@ code {
 }
 
 .pulse {
-  fill: none;
   transform-origin: 50% 50%;
+  opacity: 0.9;
   animation-duration: 2s;
   animation-name: pulse;
   animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+svg.marker text {
+  font-family: "Rubik";
+  font-weight: 500;
 }
 
 @keyframes pulse {
   from {
-    stroke-width: 4px;
-    stroke-opacity: 1;
-    transform: scale(0.3);
+    transform: scale(1);
   }
   to {
-    stroke-width: 0;
-    stroke-opacity: 0;
-    transform: scale(1.4);
+    transform: scale(1.6);
   }
 }

@@ -15,6 +15,9 @@ import { StyledTable, StyledBody as StyledTableBody, StyledHead, StyledHeadCell,
 import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
 
+const MIN_MARKER_SIZE = 32;
+const MAX_MARKER_SIZE = 80;
+
 const Centered = styled('div', {
   display: 'flex',
   justifyContent: 'center',
@@ -23,15 +26,21 @@ const Centered = styled('div', {
   height: '98vh',
 });
 
-function createMarkerIcon(count) {
-  const size = count > 1 ? 60 : 40;
-
+function createMarkerIcon(size, count) {
   return divIcon({
     iconSize: [size, size],
     html: renderToStaticMarkup(
       <MarkerIcon size={size} count={count} />
     )
   });
+}
+
+function groupByCity(cases) {
+  return Object.entries(groupBy(cases, 'city'));
+}
+
+function getMarkerSize(max, count) {
+  return (count / max * (MAX_MARKER_SIZE - MIN_MARKER_SIZE)) + MIN_MARKER_SIZE;
 }
 
 export default function Map() {
@@ -49,6 +58,8 @@ export default function Map() {
     )
   }
 
+  const max = Math.max(...(groupByCity(cases).map(([, data]) => data.length)));
+
   return (
     <LeafletMap center={position} zoom={7} zoomControl={false} maxZoom={11}>
       <TileLayer
@@ -58,21 +69,21 @@ export default function Map() {
       <MarkerClusterGroup
         showCoverageOnHover={false}
         iconCreateFunction={(cluster) => {
-          return createMarkerIcon(
-            cluster
-              .getAllChildMarkers()
-              .reduce((total, marker) => marker.options.count + total, 0)
-          );
+          const count = cluster
+            .getAllChildMarkers()
+            .reduce((total, marker) => marker.options.count + total, 0);
+
+          return createMarkerIcon(getMarkerSize(max, count), count);
         }}
       >
-        {cases && Object.entries(groupBy(cases, 'city')).map(([name, data], index) => (
+        {cases && groupByCity(cases).map(([name, data], index) => (
           <Marker
             key={index}
             position={[
               data[0].location[0],
               data[0].location[1],
             ]}
-            icon={createMarkerIcon(data.length)}
+            icon={createMarkerIcon(getMarkerSize(max, data.length), data.length)}
             onClick={() => setActiveCity({ name, data })}
             count={data.length}
           />
