@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import { divIcon } from 'leaflet';
-import { styled } from 'baseui';
+import { styled, useStyletron } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Spinner } from 'baseui/spinner';
 import { Paragraph2, Paragraph4, Label2 } from 'baseui/typography';
@@ -14,6 +14,7 @@ import { StyledTable, StyledBody as StyledTableBody, StyledRow, StyledCell } fro
 
 import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
+import useWindowDimensions from '../../hooks/window-dimensions';
 
 const MIN_MARKER_SIZE = 32;
 const MAX_MARKER_SIZE = 64;
@@ -46,6 +47,9 @@ function getMarkerSize(max, count) {
 export default function Map() {
   const position = [51.984880, 19.368896];
   const [activeCity, setActiveCity] = useState(null);
+  const { width } = useWindowDimensions();
+  const [, theme] = useStyletron();
+
   
   const { cases, isLoading } = useData();
 
@@ -61,7 +65,7 @@ export default function Map() {
   const max = Math.max(...(groupByCity(cases).map(([, data]) => data.length)));
 
   return (
-    <LeafletMap center={position} zoom={7} zoomControl={false} maxZoom={11} minZoom={4}>
+    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -96,7 +100,7 @@ export default function Map() {
         ]}
         onClose={() => setActiveCity(null)}
       >
-        <StyledCard>
+        <StyledCard width="320px">
           <StyledBody>
             <Label2>{activeCity.name}</Label2>
             <Paragraph4>
