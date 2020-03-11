@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import { divIcon } from 'leaflet';
-import { styled } from 'baseui';
+import { styled, useStyletron } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Spinner } from 'baseui/spinner';
 import { Paragraph2, Paragraph4, Label2 } from 'baseui/typography';
@@ -10,10 +10,14 @@ import { StyledCard } from './..';
 import { StyledBody } from 'baseui/card';
 import { StyledLink } from "baseui/link";
 import { Marker as MarkerIcon } from './..';
-import { StyledTable, StyledBody as StyledTableBody, StyledHead, StyledHeadCell, StyledRow, StyledCell } from 'baseui/table';
+import { StyledTable, StyledBody as StyledTableBody, StyledRow, StyledCell } from 'baseui/table';
 
 import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
+import useWindowDimensions from '../../hooks/window-dimensions';
+
+const MIN_MARKER_SIZE = 32;
+const MAX_MARKER_SIZE = 64;
 
 const Centered = styled('div', {
   display: 'flex',
@@ -23,9 +27,7 @@ const Centered = styled('div', {
   height: '98vh',
 });
 
-function createMarkerIcon(count) {
-  const size = count > 1 ? 60 : 40;
-
+function createMarkerIcon(size, count) {
   return divIcon({
     iconSize: [size, size],
     html: renderToStaticMarkup(
@@ -34,9 +36,20 @@ function createMarkerIcon(count) {
   });
 }
 
+function groupByCity(cases) {
+  return Object.entries(groupBy(cases, 'city'));
+}
+
+function getMarkerSize(max, count) {
+  return (count / max * (MAX_MARKER_SIZE - MIN_MARKER_SIZE)) + MIN_MARKER_SIZE;
+}
+
 export default function Map() {
   const position = [51.984880, 19.368896];
   const [activeCity, setActiveCity] = useState(null);
+  const { width } = useWindowDimensions();
+  const [, theme] = useStyletron();
+
   
   const { cases, isLoading } = useData();
 
@@ -49,8 +62,10 @@ export default function Map() {
     )
   }
 
+  const max = Math.max(...(groupByCity(cases).map(([, data]) => data.length)));
+
   return (
-    <LeafletMap center={position} zoom={7} zoomControl={false} maxZoom={11}>
+    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -58,21 +73,21 @@ export default function Map() {
       <MarkerClusterGroup
         showCoverageOnHover={false}
         iconCreateFunction={(cluster) => {
-          return createMarkerIcon(
-            cluster
-              .getAllChildMarkers()
-              .reduce((total, marker) => marker.options.count + total, 0)
-          );
+          const count = cluster
+            .getAllChildMarkers()
+            .reduce((total, marker) => marker.options.count + total, 0);
+
+          return createMarkerIcon(getMarkerSize(max, count), count);
         }}
       >
-        {cases && Object.entries(groupBy(cases, 'city')).map(([name, data], index) => (
+        {cases && groupByCity(cases).map(([name, data], index) => (
           <Marker
             key={index}
             position={[
               data[0].location[0],
               data[0].location[1],
             ]}
-            icon={createMarkerIcon(data.length)}
+            icon={createMarkerIcon(getMarkerSize(max, data.length), data.length)}
             onClick={() => setActiveCity({ name, data })}
             count={data.length}
           />
@@ -85,7 +100,7 @@ export default function Map() {
         ]}
         onClose={() => setActiveCity(null)}
       >
-        <StyledCard>
+        <StyledCard width="320px">
           <StyledBody>
             <Label2>{activeCity.name}</Label2>
             <Paragraph4>
