@@ -11,6 +11,7 @@ import { StyledBody } from 'baseui/card';
 import { StyledLink } from "baseui/link";
 import { Marker as MarkerIcon } from './..';
 import { StyledTable, StyledBody as StyledTableBody, StyledRow, StyledCell } from 'baseui/table';
+import { Tabs, Tab } from 'baseui/tabs';
 
 import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
@@ -27,17 +28,13 @@ const Centered = styled('div', {
   height: '98vh',
 });
 
-function createMarkerIcon(size, count) {
+function createMarkerIcon(size, casesCount, deathsCount) {
   return divIcon({
     iconSize: [size, size],
     html: renderToStaticMarkup(
-      <MarkerIcon size={size} count={count} />
+      <MarkerIcon size={size} casesCount={casesCount} deathsCount={deathsCount} />
     )
   });
-}
-
-function groupByCity(cases) {
-  return Object.entries(groupBy(cases, 'city'));
 }
 
 function getMarkerSize(max, count) {
@@ -47,11 +44,11 @@ function getMarkerSize(max, count) {
 export default function Map() {
   const position = [51.984880, 19.368896];
   const [activeCity, setActiveCity] = useState(null);
+  const [activeKey, setActiveKey] = useState('0');
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
-  
-  const { cases, isLoading } = useData();
+  const { cases, deaths, isLoading } = useData();
 
   if (isLoading) { 
     return (
@@ -62,7 +59,22 @@ export default function Map() {
     )
   }
 
-  const max = Math.max(...(groupByCity(cases).map(([, data]) => data.length)));
+  const groupedCases = groupBy(cases, 'city');
+  const groupedDeaths = groupBy(deaths, 'city');
+
+  let data = [];
+
+  if (!data.length) {
+    for (const city of Object.keys(groupedCases)) {
+      data.push({
+        city,
+        cases: groupedCases[city],
+        deaths: groupedDeaths[city] || []
+      })
+    }
+  }
+
+  const max = Math.max(...(data.map(({ cases }) => cases.length)));
 
   return (
     <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4}>
@@ -80,23 +92,26 @@ export default function Map() {
           return createMarkerIcon(getMarkerSize(max, count), count);
         }}
       >
-        {cases && groupByCity(cases).map(([name, data], index) => (
+        {data && data.map(({ city, cases, deaths }) => (
           <Marker
-            key={index}
+            key={city}
             position={[
-              data[0].location[0],
-              data[0].location[1],
+              cases[0].location[0],
+              cases[0].location[1],
             ]}
-            icon={createMarkerIcon(getMarkerSize(max, data.length), data.length)}
-            onClick={() => setActiveCity({ name, data })}
-            count={data.length}
+            icon={createMarkerIcon(getMarkerSize(max, cases.length), cases.length, deaths.length)}
+            onClick={() => {
+              setActiveKey('0');
+              setActiveCity({ name: city, cases, deaths })
+            }}
+            count={cases.length}
           />
         ))}
       </MarkerClusterGroup>
       {activeCity && <Popup
         position={[
-          activeCity.data[0].location[0],
-          activeCity.data[0].location[1]
+          activeCity.cases[0].location[0],
+          activeCity.cases[0].location[1]
         ]}
         onClose={() => setActiveCity(null)}
       >
@@ -104,33 +119,76 @@ export default function Map() {
           <StyledBody>
             <Label2>{activeCity.name}</Label2>
             <Paragraph4>
-              Liczba przypadków: {activeCity.data.length}
+              Liczba przypadków: {activeCity.cases.length}<br/>
+              Liczba śmierci: {activeCity.deaths.length}
             </Paragraph4>
-            
-            {activeCity.data && (
-              <StyledTable>  
-                <StyledTableBody>
-                  {activeCity.data.map(({ reportedAt, source }, index) => (
-                    <StyledRow key={index}>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          {reportedAt}
-                        </Paragraph4>
-                      </StyledCell>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          <StyledLink href={source} target="_blank" >Źródło</StyledLink>
-                        </Paragraph4>
-                      </StyledCell>
-                    </StyledRow>
-                  ))}
-                </StyledTableBody>
-              </StyledTable>
-            )}
+                  
+            <Tabs
+              onChange={({ activeKey }) => {
+                setActiveKey(activeKey);
+              }}
+              activeKey={activeKey}
+              overrides={{
+                TabBar: {
+                  style: {
+                    padding: 0
+                  }
+                }
+              }}
+            >
+              <Tab title="Przypadki">
+                {activeCity.cases && (
+                  <StyledTable>  
+                    <StyledTableBody>
+                      {activeCity.cases.map(({ reportedAt, source }, index) => (
+                        <StyledRow key={index}>
+                          <StyledCell>
+                            <Paragraph4
+                              margin={0}
+                            >
+                              {reportedAt}
+                            </Paragraph4>
+                          </StyledCell>
+                          <StyledCell>
+                            <Paragraph4
+                              margin={0}
+                            >
+                              <StyledLink href={source} target="_blank" >Źródło</StyledLink>
+                            </Paragraph4>
+                          </StyledCell>
+                        </StyledRow>
+                      ))}
+                    </StyledTableBody>
+                  </StyledTable>
+                )}
+              </Tab>
+              {activeCity.deaths.length && <Tab title="Śmierci">
+                {activeCity.deaths && (
+                  <StyledTable>  
+                    <StyledTableBody>
+                      {activeCity.deaths.map(({ reportedAt, source }, index) => (
+                        <StyledRow key={index}>
+                          <StyledCell>
+                            <Paragraph4
+                              margin={0}
+                            >
+                              {reportedAt}
+                            </Paragraph4>
+                          </StyledCell>
+                          <StyledCell>
+                            <Paragraph4
+                              margin={0}
+                            >
+                              <StyledLink href={source} target="_blank" >Źródło</StyledLink>
+                            </Paragraph4>
+                          </StyledCell>
+                        </StyledRow>
+                      ))}
+                    </StyledTableBody>
+                  </StyledTable>
+                )}
+              </Tab>}
+            </Tabs>
           </StyledBody>
         </StyledCard>
       </Popup>}
