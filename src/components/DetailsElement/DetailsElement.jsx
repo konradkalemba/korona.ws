@@ -34,7 +34,7 @@ export default function DetailsElement() {
         {isLoading && <CountLoader />}
         {deaths && !isLoading && <Display2 color={'primary'}>{deaths.length}</Display2>}
 
-        Śmierci
+        Zgony
         {isLoading && <CountLoader />}
         {cases && !isLoading && <Display2 color={'negative'}>{cases.length}</Display2>}
 
