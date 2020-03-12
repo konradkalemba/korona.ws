@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { BaseProvider, lightThemePrimitives, createTheme } from 'baseui';
-import { Map, DetailsElement, CitiesChart } from '../../components';
+import { Map, Figures, CitiesChart } from '../../components';
 
 import { Layer } from 'baseui/layer';
 import { Button, KIND, SIZE } from 'baseui/button';
@@ -36,12 +36,12 @@ export default function App() {
           </Layer>
           <Layer>
             <Block position={'fixed'} top={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '40px']}>
-              <DetailsElement />
+              <Figures />
             </Block>
           </Layer>
           <Layer>
             <Block position={'fixed'} bottom={0} left={0} display={['none', 'none', 'block']} margin={'40px'}>
-              <CitiesChart />
+              {/* <CitiesChart /> */}
             </Block>
           </Layer>
           <Layer>
