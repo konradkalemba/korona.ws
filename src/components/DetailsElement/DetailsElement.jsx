@@ -32,11 +32,11 @@ export default function DetailsElement() {
     >
       <StyledBody>
         {isLoading && <CountLoader />}
-        {deaths && !isLoading && <Display2 color={'primary'}>{deaths.length}</Display2>}
+        {deaths && !isLoading && <Display2 color={'primary'}>{deaths.reduce((total, {count}) => count + total, 0)}</Display2>}
 
         Zgony
         {isLoading && <CountLoader />}
-        {cases && !isLoading && <Display2 color={'negative'}>{cases.length}</Display2>}
+        {cases && !isLoading && <Display2 color={'negative'}>{cases.reduce((total, {count}) => count + total, 0)}</Display2>}
 
         Potwierdzonych przypadków
       </StyledBody>

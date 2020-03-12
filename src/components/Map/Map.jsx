@@ -48,7 +48,7 @@ export default function Map() {
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
-  const { cases, deaths, isLoading } = useData();
+  const { cities, cases, deaths, isLoading } = useData();
 
   if (isLoading) { 
     return (
@@ -65,16 +65,22 @@ export default function Map() {
   let data = [];
 
   if (!data.length) {
-    for (const city of Object.keys(groupedCases)) {
+    for (const city of cities) {
       data.push({
         city,
-        cases: groupedCases[city],
-        deaths: groupedDeaths[city] || []
+        cases: {
+          total: groupedCases[city.name].reduce((total, { count }) => count + total, 0),
+          data: groupedCases[city.name] || []
+        },
+        deaths: {
+          total: groupedDeaths[city.name].reduce((total, { count }) => count + total, 0),
+          data: groupedDeaths[city.name] || []
+        }
       })
     }
   }
 
-  const max = Math.max(...(data.map(({ cases }) => cases.length)));
+  const max = Math.max(...(data.map(({ cases }) => cases.total)));
 
   return (
     <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4}>
@@ -94,33 +100,27 @@ export default function Map() {
       >
         {data && data.map(({ city, cases, deaths }) => (
           <Marker
-            key={city}
-            position={[
-              cases[0].location[0],
-              cases[0].location[1],
-            ]}
-            icon={createMarkerIcon(getMarkerSize(max, cases.length), cases.length, deaths.length)}
+            key={city.name}
+            position={city.location}
+            icon={createMarkerIcon(getMarkerSize(max, cases.total), cases.total, deaths.total)}
             onClick={() => {
               setActiveKey('0');
-              setActiveCity({ name: city, cases, deaths })
+              setActiveCity({ ...city, cases, deaths });
             }}
-            count={cases.length}
+            count={cases.total}
           />
         ))}
       </MarkerClusterGroup>
       {activeCity && <Popup
-        position={[
-          activeCity.cases[0].location[0],
-          activeCity.cases[0].location[1]
-        ]}
+        position={activeCity.location}
         onClose={() => setActiveCity(null)}
       >
         <StyledCard width="320px">
           <StyledBody>
             <Label2>{activeCity.name}</Label2>
             <Paragraph4>
-              Liczba przypadków: {activeCity.cases.length}<br/>
-              Liczba zgonów: {activeCity.deaths.length}
+              Liczba przypadków: {activeCity.cases.total}<br/>
+              Liczba zgonów: {activeCity.deaths.total}
             </Paragraph4>
                   
             <Tabs
@@ -140,13 +140,13 @@ export default function Map() {
                 {activeCity.cases && (
                   <StyledTable>  
                     <StyledTableBody>
-                      {activeCity.cases.map(({ reportedAt, source }, index) => (
+                      {activeCity.cases.data.map(({ date, source }, index) => (
                         <StyledRow key={index}>
                           <StyledCell>
                             <Paragraph4
                               margin={0}
                             >
-                              {reportedAt}
+                              {date}
                             </Paragraph4>
                           </StyledCell>
                           <StyledCell>
@@ -162,17 +162,17 @@ export default function Map() {
                   </StyledTable>
                 )}
               </Tab>
-              {activeCity.deaths.length && <Tab title="Zgony">
-                {activeCity.deaths && (
+              {activeCity.deaths.data.length && <Tab title="Zgony">
+                {activeCity.deaths.data && (
                   <StyledTable>  
                     <StyledTableBody>
-                      {activeCity.deaths.map(({ reportedAt, source }, index) => (
+                      {activeCity.deaths.data.map(({ date, source }, index) => (
                         <StyledRow key={index}>
                           <StyledCell>
                             <Paragraph4
                               margin={0}
                             >
-                              {reportedAt}
+                              {date}
                             </Paragraph4>
                           </StyledCell>
                           <StyledCell>

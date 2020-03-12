@@ -39,7 +39,7 @@ function Loader() {
 function prepareData(cases) {
   return Object
     .entries(groupBy(cases, 'city'))
-    .map(([city, data]) => ({ city, count: data.length }))
+    .map(([city, data]) => ({ city, count: data.reduce((total, { count }) => count + total, 0) }))
     .sort((a, b) => b.count - a.count);
 }
 
