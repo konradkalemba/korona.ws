@@ -120,7 +120,7 @@ export default function Map() {
             <Label2>{activeCity.name}</Label2>
             <Paragraph4>
               Liczba przypadków: {activeCity.cases.length}<br/>
-              Liczba śmierci: {activeCity.deaths.length}
+              Liczba zgonów: {activeCity.deaths.length}
             </Paragraph4>
                   
             <Tabs
@@ -162,7 +162,7 @@ export default function Map() {
                   </StyledTable>
                 )}
               </Tab>
-              {activeCity.deaths.length && <Tab title="Śmierci">
+              {activeCity.deaths.length && <Tab title="Zgony">
                 {activeCity.deaths && (
                   <StyledTable>  
                     <StyledTableBody>
