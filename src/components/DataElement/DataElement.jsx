@@ -17,6 +17,8 @@ import { sum } from '../../helpers/misc';
 import moment from 'moment';
 
 function Loader() {
+  const [, theme] = useStyletron();
+
   return (
     <ContentLoader
       speed={0.6}
@@ -24,8 +26,8 @@ function Loader() {
       height={200}
       display={'block'}
       viewBox="0 0 300 200"
-      backgroundColor="#f3f3f3"
-      foregroundColor="#ecebeb"
+      backgroundColor={theme.colors.backgroundTertiary}
+      foregroundColor={theme.colors.backgroundSecondary}
     >
       <rect x="20" y="6" rx="2" ry="2" width="80" height="22" />
       <rect x="110" y="6" rx="2" ry="2" width="200" height="22" />

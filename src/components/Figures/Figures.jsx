@@ -19,6 +19,8 @@ import { sum } from '../../helpers/misc';
 import useWindowDimensions from '../../hooks/window-dimensions';
 
 function CountLoader() {
+  const [, theme] = useStyletron();
+
   return (
     <ContentLoader
       speed={0.6}
@@ -26,8 +28,8 @@ function CountLoader() {
       height={64}
       display={'block'}
       viewBox="0 0 50 64"
-      backgroundColor="#f3f3f3"
-      foregroundColor="#ecebeb"
+      backgroundColor={theme.colors.backgroundTertiary}
+      foregroundColor={theme.colors.backgroundSecondary}
     >
       <rect x="0" y="5" rx="2" ry="2" width="40" height="54" />
     </ContentLoader>
