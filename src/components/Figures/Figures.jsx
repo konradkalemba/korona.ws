@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Display2, Paragraph2, Paragraph3 } from 'baseui/typography';
-import { StyledBody } from 'baseui/card';
+import { Display2, Display4, Paragraph2, Paragraph3 } from 'baseui/typography';
 import { Button, KIND, SIZE } from 'baseui/button';
 import ChevronDown from 'baseui/icon/chevron-down';
 import ChevronUp from 'baseui/icon/chevron-up';
@@ -32,18 +31,21 @@ function CountLoader() {
   );
 }
 
-function Figure({ data, label, color }) {
+export function Figure({ data, label, color, size = 'standard' }) {
   const total = data && sum(data);
   const todayGrowth = data && sum(data.filter(({ date }) => date === moment().format('YYYY-MM-DD')));
 
   return (
-    <>
+    <div>
       {!data &&
         <CountLoader />
       }
       {data &&
         <Block display="flex">
-          <Display2 color={color}>{total}</Display2>
+          {size === 'standard'
+            ? <Display2 color={color}>{total}</Display2>
+            : <Display4 color={color}>{total}</Display4>
+          }
           {todayGrowth > 0 &&
             <StatefulTooltip
               content={() => (
@@ -70,16 +72,19 @@ function Figure({ data, label, color }) {
               <span style={{
                 display: 'flex',
                 fontWeight: 400,
-                fontSize: '24px',
+                fontSize: size === 'standard' ? '24px' : '16px',
                 color: '#7b7b7b',
-                lineHeight: '32px'
-              }}><ArrowUp size={32} />{todayGrowth}</span>
+                lineHeight: size === 'standard' ? '32px' : '24px'
+              }}><ArrowUp size={size === 'standard' ? 32 : 24} />{todayGrowth}</span>
             </StatefulTooltip>
           }
         </Block>
       }
-      <Paragraph2 marginTop={0}>{label}</Paragraph2>
-    </>
+      {size === 'standard'
+        ? <Paragraph2 marginTop={0}>{label}</Paragraph2>
+        : <Paragraph3 marginTop={0}>{label}</Paragraph3>
+      }
+    </div>
   );
 }
 

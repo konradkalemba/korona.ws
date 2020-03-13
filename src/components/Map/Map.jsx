@@ -5,17 +5,17 @@ import { divIcon } from 'leaflet';
 import { styled, useStyletron } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Spinner } from 'baseui/spinner';
-import { Paragraph2, Paragraph4, Label2 } from 'baseui/typography';
-import { StyledCard } from './..';
+import { Paragraph2, Label1 } from 'baseui/typography';
 import { StyledBody } from 'baseui/card';
-import { StyledLink } from "baseui/link";
+import { Block } from 'baseui/block';
+import { StyledCard } from './..';
 import { Marker as MarkerIcon } from './..';
-import { StyledTable, StyledBody as StyledTableBody, StyledRow, StyledCell } from 'baseui/table';
-import { Tabs, Tab } from 'baseui/tabs';
+import { Figure } from '../Figures/Figures';
 
 import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
 import useWindowDimensions from '../../hooks/window-dimensions';
+import { sum } from '../../helpers/misc';
 
 const MIN_MARKER_SIZE = 32;
 const MAX_MARKER_SIZE = 64;
@@ -44,13 +44,12 @@ function getMarkerSize(max, count) {
 export default function Map() {
   const position = [51.984880, 19.368896];
   const [activeCity, setActiveCity] = useState(null);
-  const [activeKey, setActiveKey] = useState('0');
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
   const { cities, cases, deaths, isLoading } = useData();
 
-  if (isLoading) { 
+  if (isLoading) {
     return (
       <Centered>
         <Spinner />
@@ -69,11 +68,11 @@ export default function Map() {
       data.push({
         city,
         cases: {
-          total: groupedCases[city.name].reduce((total, { count }) => count + total, 0),
+          total: sum(groupedCases[city.name]),
           data: groupedCases[city.name] || []
         },
         deaths: {
-          total: groupedDeaths[city.name].reduce((total, { count }) => count + total, 0),
+          total: sum(groupedDeaths[city.name]),
           data: groupedDeaths[city.name] || []
         }
       })
@@ -104,7 +103,6 @@ export default function Map() {
             position={city.location}
             icon={createMarkerIcon(getMarkerSize(max, cases.total), cases.total, deaths.total)}
             onClick={() => {
-              setActiveKey('0');
               setActiveCity({ ...city, cases, deaths });
             }}
             count={cases.total}
@@ -117,78 +115,23 @@ export default function Map() {
       >
         <StyledCard width="320px">
           <StyledBody>
-            <Label2>{activeCity.name}</Label2>
-            <Paragraph4>
-              Liczba przypadków: {activeCity.cases.total}<br/>
-              Liczba zgonów: {activeCity.deaths.total}
-            </Paragraph4>
-                  
-            <Tabs
-              onChange={({ activeKey }) => {
-                setActiveKey(activeKey);
-              }}
-              activeKey={activeKey}
-              overrides={{
-                TabBar: {
-                  style: {
-                    padding: 0
-                  }
-                }
-              }}
-            >
-              <Tab title="Przypadki">
-                {activeCity.cases && (
-                  <StyledTable>  
-                    <StyledTableBody>
-                      {activeCity.cases.data.map(({ date, source }, index) => (
-                        <StyledRow key={index}>
-                          <StyledCell>
-                            <Paragraph4
-                              margin={0}
-                            >
-                              {date}
-                            </Paragraph4>
-                          </StyledCell>
-                          <StyledCell>
-                            <Paragraph4
-                              margin={0}
-                            >
-                              <StyledLink href={source} target="_blank" >Źródło</StyledLink>
-                            </Paragraph4>
-                          </StyledCell>
-                        </StyledRow>
-                      ))}
-                    </StyledTableBody>
-                  </StyledTable>
-                )}
-              </Tab>
-              {activeCity.deaths.data.length && <Tab title="Zgony">
-                {activeCity.deaths.data && (
-                  <StyledTable>  
-                    <StyledTableBody>
-                      {activeCity.deaths.data.map(({ date, source }, index) => (
-                        <StyledRow key={index}>
-                          <StyledCell>
-                            <Paragraph4
-                              margin={0}
-                            >
-                              {date}
-                            </Paragraph4>
-                          </StyledCell>
-                          <StyledCell>
-                            <Paragraph4
-                              margin={0}
-                            >
-                              <StyledLink href={source} target="_blank" >Źródło</StyledLink>
-                            </Paragraph4>
-                          </StyledCell>
-                        </StyledRow>
-                      ))}
-                    </StyledTableBody>
-                  </StyledTable>
-                )}
-              </Tab>}
-            </Tabs>
+            <Label1>{activeCity.name}</Label1>
+
+            <Block marginTop="10px">
+              <Figure
+                data={activeCity.deaths.data}
+                label="Zgonów"
+                color={theme.colors.primary}
+                size="compact"
+              />
+
+              <Figure
+                data={activeCity.cases.data}
+                label="Potwierdzonych przypadków"
+                color={theme.colors.negative}
+                size="compact"
+              />
+            </Block>
           </StyledBody>
         </StyledCard>
       </Popup>}
