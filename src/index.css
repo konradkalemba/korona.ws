@@ -47,6 +47,11 @@ code {
   margin: 0;
 }
 
+.dark-theme .leaflet-tile-pane {
+  -webkit-filter: invert(1) grayscale(1);
+  filter: invert(1) grayscale(1);
+}
+
 .pulse {
   transform-origin: 50% 50%;
   opacity: 0.9;

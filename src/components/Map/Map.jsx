@@ -20,13 +20,14 @@ import { sum } from '../../helpers/misc';
 const MIN_MARKER_SIZE = 32;
 const MAX_MARKER_SIZE = 64;
 
-const Centered = styled('div', {
+const Centered = styled('div', ({ $theme }) => ({
+  backgroundColor: $theme.colors.backgroundPrimary,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  height: '98vh',
-});
+  height: '100vh',
+}));
 
 function createMarkerIcon(size, casesCount, deathsCount) {
   return divIcon({
@@ -41,7 +42,7 @@ function getMarkerSize(max, count) {
   return (count / max * (MAX_MARKER_SIZE - MIN_MARKER_SIZE)) + MIN_MARKER_SIZE;
 }
 
-export default function Map() {
+export default function Map(props) {
   const position = [51.984880, 19.368896];
   const [activeCity, setActiveCity] = useState(null);
   const { width } = useWindowDimensions();
@@ -82,7 +83,7 @@ export default function Map() {
   const max = Math.max(...(data.map(({ cases }) => cases.total)));
 
   return (
-    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4}>
+    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
