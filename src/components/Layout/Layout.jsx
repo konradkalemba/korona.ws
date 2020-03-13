@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { BaseProvider, darkThemePrimitives, createTheme, DarkTheme, lightThemePrimitives } from 'baseui';
-import { Map, Figures, CitiesChart } from '../../components';
+import { Map, Figures, DataElement } from '../../components';
 
 import { Layer } from 'baseui/layer';
 import { Button, KIND, SIZE } from 'baseui/button';
@@ -56,7 +56,7 @@ export default function Layout() {
                 Więcej informacji nt. koronawirusa
               </Button>
               
-              <CitiesChart />
+              <DataElement />
             </Block>
           </Layer>
           <Layer>
