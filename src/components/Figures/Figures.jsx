@@ -112,56 +112,9 @@ export default function Figures() {
           color={theme.colors.negative}
         />
 
-        {showMore &&
-          <Card
-            overrides={{
-              Root: {
-                style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200
-                })
-              }
-            }}
-          >
-            <FlexGrid flexGridColumnCount={1}>
-              <FlexGridItem>
-                <Figure
-                  data={hospitalizations}
-                  label="Hospitalizowanych"
-                  color={theme.colors.negative300}
-                  size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                  data={quarantines}
-                  label="Poddanych kwarantannie"
-                  color={theme.colors.negative300}
-                  size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                  data={supervisions}
-                  label="Objętych nadzorem epidemiologicznym"
-                  color={theme.colors.negative300}
-                  size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                  data={tests}
-                  label="Testów"
-                  color={theme.colors.accent}
-                  size="compact"
-                />
-              </FlexGridItem>
-            </FlexGrid>
-          </Card>
-        }
-
         <Block
           $style={{
-            marginTop: '12px',
+            marginBottom: '12px',
             textAlign: 'center'
           }}
         >
@@ -181,6 +134,35 @@ export default function Figures() {
             {!showMore ? 'Pokaż więcej' : 'Ukryj'}
           </Button>
         </Block>
+        
+        {showMore &&
+          <>
+            <Figure
+              data={hospitalizations}
+              label="Hospitalizowanych"
+              color={theme.colors.accent}
+              size="compact"
+            />
+            <Figure
+              data={quarantines}
+              label="Poddanych kwarantannie"
+              color={theme.colors.accent}
+              size="compact"
+            />
+            <Figure
+              data={supervisions}
+              label="Objętych nadzorem epidemiologicznym"
+              color={theme.colors.accent}
+              size="compact"
+            />
+            <Figure
+              data={tests}
+              label="Testów"
+              color={theme.colors.accent}
+              size="compact"
+            />
+          </>
+        }
       </StyledBody>
     </StyledCard>
   );
