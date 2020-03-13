@@ -25,7 +25,7 @@ const overrides = {
 };
 
 export default function App() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   return (
     <StyletronProvider value={engine}>
@@ -40,12 +40,7 @@ export default function App() {
             </Block>
           </Layer>
           <Layer>
-            <Block position={'fixed'} bottom={0} left={0} display={['none', 'none', 'block']} margin={'40px'}>
-              {/* <CitiesChart /> */}
-            </Block>
-          </Layer>
-          <Layer>
-            <Block display={['none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'}>
+            <Block display={['none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'} $style={{ textAlign: 'right' }}>
               <Button
                 $as="a"
                 target="_blank"
@@ -62,6 +57,7 @@ export default function App() {
               >
                 Więcej informacji nt. koronawirusa
               </Button>
+              <CitiesChart />
             </Block>
           </Layer>
           <Layer>
@@ -69,7 +65,7 @@ export default function App() {
               <div className="fb-share-button" data-href="https://korona.ws" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Udostępnij</a></div>
               <Button
                 size={SIZE.mini}
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsInfoModalOpen(true)}
                 overrides={{
                   BaseButton: {
                     style: ({ $theme }) => ({
@@ -82,39 +78,39 @@ export default function App() {
               >
                 Informacje
               </Button>
-                <Modal
-                  onClose={() => setIsOpen(false)}
-                  closeable
-                  isOpen={isOpen}
-                  animate
-                  role={ROLE.dialog}
-                  overrides={{
-                    Dialog: {
-                      style: ({ $theme }) => ({
-                        borderRadius: $theme.borders.radius200
-                      })
-                    }
-                  }}
-                >
-                  <ModalHeader>Informacje</ModalHeader>
-                  <ModalBody>
-                    <Paragraph3>
-                      Autor nie ponosi odpowiedzialności za aktualność i poprawność przedstawionych treści. Dane mogą być nieaktualne.
-                    </Paragraph3>
-                    <Paragraph3>
-                      Autor: Konrad Kalemba<br/>
-                      Kontakt: <StyledLink target="_blank" href="mailto:admin@korona.ws">
-                        admin@korona.ws
-                      </StyledLink>
-                    </Paragraph3>
-                    <Paragraph3>
-                      Aplikacja jest "open-source" — każdy chętny może bezpośrednio pomóc w rozwoju projektu. Kod źródłowy znajduje się pod poniższym odnośnikiem: 
-                    </Paragraph3>
-                    <StyledLink target="_blank" href="https://github.com/konradkalemba/korona.ws">
-                      https://github.com/konradkalemba/korona.ws
+              <Modal
+                onClose={() => setIsInfoModalOpen(false)}
+                closeable
+                isOpen={isInfoModalOpen}
+                animate
+                role={ROLE.dialog}
+                overrides={{
+                  Dialog: {
+                    style: ({ $theme }) => ({
+                      borderRadius: $theme.borders.radius200
+                    })
+                  }
+                }}
+              >
+                <ModalHeader>Informacje</ModalHeader>
+                <ModalBody>
+                  <Paragraph3>
+                    Autor nie ponosi odpowiedzialności za aktualność i poprawność przedstawionych treści. Dane mogą być nieaktualne.
+                  </Paragraph3>
+                  <Paragraph3>
+                    Autor: Konrad Kalemba<br />
+                    Kontakt: <StyledLink target="_blank" href="mailto:admin@korona.ws">
+                      admin@korona.ws
                     </StyledLink>
-                  </ModalBody>
-                </Modal>
+                  </Paragraph3>
+                  <Paragraph3>
+                    Aplikacja jest "open-source" — każdy chętny może bezpośrednio pomóc w rozwoju projektu. Kod źródłowy znajduje się pod poniższym odnośnikiem:
+                  </Paragraph3>
+                  <StyledLink target="_blank" href="https://github.com/konradkalemba/korona.ws">
+                    https://github.com/konradkalemba/korona.ws
+                  </StyledLink>
+                </ModalBody>
+              </Modal>
             </Block>
           </Layer>
         </DataProvider>

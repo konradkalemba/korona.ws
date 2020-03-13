@@ -46,47 +46,51 @@ function prepareData(cases) {
 export default function CitiesChart() {
   const { cases, isLoading } = useData();
   const [activeKey, setActiveKey] = useState('0');
-  const [, theme] = useStyletron();
+  const [css, theme] = useStyletron();
 
   return (
-    <StyledCard
-      width={'500px'}
-    >
-      <StyledBody>
-        <Tabs
-          onChange={({ activeKey }) => {
-            setActiveKey(activeKey);
-          }}
-          activeKey={activeKey}
-          overrides={{
-            TabContent: {
-              style: {
-                height: '200px',
-                overflow: 'auto'
+    <div className={css({
+      marginTop: '20px'
+    })}>
+      <StyledCard
+        width="420px"
+      >
+        <StyledBody>
+          <Tabs
+            onChange={({ activeKey }) => {
+              setActiveKey(activeKey);
+            }}
+            activeKey={activeKey}
+            overrides={{
+              TabContent: {
+                style: {
+                  height: '200px',
+                  overflow: 'auto'
+                }
               }
-            }
-          }}
-        >
-          <Tab title="Podział na miasta">
-            {isLoading && <Loader />}
-            {cases && (data => (
-              <BarChart
-                width={400}
-                height={data.length * 32}
-                data={data}
-                layout="vertical"
-              >
-                <YAxis dataKey="city" type="category" width={100} />
-                <XAxis type="number" hide />
-                <Tooltip 
-                  formatter={value => [value, 'Liczba']}
-                />
-                <Bar dataKey="count" fill={theme.colors.accent} />
-              </BarChart>
-            ))(prepareData(cases))}
-          </Tab>
-        </Tabs>
-      </StyledBody>
-    </StyledCard>
+            }}
+          >
+            <Tab title="Podział na miasta">
+              {isLoading && <Loader />}
+              {cases && (data => (
+                <BarChart
+                  width={360}
+                  height={data.length * 32}
+                  data={data}
+                  layout="vertical"
+                >
+                  <YAxis dataKey="city" type="category" width={100} />
+                  <XAxis type="number" hide />
+                  <Tooltip
+                    formatter={value => [value, 'Liczba']}
+                  />
+                  <Bar dataKey="count" fill={theme.colors.accent} />
+                </BarChart>
+              ))(prepareData(cases))}
+            </Tab>
+          </Tabs>
+        </StyledBody>
+      </StyledCard>
+    </div>
   );
 }
