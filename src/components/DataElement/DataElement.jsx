@@ -14,7 +14,6 @@ import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
 import { useStyletron } from 'baseui';
 import { sum } from '../../helpers/misc';
-import moment from 'moment';
 
 function Loader() {
   const [, theme] = useStyletron();
@@ -140,7 +139,7 @@ export default function DataElement() {
                 </StyledHeadCell>
               </StyledHead>
               <StyledTableBody>
-                {cases && cases.sort((a, b) => moment(b.date).format('YYYYMMDD') - moment(a.date).format('YYYYMMDD')).map(({ date, count, city, source }, index) => (
+                {cases && cases.slice(0).reverse().map(({ date, count, city, source }, index) => (
                   <StyledRow key={index}>
                     <StyledCell>
                       <Paragraph4
@@ -230,7 +229,7 @@ export default function DataElement() {
                 </StyledHeadCell>
               </StyledHead>
               <StyledTableBody>
-                {deaths && deaths.sort((a, b) => moment(b.date).format('YYYYMMDD') - moment(a.date).format('YYYYMMDD')).map(({ date, count, city, source }, index) => (
+                {deaths && deaths.slice(0).reverse().map(({ date, count, city, source }, index) => (
                   <StyledRow key={index}>
                     <StyledCell>
                       <Paragraph4
