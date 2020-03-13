@@ -38,7 +38,7 @@ export default function Layout() {
             </Block>
           </Layer>
           <Layer>
-            <Block display={['none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'} $style={{ textAlign: 'right' }}>
+            <Block display={['none', 'none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'} $style={{ textAlign: 'right' }}>
               <Button
                 $as="a"
                 target="_blank"
