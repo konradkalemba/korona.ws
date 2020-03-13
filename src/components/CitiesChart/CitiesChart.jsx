@@ -79,7 +79,7 @@ export default function CitiesChart() {
                   data={data}
                   layout="vertical"
                 >
-                  <YAxis dataKey="city" type="category" width={100} />
+                  <YAxis dataKey="city" type="category" tick={{ fill: theme.colors.contentPrimary }} width={100} />
                   <XAxis type="number" hide />
                   <Tooltip
                     formatter={value => [value, 'Liczba']}
