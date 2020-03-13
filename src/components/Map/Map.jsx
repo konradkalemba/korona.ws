@@ -92,9 +92,15 @@ export default function Map() {
         iconCreateFunction={(cluster) => {
           const count = cluster
             .getAllChildMarkers()
-            .reduce((total, marker) => marker.options.count + total, 0);
+            .reduce((total, marker) => ({
+              cases: marker.options.casesCount + total.cases,
+              deaths: marker.options.deathsCount + total.deaths
+            }), {
+              cases: 0,
+              deaths: 0
+            });
 
-          return createMarkerIcon(getMarkerSize(max, count), count);
+          return createMarkerIcon(getMarkerSize(max, count.cases), count.cases, count.deaths);
         }}
       >
         {data && data.map(({ city, cases, deaths }) => (
@@ -105,7 +111,8 @@ export default function Map() {
             onClick={() => {
               setActiveCity({ ...city, cases, deaths });
             }}
-            count={cases.total}
+            casesCount={cases.total}
+            deathsCount={deaths.total}
           />
         ))}
       </MarkerClusterGroup>
