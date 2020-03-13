@@ -58,212 +58,208 @@ export default function DataElement() {
   const [css, theme] = useStyletron();
 
   return (
-    <div className={css({
-      marginTop: '20px'
-    })}>
-      <StyledCard
-        width="420px"
-      >
-        <StyledBody>
-          <Tabs
-            onChange={({ activeKey }) => {
-              setActiveKey(activeKey);
-            }}
-            activeKey={activeKey}
-            overrides={{
-              TabContent: {
-                style: {
-                  maxHeight: '400px',
-                  overflow: 'auto',
-                  textAlign: 'left',
-                  padding: '14px'
-                }
+    <StyledCard
+      width="420px"
+    >
+      <StyledBody>
+        <Tabs
+          onChange={({ activeKey }) => {
+            setActiveKey(activeKey);
+          }}
+          activeKey={activeKey}
+          overrides={{
+            TabContent: {
+              style: {
+                maxHeight: '400px',
+                overflow: 'auto',
+                textAlign: 'left',
+                padding: '14px'
               }
-            }}
-          >
-            <Tab title="Potwierdzone przypadki">
-              <Label3>Podział na miasta</Label3>
-              <Block
-                $style={{
-                  height: '200px',
-                  overflow: 'auto',
-                  margin: '12px 0 20px'
-                }}
-              >
-                {isLoading && <Loader />}
-                {cases && (data => (
-                  <BarChart
-                    width={320}
-                    height={data.length * 32}
-                    data={data}
-                    layout="vertical"
-                  >
-                    <YAxis dataKey="city" type="category" tick={{ fill: theme.colors.contentPrimary }} width={100} />
-                    <XAxis type="number" hide />
-                    <Tooltip
-                      formatter={value => [value, 'Liczba']}
-                    />
-                    <Bar dataKey="count" fill={theme.colors.accent} />
-                  </BarChart>
-                ))(prepareData(cases))}
-              </Block>
-
-              <Label3>Ostatnie</Label3>
-              <StyledTable
-                $style={{
-                  borderColor: theme.colors.backgroundTertiary,
-                  marginTop: '12px',
-                  minHeight: '100px'
-                }}
-              >
-                {isLoading && (
-                  <ProgressBar
-                    infinite
-                    overrides={{
-                      Bar: {
-                        style: {
-                          marginBottom: 0,
-                          marginLeft: 0,
-                          marginRight: 0,
-                          marginTop: 0,
-                        },
-                      },
-                    }}
+            }
+          }}
+        >
+          <Tab title="Potwierdzone przypadki">
+            <Label3>Podział na miasta</Label3>
+            <Block
+              $style={{
+                height: '200px',
+                overflow: 'auto',
+                margin: '12px 0 20px'
+              }}
+            >
+              {isLoading && <Loader />}
+              {cases && (data => (
+                <BarChart
+                  width={320}
+                  height={data.length * 32}
+                  data={data}
+                  layout="vertical"
+                >
+                  <YAxis dataKey="city" type="category" tick={{ fill: theme.colors.contentPrimary }} width={100} />
+                  <XAxis type="number" hide />
+                  <Tooltip
+                    formatter={value => [value, 'Liczba']}
                   />
-                )}
-                <StyledHead role="row">
-                  <StyledHeadCell role="columnheader">
-                    <Paragraph3 margin={0}>Data</Paragraph3>
-                  </StyledHeadCell>
-                  <StyledHeadCell role="columnheader">
-                    <Paragraph3 margin={0}>Liczba</Paragraph3>
-                  </StyledHeadCell>
-                  <StyledHeadCell role="columnheader">
-                    <Paragraph3 margin={0}>Miasto</Paragraph3>
-                  </StyledHeadCell>
-                </StyledHead>
-                <StyledTableBody>
-                  {cases && cases.sort((a, b) => moment(b.date).format('YYYYMMDD') - moment(a.date).format('YYYYMMDD')).map(({ date, count, city, source }, index) => (
-                    <StyledRow key={index}>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          <StyledLink href={source} target="_blank">{date}</StyledLink>
-                        </Paragraph4>
-                      </StyledCell>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          {count}
-                        </Paragraph4>
-                      </StyledCell>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          {city}
-                        </Paragraph4>
-                      </StyledCell>
-                    </StyledRow>
-                  ))}
-                </StyledTableBody>
-              </StyledTable>
-            </Tab>
-            <Tab title="Zgony">
-              <Label3>Podział na miasta</Label3>
-              <Block
-                $style={{
-                  height: '200px',
-                  overflow: 'auto',
-                  margin: '12px 0 20px'
-                }}
-              >
-                {isLoading && <Loader />}
-                {deaths && (data => (
-                  <BarChart
-                    width={320}
-                    height={data.length * 32}
-                    data={data}
-                    layout="vertical"
-                  >
-                    <YAxis dataKey="city" type="category" tick={{ fill: theme.colors.contentPrimary }} width={100} />
-                    <XAxis type="number" hide />
-                    <Tooltip
-                      formatter={value => [value, 'Liczba']}
-                    />
-                    <Bar dataKey="count" fill={theme.colors.accent} />
-                  </BarChart>
-                ))(prepareData(deaths))}
-              </Block>
+                  <Bar dataKey="count" fill={theme.colors.accent} />
+                </BarChart>
+              ))(prepareData(cases))}
+            </Block>
 
-              <Label3>Ostatnie</Label3>
-              <StyledTable
-                $style={{
-                  borderColor: theme.colors.backgroundTertiary,
-                  marginTop: '12px',
-                  minHeight: '100px'
-                }}
-              >
-                {isLoading && (
-                  <ProgressBar
-                    infinite
-                    overrides={{
-                      Bar: {
-                        style: {
-                          marginBottom: 0,
-                          marginLeft: 0,
-                          marginRight: 0,
-                          marginTop: 0,
-                        },
+            <Label3>Ostatnie</Label3>
+            <StyledTable
+              $style={{
+                borderColor: theme.colors.backgroundTertiary,
+                marginTop: '12px',
+                minHeight: '100px'
+              }}
+            >
+              {isLoading && (
+                <ProgressBar
+                  infinite
+                  overrides={{
+                    Bar: {
+                      style: {
+                        marginBottom: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                        marginTop: 0,
                       },
-                    }}
+                    },
+                  }}
+                />
+              )}
+              <StyledHead role="row">
+                <StyledHeadCell role="columnheader">
+                  <Paragraph3 margin={0}>Data</Paragraph3>
+                </StyledHeadCell>
+                <StyledHeadCell role="columnheader">
+                  <Paragraph3 margin={0}>Liczba</Paragraph3>
+                </StyledHeadCell>
+                <StyledHeadCell role="columnheader">
+                  <Paragraph3 margin={0}>Miasto</Paragraph3>
+                </StyledHeadCell>
+              </StyledHead>
+              <StyledTableBody>
+                {cases && cases.sort((a, b) => moment(b.date).format('YYYYMMDD') - moment(a.date).format('YYYYMMDD')).map(({ date, count, city, source }, index) => (
+                  <StyledRow key={index}>
+                    <StyledCell>
+                      <Paragraph4
+                        margin={0}
+                      >
+                        <StyledLink href={source} target="_blank">{date}</StyledLink>
+                      </Paragraph4>
+                    </StyledCell>
+                    <StyledCell>
+                      <Paragraph4
+                        margin={0}
+                      >
+                        {count}
+                      </Paragraph4>
+                    </StyledCell>
+                    <StyledCell>
+                      <Paragraph4
+                        margin={0}
+                      >
+                        {city}
+                      </Paragraph4>
+                    </StyledCell>
+                  </StyledRow>
+                ))}
+              </StyledTableBody>
+            </StyledTable>
+          </Tab>
+          <Tab title="Zgony">
+            <Label3>Podział na miasta</Label3>
+            <Block
+              $style={{
+                height: '200px',
+                overflow: 'auto',
+                margin: '12px 0 20px'
+              }}
+            >
+              {isLoading && <Loader />}
+              {deaths && (data => (
+                <BarChart
+                  width={320}
+                  height={data.length * 32}
+                  data={data}
+                  layout="vertical"
+                >
+                  <YAxis dataKey="city" type="category" tick={{ fill: theme.colors.contentPrimary }} width={100} />
+                  <XAxis type="number" hide />
+                  <Tooltip
+                    formatter={value => [value, 'Liczba']}
                   />
-                )}
-                <StyledHead role="row">
-                  <StyledHeadCell role="columnheader">
-                    <Paragraph3 margin={0}>Data</Paragraph3>
-                  </StyledHeadCell>
-                  <StyledHeadCell role="columnheader">
-                    <Paragraph3 margin={0}>Liczba</Paragraph3>
-                  </StyledHeadCell>
-                  <StyledHeadCell role="columnheader">
-                    <Paragraph3 margin={0}>Miasto</Paragraph3>
-                  </StyledHeadCell>
-                </StyledHead>
-                <StyledTableBody>
-                  {deaths && deaths.sort((a, b) => moment(b.date).format('YYYYMMDD') - moment(a.date).format('YYYYMMDD')).map(({ date, count, city, source }, index) => (
-                    <StyledRow key={index}>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          <StyledLink href={source} target="_blank">{date}</StyledLink>
-                        </Paragraph4>
-                      </StyledCell>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          {count}
-                        </Paragraph4>
-                      </StyledCell>
-                      <StyledCell>
-                        <Paragraph4
-                          margin={0}
-                        >
-                          {city}
-                        </Paragraph4>
-                      </StyledCell>
-                    </StyledRow>
-                  ))}
-                </StyledTableBody>
-              </StyledTable>
-            </Tab>
-          </Tabs>
-        </StyledBody>
-      </StyledCard>
-    </div>
+                  <Bar dataKey="count" fill={theme.colors.accent} />
+                </BarChart>
+              ))(prepareData(deaths))}
+            </Block>
+
+            <Label3>Ostatnie</Label3>
+            <StyledTable
+              $style={{
+                borderColor: theme.colors.backgroundTertiary,
+                marginTop: '12px',
+                minHeight: '100px'
+              }}
+            >
+              {isLoading && (
+                <ProgressBar
+                  infinite
+                  overrides={{
+                    Bar: {
+                      style: {
+                        marginBottom: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                        marginTop: 0,
+                      },
+                    },
+                  }}
+                />
+              )}
+              <StyledHead role="row">
+                <StyledHeadCell role="columnheader">
+                  <Paragraph3 margin={0}>Data</Paragraph3>
+                </StyledHeadCell>
+                <StyledHeadCell role="columnheader">
+                  <Paragraph3 margin={0}>Liczba</Paragraph3>
+                </StyledHeadCell>
+                <StyledHeadCell role="columnheader">
+                  <Paragraph3 margin={0}>Miasto</Paragraph3>
+                </StyledHeadCell>
+              </StyledHead>
+              <StyledTableBody>
+                {deaths && deaths.sort((a, b) => moment(b.date).format('YYYYMMDD') - moment(a.date).format('YYYYMMDD')).map(({ date, count, city, source }, index) => (
+                  <StyledRow key={index}>
+                    <StyledCell>
+                      <Paragraph4
+                        margin={0}
+                      >
+                        <StyledLink href={source} target="_blank">{date}</StyledLink>
+                      </Paragraph4>
+                    </StyledCell>
+                    <StyledCell>
+                      <Paragraph4
+                        margin={0}
+                      >
+                        {count}
+                      </Paragraph4>
+                    </StyledCell>
+                    <StyledCell>
+                      <Paragraph4
+                        margin={0}
+                      >
+                        {city}
+                      </Paragraph4>
+                    </StyledCell>
+                  </StyledRow>
+                ))}
+              </StyledTableBody>
+            </StyledTable>
+          </Tab>
+        </Tabs>
+      </StyledBody>
+    </StyledCard>
   );
 }

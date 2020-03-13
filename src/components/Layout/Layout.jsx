@@ -39,6 +39,7 @@ export default function Layout() {
           </Layer>
           <Layer>
             <Block display={['none', 'none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'} $style={{ textAlign: 'right' }}>
+              <DataElement />
               <Button
                 $as="a"
                 target="_blank"
@@ -48,15 +49,14 @@ export default function Layout() {
                   BaseButton: {
                     style: ({ $theme }) => ({
                       borderRadius: $theme.borders.radius200,
-                      boxShadow: $theme.lighting.shadow500
+                      boxShadow: $theme.lighting.shadow500,
+                      marginTop: '20px'
                     })
                   }
                 }}
               >
                 Więcej informacji nt. koronawirusa
               </Button>
-              
-              <DataElement />
             </Block>
           </Layer>
           <Layer>
