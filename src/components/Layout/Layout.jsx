@@ -16,8 +16,10 @@ import { StyledLink } from 'baseui/link';
 
 const engine = new Styletron();
 
-const lightTheme = createTheme({ ...lightThemePrimitives, primaryFontFamily: 'Rubik' }, LightTheme);
-const darkTheme = createTheme({ ...darkThemePrimitives, primaryFontFamily: 'Rubik' }, DarkTheme);
+const { typography, ...rest } = DarkTheme;
+
+const lightTheme = createTheme({ ...lightThemePrimitives, primaryFontFamily: 'Rubik' }, { });
+const darkTheme = createTheme({ ...darkThemePrimitives, primaryFontFamily: 'Rubik' }, { ...rest });
 
 export default function Layout() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +30,7 @@ export default function Layout() {
       <BaseProvider theme={useDarkTheme ? darkTheme : lightTheme}>
         <DataProvider>
           <Layer>
-            <Map className={useDarkTheme && 'dark-theme'} />
+            <Map className={useDarkTheme ? 'dark-theme' : ''} />
           </Layer>
           <Layer>
             <Block position={'fixed'} top={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '40px']}>
