@@ -16,6 +16,7 @@ import ContentLoader from 'react-content-loader';
 import { useData } from '../../contexts/DataContext';
 import moment from 'moment';
 import { sum } from '../../helpers/misc';
+import useWindowDimensions from '../../hooks/window-dimensions';
 
 function CountLoader() {
   return (
@@ -94,6 +95,7 @@ export default function Figures() {
   const { cases, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
+  const { width } = useWindowDimensions()
 
   return (
     <StyledCard
@@ -105,11 +107,13 @@ export default function Figures() {
           data={deaths}
           label="Zgonów"
           color={theme.colors.primary}
+          size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
         <Figure
           data={cases}
           label="Potwierdzonych przypadków"
           color={theme.colors.negative}
+          size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
 
         <Block
