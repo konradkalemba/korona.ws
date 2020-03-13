@@ -45,8 +45,8 @@ export function Figure({ data, label, color, size = 'standard' }) {
       {data &&
         <Block display="flex">
           {size === 'standard'
-            ? <Display2 color={color}>{total}</Display2>
-            : <Display4 color={color}>{total}</Display4>
+            ? <Display2 color={color}>{total.toLocaleString()}</Display2>
+            : <Display4 color={color}>{total.toLocaleString()}</Display4>
           }
           {todayGrowth > 0 &&
             <StatefulTooltip
@@ -134,7 +134,7 @@ export default function Figures() {
             {!showMore ? 'Pokaż więcej' : 'Ukryj'}
           </Button>
         </Block>
-        
+
         {showMore &&
           <>
             <Figure
