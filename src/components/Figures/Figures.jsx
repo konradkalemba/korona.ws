@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Display2, Display4, Paragraph2, Paragraph3 } from 'baseui/typography';
+import { StyledBody, Card } from 'baseui/card';
 import { Button, KIND, SIZE } from 'baseui/button';
 import ChevronDown from 'baseui/icon/chevron-down';
 import ChevronUp from 'baseui/icon/chevron-up';
 import ArrowUp from 'baseui/icon/arrow-up';
 import { StatefulTooltip, PLACEMENT } from 'baseui/tooltip';
 import { Block } from 'baseui/block';
+import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { useStyletron } from 'baseui';
 
 import { StyledCard } from '..';
@@ -96,7 +98,7 @@ export default function Figures() {
   return (
     <StyledCard
       title="Koronawirus w Polsce"
-      width="320px"
+      width="380px"
     >
       <StyledBody>
         <Figure
@@ -111,28 +113,53 @@ export default function Figures() {
         />
 
         {showMore &&
-          <>
-            <Figure
-              data={hospitalizations}
-              label="Hospitalizowanych"
-              color={theme.colors.negative300}
-            />
-            <Figure
-              data={quarantines}
-              label="Poddanych kwarantannie"
-              color={theme.colors.negative300}
-            />
-            <Figure
-              data={supervisions}
-              label="Objętych nadzorem epidemiologicznym"
-              color={theme.colors.negative300}
-            />
-            <Figure
-              data={tests}
-              label="Testów"
-              color={theme.colors.accent}
-            />
-          </>
+          <Card
+            overrides={{
+              Root: {
+                style: ({ $theme }) => ({
+                  borderRadius: $theme.borders.radius200
+                })
+              }
+            }}
+          >
+            <FlexGrid
+              flexGridColumnCount={[1, 1, 2]}
+              flexGridColumnGap="scale1000"
+            >
+              <FlexGridItem>
+                <Figure
+                  data={hospitalizations}
+                  label="Hospitalizowanych"
+                  color={theme.colors.negative300}
+                  size="compact"
+                />
+              </FlexGridItem>
+              <FlexGridItem>
+                <Figure
+                  data={quarantines}
+                  label="Poddanych kwarantannie"
+                  color={theme.colors.negative300}
+                  size="compact"
+                />
+              </FlexGridItem>
+              <FlexGridItem>
+                <Figure
+                  data={supervisions}
+                  label="Objętych nadzorem epidemiologicznym"
+                  color={theme.colors.negative300}
+                  size="compact"
+                />
+              </FlexGridItem>
+              <FlexGridItem>
+                <Figure
+                  data={tests}
+                  label="Testów"
+                  color={theme.colors.accent}
+                  size="compact"
+                />
+              </FlexGridItem>
+            </FlexGrid>
+          </Card>
         }
 
         <Block
