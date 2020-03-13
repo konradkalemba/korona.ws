@@ -105,13 +105,13 @@ export default function Figures() {
       <StyledBody>
         <Figure
           data={deaths}
-          label="Zgonów"
+          label="Zgony"
           color={theme.colors.primary}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
         <Figure
           data={cases}
-          label="Potwierdzonych przypadków"
+          label="Potwierdzone przypadki"
           color={theme.colors.negative}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
@@ -143,25 +143,25 @@ export default function Figures() {
           <>
             <Figure
               data={hospitalizations}
-              label="Hospitalizowanych"
+              label="Hospitalizowani"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={quarantines}
-              label="Poddanych kwarantannie"
+              label="Poddani kwarantannie"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={supervisions}
-              label="Objętych nadzorem epidemiologicznym"
+              label="Objęci nadzorem epidemiologicznym"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={tests}
-              label="Testów"
+              label="Testy"
               color={theme.colors.accent}
               size="compact"
             />
