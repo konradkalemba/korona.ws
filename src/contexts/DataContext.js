@@ -32,7 +32,7 @@ export function DataProvider(props) {
   const [data, setData] = useState(null);
 
   function fetch() {
-    firebase.database().ref('/').once('value').then(snapshot => {
+    firebase.database().ref('/').on('value', snapshot => {
       setData(snapshot.val());
       setIsLoading(false);
     });
