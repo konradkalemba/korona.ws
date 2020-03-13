@@ -122,10 +122,7 @@ export default function Figures() {
               }
             }}
           >
-            <FlexGrid
-              flexGridColumnCount={[1, 1, 2]}
-              flexGridColumnGap="scale1000"
-            >
+            <FlexGrid flexGridColumnCount={1}>
               <FlexGridItem>
                 <Figure
                   data={hospitalizations}
