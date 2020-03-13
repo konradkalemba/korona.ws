@@ -29,18 +29,16 @@ const DataContext = createContext();
 
 export function DataProvider(props) {
   const [isLoading, setIsLoading] = useState(true);
-  const [cases, setCases] = useState(null);
-  const [deaths, setDeaths] = useState(null);
+  const [data, setData] = useState(null);
 
   function fetch() {
     firebase.database().ref('/').once('value').then(snapshot => {
-      setCases(snapshot.val().cases);
-      setDeaths(snapshot.val().deaths);
+      setData(snapshot.val());
       setIsLoading(false);
     });
   }
 
-  if (!cases && !deaths && isLoading) {
+  if (!data && isLoading) {
     fetch();
   }
 
@@ -48,8 +46,7 @@ export function DataProvider(props) {
     <DataContext.Provider
       value={{
         isLoading,
-        cases,
-        deaths
+        ...data
       }}
       {...props}
     />

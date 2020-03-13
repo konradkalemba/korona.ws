@@ -1,7 +1,7 @@
 {
   "name": "korona.ws",
   "homepage": "https://korona.ws",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -11,6 +11,7 @@
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "lodash.groupby": "^4.6.0",
+    "moment": "^2.24.0",
     "react": "^16.13.0",
     "react-content-loader": "^5.0.2",
     "react-dom": "^16.13.0",
