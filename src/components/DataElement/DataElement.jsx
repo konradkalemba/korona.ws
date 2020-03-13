@@ -82,7 +82,7 @@ export default function DataElement() {
             <Label3>Podział na miasta</Label3>
             <Block
               $style={{
-                height: '200px',
+                height: '196px',
                 overflow: 'auto',
                 margin: '12px 0 20px'
               }}
@@ -172,7 +172,7 @@ export default function DataElement() {
             <Label3>Podział na miasta</Label3>
             <Block
               $style={{
-                height: '200px',
+                height: '196px',
                 overflow: 'auto',
                 margin: '12px 0 20px'
               }}
