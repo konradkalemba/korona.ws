@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { BaseProvider, darkThemePrimitives, createTheme, DarkTheme, lightThemePrimitives } from 'baseui';
-import { Map, Figures, DataElement } from '../../components';
+import { Map, Figures, DataElement, Contributors } from '../../components';
 
 import { Layer } from 'baseui/layer';
 import { Button, KIND, SIZE } from 'baseui/button';
 import { Block } from 'baseui/block';
 import { Modal, ModalHeader, ModalBody, ROLE } from 'baseui/modal';
-import { Paragraph3 } from 'baseui/typography';
+import { Paragraph3, Label2 } from 'baseui/typography';
 
 import { DataProvider } from './../../contexts/DataContext';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -132,6 +132,9 @@ export default function Layout() {
                   <StyledLink target="_blank" href="https://github.com/konradkalemba/korona.ws">
                     https://github.com/konradkalemba/korona.ws
                   </StyledLink>
+
+                  <Label2 margin="20px 0 10px">Współtwórcy</Label2>
+                  <Contributors />
                 </ModalBody>
               </Modal>
             </Block>
