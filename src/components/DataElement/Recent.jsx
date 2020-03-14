@@ -50,7 +50,7 @@ export default function Recent({isLoading, data}) {
           </StyledHeadCell>
         </StyledHead>
         <StyledTableBody>
-          {data && data.map(({date, count, city, source}, index) => (
+          {data && data.slice().reverse().map(({date, count, city, source}, index) => (
             <StyledRow key={index}>
               <StyledCell>
                 <Paragraph4
