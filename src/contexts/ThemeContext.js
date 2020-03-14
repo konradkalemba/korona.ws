@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import firebase from 'firebase';
 
 const ThemeContext = createContext();
 
@@ -13,6 +14,7 @@ export function ThemeProvider(props) {
 
   useEffect(() => {
     localStorage.setItem('useDarkTheme', useDarkTheme);
+    firebase.analytics().setUserProperties({ appTheme: useDarkTheme ? 'dark' : 'light' });
   }, [useDarkTheme]);
 
   return (
