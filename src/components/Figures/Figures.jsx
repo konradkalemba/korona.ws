@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Display2, Display4, Paragraph2, Paragraph3 } from 'baseui/typography';
-import { StyledBody, Card } from 'baseui/card';
+import { StyledBody } from 'baseui/card';
 import { Button, KIND, SIZE } from 'baseui/button';
 import ChevronDown from 'baseui/icon/chevron-down';
 import ChevronUp from 'baseui/icon/chevron-up';
 import ArrowUp from 'baseui/icon/arrow-up';
 import { StatefulTooltip, PLACEMENT } from 'baseui/tooltip';
 import { Block } from 'baseui/block';
-import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { useStyletron } from 'baseui';
 
 import { StyledCard } from '..';

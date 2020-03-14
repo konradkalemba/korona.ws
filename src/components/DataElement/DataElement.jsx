@@ -54,7 +54,7 @@ function prepareData(cases) {
 export default function DataElement() {
   const { cases, deaths, isLoading } = useData();
   const [activeKey, setActiveKey] = useState('0');
-  const [css, theme] = useStyletron();
+  const [, theme] = useStyletron();
 
   return (
     <StyledCard
