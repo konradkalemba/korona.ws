@@ -67,6 +67,10 @@ svg.marker text {
   font-weight: 500;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .pulse { animation: none; transform: scale(1.6); }
+}
+
 @keyframes pulse {
   from {
     transform: scale(1);
