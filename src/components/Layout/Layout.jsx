@@ -18,7 +18,7 @@ const engine = new Styletron();
 
 const { typography, ...rest } = DarkTheme;
 
-const lightTheme = createTheme({ ...lightThemePrimitives, primaryFontFamily: 'Rubik' }, { });
+const lightTheme = createTheme({ ...lightThemePrimitives, primaryFontFamily: 'Rubik' }, {});
 const darkTheme = createTheme({ ...darkThemePrimitives, primaryFontFamily: 'Rubik' }, { ...rest });
 
 export default function Layout() {
@@ -27,7 +27,16 @@ export default function Layout() {
 
   return (
     <StyletronProvider value={engine}>
-      <BaseProvider theme={useDarkTheme ? darkTheme : lightTheme}>
+      <BaseProvider
+        theme={useDarkTheme ? darkTheme : lightTheme}
+        overrides={{
+          LayersContainer: {
+            props: {
+              "data-theme": useDarkTheme ? 'dark' : 'light'
+            }
+          }
+        }}
+      >
         <DataProvider>
           <Layer>
             <Map className={useDarkTheme ? 'dark-theme' : ''} />

@@ -6,8 +6,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .leaflet-container {
@@ -67,8 +66,35 @@ svg.marker text {
   font-weight: 500;
 }
 
+[data-theme=dark] *::-webkit-scrollbar {
+  width: .35em;
+}
+
+[data-theme=dark] *::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+[data-theme=dark] *::-webkit-scrollbar-thumb {
+  background-color: #333333;
+}
+
+[data-theme=light] *::-webkit-scrollbar {
+  width: .35em;
+}
+
+[data-theme=light] *::-webkit-scrollbar-track {
+  background: #f6f6f6;
+}
+
+[data-theme=light] *::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .pulse { animation: none; transform: scale(1.6); }
+  .pulse {
+    animation: none;
+    transform: scale(1.6);
+  }
 }
 
 @keyframes pulse {
