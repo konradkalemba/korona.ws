@@ -9,7 +9,13 @@ export default function Contributors() {
 
   fetch(`https://api.github.com/repos/${REPO}/contributors`)
     .then(async response => {
-      setData(await response.json());
+      if (response.ok) {
+        setData(await response.json());
+      } else {
+        throw new Error('GitHub API rate limit exceeded!');
+      }})
+      .catch((error) => {
+        console.log(error)
     });
 
   return (
