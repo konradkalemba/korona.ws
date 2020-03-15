@@ -92,7 +92,7 @@ export function Figure({ data, label, color, size = 'standard' }) {
   );
 }
 
-export default function Figures() {
+export default function Figures({ size = 'standard' }) {
   const { cases, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
