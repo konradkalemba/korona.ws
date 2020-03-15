@@ -13,7 +13,8 @@ function prepareData(cases) {
   return Object
     .entries(groupBy(cases, 'city'))
     .map(([city, data]) => ({ city, count: sum(data) }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => b.count - a.count)
+    .filter(({ city }) => city !== 'undefined');
 }
 
 export default function DataElement() {
