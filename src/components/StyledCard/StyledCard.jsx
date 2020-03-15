@@ -8,6 +8,7 @@ export default function StyledCard({ children, width, ...props }) {
         Root: {
           style: ({ $theme }) => ({
             width: '100%',
+            boxSizing: 'border-box',
             borderRadius: $theme.borders.radius200,
             boxShadow: $theme.lighting.shadow500,
             [$theme.mediaQuery.large]: {
