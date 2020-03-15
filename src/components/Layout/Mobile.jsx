@@ -40,130 +40,139 @@ export default function Mobile() {
   const [css, theme] = useStyletron();
 
   return (
-    <div
-      className={css({
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh'
-      })}
-    >
+    <>
       <div
         className={css({
-          backgroundColor: theme.colors.backgroundPrimary,
-          padding: theme.sizing.scale600,
-          paddingBottom: 0
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100vw'
         })}
       >
-        <HeadingSmall margin={0}>Koronawirus w Polsce</HeadingSmall>
-        <FlexGrid flexGridColumnCount={3}>
-          <FlexGridItem>
-            <Figure
-              data={deaths}
-              isLoading={isLoading}
-              label="Zgony"
-              color={theme.colors.primary}
-              size="compact"
-            />
-          </FlexGridItem>
-          <FlexGridItem>
-            <Figure
-              data={cases}
-              isLoading={isLoading}
-              label="Potw. przypadki"
-              color={theme.colors.negative}
-              size="compact"
-            />
-          </FlexGridItem>
-          <FlexGridItem>
-            <Figure
-              data={cures}
-              isLoading={isLoading}
-              label="Wyleczenia"
-              color={theme.colors.positive}
-              size="compact"
-            />
-          </FlexGridItem>
-        </FlexGrid>
+        <div
+          className={css({
+            backgroundColor: theme.colors.backgroundPrimary,
+            padding: theme.sizing.scale600,
+            paddingBottom: 0
+          })}
+        >
+          <HeadingSmall margin={0}>Koronawirus w Polsce</HeadingSmall>
+          <FlexGrid flexGridColumnCount={3}>
+            <FlexGridItem>
+              <Figure
+                data={deaths}
+                isLoading={isLoading}
+                label="Zgony"
+                color={theme.colors.primary}
+                size="compact"
+              />
+            </FlexGridItem>
+            <FlexGridItem>
+              <Figure
+                data={cases}
+                isLoading={isLoading}
+                label="Potw. przypadki"
+                color={theme.colors.negative}
+                size="compact"
+              />
+            </FlexGridItem>
+            <FlexGridItem>
+              <Figure
+                data={cures}
+                isLoading={isLoading}
+                label="Wyleczenia"
+                color={theme.colors.positive}
+                size="compact"
+              />
+            </FlexGridItem>
+          </FlexGrid>
+        </div>
+
+        <Tabs
+          onChange={({ activeKey }) => {
+            setActiveKey(activeKey);
+          }}
+          activeKey={activeKey}
+          overrides={{
+            Root: {
+              style: {
+                flexGrow: 1,
+                display: 'flex'
+              }
+            },
+            TabBar: {
+              style: {
+                display: 'flex'
+              }
+            },
+            TabContent: {
+              style: ({ $active }) => {
+                return {
+                  backgroundColor: theme.colors.backgroundPrimary,
+                  padding: 0,
+                  flexGrow: 1,
+                  display: $active ? 'flex' : 'none',
+                  width: '100vw'
+                };
+              }
+            }
+          }}
+        >
+          <CustomTab title="Mapa">
+            <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: 'auto' }} />
+          </CustomTab>
+          <CustomTab title="Statystyki">
+            <div
+              className={css({
+                padding: theme.sizing.scale600,
+                height: 'auto'
+              })}
+            >
+              <FlexGrid flexGridColumnCount={2}>
+                <FlexGridItem>
+                  <Figure
+                    data={hospitalizations}
+                    isLoading={isLoading}
+                    label="Hospitalizowani"
+                    color={theme.colors.accent}
+                    size="compact"
+                  />
+                </FlexGridItem>
+                <FlexGridItem>
+                  <Figure
+                    data={quarantines}
+                    isLoading={isLoading}
+                    label="Poddani kwarantannie"
+                    color={theme.colors.accent}
+                    size="compact"
+                  />
+                </FlexGridItem>
+                <FlexGridItem>
+                  <Figure
+                    data={supervisions}
+                    isLoading={isLoading}
+                    label="Objęci nadzorem epidemiologicznym"
+                    color={theme.colors.accent}
+                    size="compact"
+                  />
+                </FlexGridItem>
+                <FlexGridItem>
+                  <Figure
+                    data={tests}
+                    isLoading={isLoading}
+                    label="Testy"
+                    color={theme.colors.accent}
+                    size="compact"
+                  />
+                </FlexGridItem>
+              </FlexGrid>
+
+              <DataElement />
+            </div>
+          </CustomTab>
+        </Tabs>
+
       </div>
-
-      <Tabs
-        onChange={({ activeKey }) => {
-          setActiveKey(activeKey);
-        }}
-        activeKey={activeKey}
-        overrides={{
-          Root: {
-            style: {
-              flexGrow: 1,
-              display: 'flex'
-            }
-          },
-          TabBar: {
-            style: {
-              display: 'flex'
-            }
-          },
-          TabContent: {
-            style: {
-              backgroundColor: theme.colors.backgroundPrimary,
-              padding: 0,
-              flexGrow: 1
-            }
-          }
-        }}
-      >
-        <CustomTab title="Mapa">
-          <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: '100%' }} />
-        </CustomTab>
-        <CustomTab title="Statystyki">
-          <div
-            className={css({
-              padding: theme.sizing.scale600
-            })}
-          >
-            <FlexGrid flexGridColumnCount={2}>
-              <FlexGridItem>
-                <Figure
-                  data={hospitalizations}
-                  isLoading={isLoading}
-                  label="Hospitalizowani"
-                  color={theme.colors.accent}
-                  size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                  data={quarantines}
-                  isLoading={isLoading}
-                  label="Poddani kwarantannie"
-                  color={theme.colors.accent}
-                  size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                  data={supervisions}
-                  isLoading={isLoading}
-                  label="Objęci nadzorem epidemiologicznym"
-                  color={theme.colors.accent}
-                  size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                  data={tests}
-                  isLoading={isLoading}
-                  label="Testy"
-                  color={theme.colors.accent}
-                  size="compact"
-                />
-              </FlexGridItem>
-            </FlexGrid>
-
-            <DataElement />
-          </div>
-        </CustomTab>
-      </Tabs>
       <Layer>
         <Block position={'fixed'} bottom={'16px'} left={'0px'} display="flex">
           <Button
@@ -234,6 +243,6 @@ export default function Mobile() {
           </Modal>
         </Block>
       </Layer>
-    </div>
+    </>
   );
 }

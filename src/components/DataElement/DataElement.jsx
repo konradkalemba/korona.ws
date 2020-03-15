@@ -61,7 +61,16 @@ export default function DataElement() {
             <Recent data={deaths} isLoading={isLoading} />
           </Tab>
           <Tab title="Wyleczenia">       
-            <Notification>
+            <Notification 
+              overrides={{
+                Body: {
+                  style: {
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }
+                }
+              }}
+            >
               Liczba wyleczonych została skorygowana po błędnej interpretacji komunikatu GIS-u, który mówił o 13 ozdrowiałych.
             </Notification>
             <CitiesSplit data={groupedCures} isLoading={isLoading} />

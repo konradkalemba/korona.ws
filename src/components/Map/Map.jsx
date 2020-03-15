@@ -26,7 +26,8 @@ const Centered = styled('div', ({ $theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  height: '100%',
+  height: 'auto',
+  width: '100vw',
   [$theme.mediaQuery.medium]: {
     height: '100vh'
   }
