@@ -17,15 +17,17 @@ function prepareData(cases) {
 }
 
 export default function DataElement() {
-  const { cases, deaths, isLoading } = useData();
+  const { cases, deaths, cures, isLoading } = useData();
   const [groupedCases, setGroupedCases] = useState(null);
   const [groupedDeaths, setGroupedDeaths] = useState(null);
+  const [groupedCures, setGroupedCures] = useState(null);
   const [activeKey, setActiveKey] = useState('0');
 
   useEffect(() => {
     setGroupedCases(prepareData(cases));
     setGroupedDeaths(prepareData(deaths));
-  }, [cases, deaths])
+    setGroupedCures(prepareData(cures));
+  }, [cases, deaths, cures])
 
   return (
     <StyledCard
@@ -55,6 +57,10 @@ export default function DataElement() {
           <Tab title="Zgony">
             <CitiesSplit data={groupedDeaths} isLoading={isLoading} />
             <Recent data={deaths} isLoading={isLoading} />
+          </Tab>
+          <Tab title="Wyleczenia">
+            <CitiesSplit data={groupedCures} isLoading={isLoading} />
+            <Recent data={cures} isLoading={isLoading} />
           </Tab>
         </Tabs>
       </StyledBody>

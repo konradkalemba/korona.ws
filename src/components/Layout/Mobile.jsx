@@ -34,7 +34,7 @@ function CustomTab(props) {
 }
 
 export default function Mobile() {
-  const { cases, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
+  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [activeKey, setActiveKey] = useState('0');
@@ -56,7 +56,7 @@ export default function Mobile() {
         })}
       >
         <HeadingSmall margin={0}>Koronawirus w Polsce</HeadingSmall>
-        <FlexGrid flexGridColumnCount={2}>
+        <FlexGrid flexGridColumnCount={3}>
           <FlexGridItem>
             <Figure
               data={deaths}
@@ -70,6 +70,14 @@ export default function Mobile() {
               data={cases}
               label="Potw. przypadki"
               color={theme.colors.negative}
+              size="compact"
+            />
+          </FlexGridItem>
+          <FlexGridItem>
+            <Figure
+              data={cures}
+              label="Wyleczenia"
+              color={theme.colors.positive}
               size="compact"
             />
           </FlexGridItem>
