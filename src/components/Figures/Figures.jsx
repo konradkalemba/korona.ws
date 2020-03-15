@@ -35,16 +35,16 @@ function CountLoader() {
   );
 }
 
-export function Figure({ data, label, color, size = 'standard' }) {
-  const total = data && sum(data);
-  const todayGrowth = data && sum(data.filter(({ date }) => date === moment().format('YYYY-MM-DD')));
+export function Figure({ data, isLoading, label, color, size = 'standard' }) {
+  const total = (data && sum(data)) || 0;
+  const todayGrowth = (data && sum(data.filter(({ date }) => date === moment().format('YYYY-MM-DD')))) || 0;
 
   return (
     <div>
-      {!data &&
+      {isLoading &&
         <CountLoader />
       }
-      {data &&
+      {!isLoading &&
         <Block display="flex">
           {size === 'standard'
             ? <Display2 color={color}>{total.toLocaleString()}</Display2>
@@ -93,7 +93,7 @@ export function Figure({ data, label, color, size = 'standard' }) {
 }
 
 export default function Figures() {
-  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests } = useData();
+  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
   const { width } = useWindowDimensions()
@@ -106,18 +106,21 @@ export default function Figures() {
       <StyledBody>
         <Figure
           data={deaths}
+          isLoading={isLoading}
           label="Zgony"
           color={theme.colors.primary}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
         <Figure
           data={cases}
+          isLoading={isLoading}
           label="Potwierdzone przypadki"
           color={theme.colors.negative}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
         <Figure
           data={cures}
+          isLoading={isLoading}
           label="Wyleczenia"
           color={theme.colors.positive}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
@@ -150,24 +153,28 @@ export default function Figures() {
           <>
             <Figure
               data={hospitalizations}
+              isLoading={isLoading}
               label="Hospitalizowani"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={quarantines}
+              isLoading={isLoading}
               label="Poddani kwarantannie"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={supervisions}
+              isLoading={isLoading}
               label="Objęci nadzorem epidemiologicznym"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={tests}
+              isLoading={isLoading}
               label="Testy"
               color={theme.colors.accent}
               size="compact"
