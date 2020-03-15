@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { Map, Figures, DataElement, Contributors } from '../../components';
+import { Map, DataElement, Contributors } from '../../components';
 
 import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
-import { Button, KIND, SIZE } from 'baseui/button';
+import { Button, SIZE } from 'baseui/button';
 import { Block } from 'baseui/block';
 import { Modal, ModalHeader, ModalBody, ROLE } from 'baseui/modal';
-import { Paragraph3, Label2, Display4, Label1, H1, HeadingSmall } from 'baseui/typography';
+import { Paragraph3, Label2, HeadingSmall } from 'baseui/typography';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
 import { Tabs, Tab } from 'baseui/tabs';
-import useWindowDimensions from '../../hooks/window-dimensions';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Figure } from '../Figures/Figures';
 import { useData } from '../../contexts/DataContext';
