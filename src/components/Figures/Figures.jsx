@@ -93,7 +93,7 @@ export function Figure({ data, label, color, size = 'standard' }) {
 }
 
 export default function Figures() {
-  const { cases, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
+  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
   const { width } = useWindowDimensions()
@@ -114,6 +114,12 @@ export default function Figures() {
           data={cases}
           label="Potwierdzone przypadki"
           color={theme.colors.negative}
+          size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
+        />
+        <Figure
+          data={cures}
+          label="Wyleczenia"
+          color={theme.colors.positive}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
 
