@@ -26,7 +26,10 @@ const Centered = styled('div', ({ $theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  height: '100vh',
+  height: '100%',
+  [$theme.mediaQuery.medium]: {
+    height: '100vh'
+  }
 }));
 
 function createMarkerIcon(size, casesCount, deathsCount) {
