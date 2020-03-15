@@ -33,7 +33,7 @@ function CustomTab(props) {
 }
 
 export default function Mobile() {
-  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
+  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [activeKey, setActiveKey] = useState('0');
@@ -59,6 +59,7 @@ export default function Mobile() {
           <FlexGridItem>
             <Figure
               data={deaths}
+              isLoading={isLoading}
               label="Zgony"
               color={theme.colors.primary}
               size="compact"
@@ -67,6 +68,7 @@ export default function Mobile() {
           <FlexGridItem>
             <Figure
               data={cases}
+              isLoading={isLoading}
               label="Potw. przypadki"
               color={theme.colors.negative}
               size="compact"
@@ -75,6 +77,7 @@ export default function Mobile() {
           <FlexGridItem>
             <Figure
               data={cures}
+              isLoading={isLoading}
               label="Wyleczenia"
               color={theme.colors.positive}
               size="compact"
@@ -122,6 +125,7 @@ export default function Mobile() {
               <FlexGridItem>
                 <Figure
                   data={hospitalizations}
+                  isLoading={isLoading}
                   label="Hospitalizowani"
                   color={theme.colors.accent}
                   size="compact"
@@ -130,6 +134,7 @@ export default function Mobile() {
               <FlexGridItem>
                 <Figure
                   data={quarantines}
+                  isLoading={isLoading}
                   label="Poddani kwarantannie"
                   color={theme.colors.accent}
                   size="compact"
@@ -138,6 +143,7 @@ export default function Mobile() {
               <FlexGridItem>
                 <Figure
                   data={supervisions}
+                  isLoading={isLoading}
                   label="Objęci nadzorem epidemiologicznym"
                   color={theme.colors.accent}
                   size="compact"
@@ -146,6 +152,7 @@ export default function Mobile() {
               <FlexGridItem>
                 <Figure
                   data={tests}
+                  isLoading={isLoading}
                   label="Testy"
                   color={theme.colors.accent}
                   size="compact"
