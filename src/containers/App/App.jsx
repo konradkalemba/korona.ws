@@ -28,6 +28,11 @@ export default function App() {
                     props: {
                       'data-theme': useDarkTheme ? 'dark' : 'light'
                     }
+                  },
+                  LayersContainer: {
+                    props: {
+                      'data-theme': useDarkTheme ? 'dark' : 'light'
+                    }
                   }
                 }}
               >
