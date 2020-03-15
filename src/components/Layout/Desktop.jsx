@@ -9,6 +9,7 @@ import { Paragraph3, Label2 } from 'baseui/typography';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
+import Graphs from "../Graphs/Graphs"
 
 export default function Layout() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +23,11 @@ export default function Layout() {
       <Layer>
         <Block position={'fixed'} top={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '40px']}>
           <Figures />
+        </Block>
+      </Layer>
+      <Layer>
+        <Block position={'fixed'} bottom={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '40px']}>
+          <Graphs />
         </Block>
       </Layer>
       <Layer>
