@@ -25,7 +25,18 @@ export default function Layout() {
         </Block>
       </Layer>
       <Layer>
-        <Block display={['none', 'none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'} $style={{ textAlign: 'right' }}>
+        <Block 
+          display={['none', 'none', 'none', 'block']}
+          position={'fixed'}
+          top={'40px'}
+          right={'40px'}
+          $style={({ $theme }) => ({
+            [$theme.mediaQuery.medium]: {
+              maxHeight: 'calc(100vh - 100px)'
+            },
+            textAlign: 'right'
+          })}
+        >
           <DataElement />
           <Button
             $as="a"
