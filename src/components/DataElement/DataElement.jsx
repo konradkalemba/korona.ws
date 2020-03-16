@@ -4,18 +4,18 @@ import {Tab, Tabs} from 'baseui/tabs';
 import {StyledCard} from '..';
 import { Notification } from 'baseui/notification';
 
-import {useData} from '../../contexts/DataContext';
+import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
 import {sum} from '../../helpers/misc';
 import CitiesSplit from './CitiesSplit';
 import Recent from './Recent';
 
-function prepareData(cases) {
+function prepareData(cases, cities) {
   return Object
     .entries(groupBy(cases, 'city'))
     .map(([city, data]) => ({ city, count: sum(data) }))
-    .sort((a, b) => b.count - a.count)
-    .filter(({ city }) => city !== 'undefined');
+    .filter(({ city }) => city !== 'undefined')
+    .sort((a, b) => b.count - a.count);
 }
 
 export default function DataElement() {
