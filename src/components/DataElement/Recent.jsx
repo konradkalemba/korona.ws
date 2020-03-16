@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useStyletron} from 'baseui';
 import {Search} from 'baseui/icon';
 import {Input, SIZE} from 'baseui/input';
@@ -35,11 +35,15 @@ const compare = (text = '', filterText = '') =>
 export default function Recent({ isLoading, data }) {
   const [, theme] = useStyletron();
   const [filter, setFilter] = useState('');
-  const filteredData = data
-    ? data.filter(
+  const [filteredData, setFilteredData] = useState(null)
+
+  useEffect(() => {
+    setFilteredData(
+      data?.filter(
         ({ city, date }) => compare(city, filter) || compare(date, filter)
       )
-    : [];
+    );
+  }, [data, filter]);
 
   return (
     <>
@@ -85,7 +89,7 @@ export default function Recent({ isLoading, data }) {
           </StyledHeadCell>
         </StyledHead>
         <StyledTableBody>
-          {filteredData.slice().reverse().map(({date, count, city, source}, index) => (
+          {filteredData?.slice().reverse().map(({date, count, city, source}, index) => (
             <StyledRow key={index}>
               <StyledCell>
                 <Paragraph4
