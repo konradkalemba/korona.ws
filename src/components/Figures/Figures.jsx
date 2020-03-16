@@ -101,7 +101,15 @@ export default function Figures() {
   return (
     <StyledCard
       title="Koronawirus w Polsce"
-      width="380px"
+      style={$theme => ({
+        [$theme.mediaQuery.medium]: {
+          maxHeight: 'calc(100vh - 80px)',
+          overflow: 'auto'
+        },
+        [$theme.mediaQuery.large]: {
+          width: '380px'
+        }
+      })}
     >
       <StyledBody>
         <Figure
