@@ -5,7 +5,6 @@ import {StyledCard} from '..';
 import { Notification } from 'baseui/notification';
 
 import { useData } from '../../contexts/DataContext';
-import find from 'lodash.find';
 import groupBy from 'lodash.groupby';
 import {sum} from '../../helpers/misc';
 import CitiesSplit from './CitiesSplit';
@@ -16,22 +15,21 @@ function prepareData(cases, cities) {
     .entries(groupBy(cases, 'city'))
     .map(([city, data]) => ({ city, count: sum(data) }))
     .filter(({ city }) => city !== 'undefined')
-    .map((city) => ({ ...city, location: find(cities, { name: city.city }).location }))
     .sort((a, b) => b.count - a.count);
 }
 
 export default function DataElement() {
-  const { cities, cases, deaths, cures, isLoading } = useData();
+  const { cases, deaths, cures, isLoading } = useData();
   const [groupedCases, setGroupedCases] = useState(null);
   const [groupedDeaths, setGroupedDeaths] = useState(null);
   const [groupedCures, setGroupedCures] = useState(null);
   const [activeKey, setActiveKey] = useState('0');
 
   useEffect(() => {
-    setGroupedCases(prepareData(cases, cities));
-    setGroupedDeaths(prepareData(deaths, cities));
-    setGroupedCures(prepareData(cures, cities));
-  }, [cities, cases, deaths, cures])
+    setGroupedCases(prepareData(cases));
+    setGroupedDeaths(prepareData(deaths));
+    setGroupedCures(prepareData(cures));
+  }, [ cases, deaths, cures])
 
   return (
     <StyledCard
