@@ -34,6 +34,10 @@ export default function DataElement() {
   return (
     <StyledCard 
       style={$theme => ({
+        [$theme.mediaQuery.medium]: {
+          maxHeight: 'calc(100vh - 140px)',
+          overflow: 'auto'
+        },
         [$theme.mediaQuery.large]: {
           width: '420px'
         }
