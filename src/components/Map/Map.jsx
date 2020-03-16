@@ -125,7 +125,13 @@ export default function Map(props) {
         position={activeCity.location}
         onClose={() => setActiveCity(null)}
       >
-        <StyledCard width="320px">
+        <StyledCard 
+          style={$theme => ({
+            [$theme.mediaQuery.large]: {
+              width: '320px'
+            }
+          })}
+        >
           <StyledBody>
             <Label1>{activeCity.name}</Label1>
 
