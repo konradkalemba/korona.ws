@@ -29,7 +29,7 @@ export default function DataElement() {
     setGroupedCases(prepareData(cases));
     setGroupedDeaths(prepareData(deaths));
     setGroupedCures(prepareData(cures));
-  }, [ cases, deaths, cures])
+  }, [cases, deaths, cures])
 
   return (
     <StyledCard
