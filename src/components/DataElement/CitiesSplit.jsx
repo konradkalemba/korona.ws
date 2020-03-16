@@ -29,7 +29,10 @@ export default function CitiesSplit({ isLoading, data }) {
             <YAxis
               dataKey="city"
               type="category"
-              tick={{ fill: theme.colors.contentPrimary }}
+              tick={{
+                fill: theme.colors.contentPrimary,
+                cursor: 'pointer'
+              }}
               width={100}
               onClick={({ value }) => setClickedCity(value)}
             />
