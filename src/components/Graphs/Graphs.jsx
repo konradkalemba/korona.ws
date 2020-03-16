@@ -9,6 +9,7 @@ import {CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "rec
 import Loader from "../DataElement/Loader"
 import {sum} from "../../helpers/misc"
 import {Button} from "baseui/button"
+import moment from "moment"
 
 const CASES_KEY = 'cases';
 const DEATHS_KEY = 'deaths';
@@ -31,7 +32,7 @@ function accumulateData(data) {
       cumulativeCures += curesDateCount;
 
       return {
-        date: date.substring(5), // strip year
+        date: moment(date).format("DD/MM"),
         [CASES_KEY]: cumulativeCases,
         [DEATHS_KEY]: cumulativeDeaths,
         [CURES_KEY]: cumulativeCures
