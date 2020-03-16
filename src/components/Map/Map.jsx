@@ -47,12 +47,11 @@ function getMarkerSize(max, count) {
 }
 
 export default function Map(props) {
-  const position = [51.984880, 19.368896];
   const [activeCity, setActiveCity] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
-  const { cities, cases, deaths, isLoading } = useData();
+  const { cities, cases, deaths, isLoading, position, zoom } = useData();
 
   if (isLoading) {
     return (
@@ -87,7 +86,7 @@ export default function Map(props) {
   const max = Math.max(...(data.map(({ cases }) => cases.total)));
 
   return (
-    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
+    <LeafletMap center={position} zoom={zoom ? zoom : width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"

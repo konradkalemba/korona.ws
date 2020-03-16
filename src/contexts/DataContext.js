@@ -28,11 +28,13 @@ firebase.analytics();
 const updatedAtDatabaseRef = firebase.database().ref('/updatedAt');
 const rootDatabaseRef = firebase.database().ref('/');
 
-const DataContext = createContext();
+export const DataContext = createContext();
 
 export function DataProvider(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [position, setPosition] = useState([51.984880, 19.368896]);
+  const [zoom, setZoom] = useState(null);
 
   useEffect(() => {
     const cachedData = JSON.parse(localStorage.getItem('data'));
@@ -62,7 +64,11 @@ export function DataProvider(props) {
     <DataContext.Provider
       value={{
         isLoading,
-        ...data
+        ...data,
+        position,
+        setPosition,
+        zoom,
+        setZoom
       }}
       {...props}
     />
