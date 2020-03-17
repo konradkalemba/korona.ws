@@ -46,13 +46,16 @@ function getMarkerSize(max, count) {
   return (count / max * (MAX_MARKER_SIZE - MIN_MARKER_SIZE)) + MIN_MARKER_SIZE;
 }
 
+function getLocationForCity(clickedCity, data) {
+  return data.filter((item) => item.city.name === clickedCity).pop().city.location;
+}
+
 export default function Map(props) {
-  const position = [51.984880, 19.368896];
   const [activeCity, setActiveCity] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
-  const { cities, cases, deaths, isLoading } = useData();
+  const { cities, cases, deaths, isLoading, clickedCity } = useData();
 
   if (isLoading) {
     return (
@@ -85,9 +88,10 @@ export default function Map(props) {
   }
 
   const max = Math.max(...(data.map(({ cases }) => cases.total)));
+  const position = clickedCity ? getLocationForCity(clickedCity, data) : [51.984880, 19.368896];
 
   return (
-    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
+    <LeafletMap center={position} zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
