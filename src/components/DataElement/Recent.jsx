@@ -106,7 +106,7 @@ export default function Recent({ isLoading, data }) {
                 <Paragraph4
                   margin={0}
                 >
-                  { city ? <StyledLink onClick={() => setClickedCity(city)} style={{ cursor: 'pointer' }}>{city}</StyledLink> : 'Brak szczegółów' }
+                  {city ? <StyledLink onClick={() => setClickedCity(city)} $style={{ cursor: 'pointer' }}>{city}</StyledLink> : 'Brak szczegółów' }
                 </Paragraph4>
               </StyledCell>
             </StyledRow>
