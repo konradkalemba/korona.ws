@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {useStyletron} from 'baseui';
+import {Search} from 'baseui/icon';
+import {Input, SIZE} from 'baseui/input';
 import {
   StyledBody as StyledTableBody,
   StyledCell,
@@ -10,14 +13,45 @@ import {
 import {Label3, Paragraph3, Paragraph4} from 'baseui/typography';
 import {StyledLink} from 'baseui/link';
 import {ProgressBar} from 'baseui/progress-bar';
-import {useStyletron} from 'baseui';
 
-export default function Recent({isLoading, data}) {
+function SearchIcon() {
+  const [css, theme] = useStyletron();
+  return (
+    <div
+      className={css({
+        display: 'flex',
+        alignItems: 'center',
+        paddingLeft: theme.sizing.scale500,
+      })}
+    >
+      <Search size="18px" />
+    </div>
+  );
+}
+
+const compare = (originalText = '', filterValue = '') =>
+  originalText.toLowerCase().includes(filterValue.toLowerCase().trim());
+
+export default function Recent({ isLoading, data }) {
   const [, theme] = useStyletron();
+  const [filter, setFilter] = useState('');
+  const filteredData =
+    data?.filter(
+      ({ city, date }) => compare(city, filter) || compare(date, filter)
+    ) || [];
 
   return (
     <>
-      <Label3>Ostatnie</Label3>
+      <Label3 $style={{ marginBottom: '12px' }}>
+        Ostatnie
+      </Label3>
+      <Input
+        size={SIZE.compact}
+        overrides={{Before: SearchIcon}}
+        placeholder="Szukaj"
+        onChange={event => setFilter(event.target.value)}
+        value={filter}
+      />
       <StyledTable
         $style={{
           borderColor: theme.colors.backgroundTertiary,
@@ -50,7 +84,7 @@ export default function Recent({isLoading, data}) {
           </StyledHeadCell>
         </StyledHead>
         <StyledTableBody>
-          {data && data.slice().reverse().map(({date, count, city, source}, index) => (
+          {filteredData.slice().reverse().map(({date, count, city, source}, index) => (
             <StyledRow key={index}>
               <StyledCell>
                 <Paragraph4
