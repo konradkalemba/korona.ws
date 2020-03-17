@@ -29,6 +29,11 @@ export default function CitiesSplit({ isLoading, data }) {
               <XAxis type="number" hide />
               <Tooltip
                 formatter={value => [value, 'Liczba']}
+                contentStyle={{
+                  backgroundColor: theme.colors.backgroundPrimary,
+                  borderColor: theme.colors.backgroundTertiary,
+                }}
+                cursor={{ fill: theme.colors.backgroundTertiary }}
               />
               <Bar dataKey="count" fill={theme.colors.accent} />
             </BarChart>
