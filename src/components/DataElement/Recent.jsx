@@ -29,17 +29,16 @@ function SearchIcon() {
   );
 }
 
-const compare = (text = '', filterText = '') =>
-  text.toLowerCase().includes(filterText.toLowerCase());
+const compare = (originalText = '', filterValue = '') =>
+  originalText.toLowerCase().includes(filterValue.toLowerCase().trim());
 
 export default function Recent({ isLoading, data }) {
   const [, theme] = useStyletron();
   const [filter, setFilter] = useState('');
-  const filteredData = data
-    ? data.filter(
-        ({ city, date }) => compare(city, filter) || compare(date, filter)
-      )
-    : [];
+  const filteredData =
+    data?.filter(
+      ({ city, date }) => compare(city, filter) || compare(date, filter)
+    ) || [];
 
   return (
     <>
