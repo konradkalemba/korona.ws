@@ -13,6 +13,7 @@ import {
 import {Label3, Paragraph3, Paragraph4} from 'baseui/typography';
 import {StyledLink} from 'baseui/link';
 import {ProgressBar} from 'baseui/progress-bar';
+import { useData } from '../../contexts/DataContext';
 
 function SearchIcon() {
   const [css, theme] = useStyletron();
@@ -39,6 +40,7 @@ export default function Recent({ isLoading, data }) {
     data?.filter(
       ({ city, date }) => compare(city, filter) || compare(date, filter)
     ) || [];
+  const { setClickedCity } = useData();
 
   return (
     <>
@@ -104,7 +106,7 @@ export default function Recent({ isLoading, data }) {
                 <Paragraph4
                   margin={0}
                 >
-                  {city || 'Brak szczegółów'}
+                  {city ? <StyledLink onClick={() => setClickedCity(city)} $style={{ cursor: 'pointer' }}>{city}</StyledLink> : 'Brak szczegółów' }
                 </Paragraph4>
               </StyledCell>
             </StyledRow>
