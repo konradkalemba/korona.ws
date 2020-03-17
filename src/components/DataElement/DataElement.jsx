@@ -32,8 +32,16 @@ export default function DataElement() {
   }, [cases, deaths, cures])
 
   return (
-    <StyledCard
-      width="420px"
+    <StyledCard 
+      style={$theme => ({
+        [$theme.mediaQuery.medium]: {
+          maxHeight: 'calc(100vh - 200px)',
+          overflow: 'auto'
+        },
+        [$theme.mediaQuery.large]: {
+          width: '420px'
+        }
+      })}
     >
       <StyledBody>
         <Tabs
