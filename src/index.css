@@ -51,16 +51,6 @@ code {
   filter: invert(1) grayscale(1);
 }
 
-.pulse {
-  transform-origin: 50% 50%;
-  opacity: 0.9;
-  animation-duration: 2s;
-  animation-name: pulse;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: ease-in-out;
-}
-
 svg.marker text {
   font-family: "Rubik";
   font-weight: 500;
@@ -88,20 +78,4 @@ svg.marker text {
 
 [data-theme=light] *::-webkit-scrollbar-thumb {
   background-color: #cccccc;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pulse {
-    animation: none;
-    transform: scale(1.6);
-  }
-}
-
-@keyframes pulse {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.6);
-  }
 }

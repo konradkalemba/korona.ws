@@ -23,7 +23,6 @@ export default function Marker({ size, casesCount, deathsCount }) {
       }
 
       <circle
-        className="pulse"
         cx="50%"
         cy="50%"
         r="8px"
