@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import { divIcon } from 'leaflet';
@@ -54,6 +54,7 @@ export default function Map(props) {
   const [activeCity, setActiveCity] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
+  const rand = useRef(Math.random());
 
   const { cities, cases, deaths, isLoading, clickedCity } = useData();
 
@@ -94,16 +95,17 @@ export default function Map(props) {
     <LeafletMap
       center={position}
       zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 6 : 7}
-      zoomControl={false}      
+      zoomControl={false}
       maxZoom={10}
       minZoom={4}
       maxBounds={[[48.302684, 12.363282], [56.137388, 26.572265]]}
       {...props}
     >
       <TileLayer
-        url={Math.random() > 0.8
-          ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          : 'https://osm.korona.ws/tile/{z}/{x}/{y}.png'
+        url={
+          rand.current > 0.8
+            ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            : 'https://osm.korona.ws/tile/{z}/{x}/{y}.png'
         }
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
