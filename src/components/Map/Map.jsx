@@ -101,7 +101,7 @@ export default function Map(props) {
       {...props}
     >
       <TileLayer
-        url={Math.random() > 0.8
+        url={Math.random() > 0.5
           ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           : 'https://osm.korona.ws/tile/{z}/{x}/{y}.png'
         }
