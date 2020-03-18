@@ -91,9 +91,20 @@ export default function Map(props) {
   const position = clickedCity ? getLocationForCity(clickedCity, data) : [51.984880, 19.368896];
 
   return (
-    <LeafletMap center={position} zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
+    <LeafletMap
+      center={position}
+      zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 6 : 7}
+      zoomControl={false}      
+      maxZoom={10}
+      minZoom={4}
+      maxBounds={[[48.302684, 12.363282], [56.137388, 26.572265]]}
+      {...props}
+    >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url={Math.random() > 0.8
+          ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          : 'https://osm.korona.ws/tile/{z}/{x}/{y}.png'
+        }
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
       <MarkerClusterGroup
@@ -129,7 +140,7 @@ export default function Map(props) {
         position={activeCity.location}
         onClose={() => setActiveCity(null)}
       >
-        <StyledCard 
+        <StyledCard
           style={$theme => ({
             [$theme.mediaQuery.large]: {
               width: '320px'
