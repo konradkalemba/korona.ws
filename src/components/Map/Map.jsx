@@ -103,7 +103,7 @@ export default function Map(props) {
       zoomControl={false}
       maxZoom={10}
       minZoom={4}
-      maxBounds={[[48.302684, 12.363282], [56.137388, 26.572265]]}
+      maxBounds={[[42.509902, 4.150977], [60.079457, 33.587441]]}
       {...props}
     >
       <TileLayer
