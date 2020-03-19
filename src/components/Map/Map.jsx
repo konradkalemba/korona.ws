@@ -56,7 +56,7 @@ export default function Map(props) {
   const [, theme] = useStyletron();
   const rand = useRef(Math.random());
 
-  const { voivodeships, cases, deaths, isLoading, clickedVoivodeship } = useData();
+  const { voivodeships, cases, deaths, cures, isLoading, clickedVoivodeship } = useData();
 
   if (isLoading) {
     return (
@@ -69,6 +69,7 @@ export default function Map(props) {
 
   const groupedCases = groupBy(cases, 'voivodeship');
   const groupedDeaths = groupBy(deaths, 'voivodeship');
+  const groupedCures = groupBy(cures, 'voivodeship');
 
   let data = [];
 
@@ -83,6 +84,10 @@ export default function Map(props) {
         deaths: {
           total: sum(groupedDeaths[voivodeship.name]),
           data: groupedDeaths[voivodeship.name] || []
+        },
+        cures: {
+          total: sum(groupedCures[voivodeship.name]),
+          data: groupedCures[voivodeship.name] || []
         }
       })
     }
@@ -125,13 +130,13 @@ export default function Map(props) {
           return createMarkerIcon(getMarkerSize(max, count.cases), count.cases, count.deaths);
         }}
       >
-        {data && data.map(({ voivodeship, cases, deaths }) => (
+        {data && data.map(({ voivodeship, cases, deaths, cures }) => (
           <Marker
             key={voivodeship.name}
             position={voivodeship.location}
             icon={createMarkerIcon(getMarkerSize(max, cases.total), cases.total, deaths.total)}
             onClick={() => {
-              setActiveVoivodeship({ ...voivodeship, cases, deaths });
+              setActiveVoivodeship({ ...voivodeship, cases, deaths, cures });
             }}
             casesCount={cases.total}
             deathsCount={deaths.total}
@@ -164,6 +169,13 @@ export default function Map(props) {
                 data={activeVoivodeship.cases.data}
                 label="Potwierdzone przypadki"
                 color={theme.colors.negative}
+                size="compact"
+              />
+
+              <Figure
+                data={activeVoivodeship.cures.data}
+                label="Wyleczenia"
+                color={theme.colors.positive}
                 size="compact"
               />
             </Block>
