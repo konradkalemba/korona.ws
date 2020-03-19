@@ -5,6 +5,9 @@ import { BaseProvider, darkThemePrimitives, createTheme, DarkTheme, lightThemePr
 import { ThemeContext, ThemeProvider } from './../../contexts/ThemeContext';
 import { DataProvider } from './../../contexts/DataContext';
 
+import { Notification } from 'baseui/notification';
+import { Block } from 'baseui/block';
+import { Layer } from 'baseui/layer';
 import { Layout } from '../../components';
 
 const engine = new Styletron();
@@ -37,6 +40,34 @@ export default function App() {
                 }}
               >
                 <Layout />
+
+                {!localStorage.getItem('notificationDismissed') && (
+                  <Layer>
+                    <Block
+                      position={'fixed'}
+                      top="0"
+                      padding="0"
+                      width="100%"
+                    >
+
+                      <Notification
+                        overrides={{
+                          Body: {
+                            style: {
+                              marginTop: 0,
+                              width: '100%',
+                              boxSizing: 'border-box'
+                            }
+                          }
+                        }}
+                        closeable
+                        onClose={() => localStorage.setItem('notificationDismissed', true)}
+                      >
+                        Ze względu na brak precyzyjnych informacji o lokalizacji poszczególnych przypadków w najnowszych komunikatach Ministerstwa Zdrowia, zmuszeni jesteśmy ograniczyć się do wyświetlania danych z podziałem na województwa.
+                      </Notification>
+                    </Block>
+                  </Layer>
+                )}
               </BaseProvider>
             )}
           </ThemeContext.Consumer>
