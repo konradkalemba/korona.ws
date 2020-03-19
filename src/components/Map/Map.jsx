@@ -54,7 +54,6 @@ export default function Map(props) {
   const [activeVoivodeship, setActiveVoivodeship] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
-  const rand = useRef(Math.random());
 
   const { voivodeships, cases, deaths, cures, isLoading, clickedVoivodeship } = useData();
 
@@ -107,11 +106,7 @@ export default function Map(props) {
       {...props}
     >
       <TileLayer
-        url={
-          rand.current > 0.5
-            ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-            : 'https://osm.korona.ws/tile/{z}/{x}/{y}.png'
-        }
+        url="https://osm.korona.ws/tile/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
       <MarkerClusterGroup
