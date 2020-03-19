@@ -1,4 +1,7 @@
 {
+  "env": {
+    "API_KEY": "@api-key"
+  },
   "build": {
     "env": {
       "REACT_APP_FIREBASE_API_KEY": "@firebase-api-key",
