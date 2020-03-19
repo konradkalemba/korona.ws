@@ -14,13 +14,9 @@ const {
 } = process.env;
 
 export default function handle(request, response) {
-  const {
-    query: {
-      key
-    }
-  } = request;
+  const { query } = request;
 
-  if (key !== API_KEY) {
+  if (!query.key || query.key !== API_KEY) {
     response
       .status(401)
       .send({
@@ -52,7 +48,7 @@ export default function handle(request, response) {
         cases,
         cures,
         updatedAt
-      })
+      });
     });
   }
 }
