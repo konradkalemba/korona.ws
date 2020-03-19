@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Map as LeafletMap, Marker, Popup, TileLayer, AttributionControl } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import { styled, useStyletron } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -107,7 +107,7 @@ export default function Map(props) {
     >
       <TileLayer
         url="https://osm.korona.ws/tile/{z}/{x}/{y}.png"
-        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+        attribution="&copy; Autorzy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
       />
       <MarkerClusterGroup
         showCoverageOnHover={false}
