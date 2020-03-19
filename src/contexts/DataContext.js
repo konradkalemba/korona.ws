@@ -26,7 +26,7 @@ firebase.initializeApp({
 firebase.analytics();
 
 const updatedAtDatabaseRef = firebase.database().ref('/updatedAt');
-const rootDatabaseRef = firebase.database().ref('/');
+const rootDatabaseRef = firebase.database().ref('/newDataSchema');
 
 const DataContext = createContext();
 
