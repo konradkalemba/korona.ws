@@ -46,17 +46,17 @@ function getMarkerSize(max, count) {
   return (count / max * (MAX_MARKER_SIZE - MIN_MARKER_SIZE)) + MIN_MARKER_SIZE;
 }
 
-function getLocationForCity(clickedCity, data) {
-  return data.filter((item) => item.city.name === clickedCity).pop().city.location;
+function getLocationForVoivodeship(clickedVoivodeship, data) {
+  return data.filter((item) => item.voivodeship.name === clickedVoivodeship).pop().voivodeship.location;
 }
 
 export default function Map(props) {
-  const [activeCity, setActiveCity] = useState(null);
+  const [activeVoivodeship, setActiveVoivodeship] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
   const rand = useRef(Math.random());
 
-  const { cities, cases, deaths, isLoading, clickedCity } = useData();
+  const { voivodeships, cases, deaths, isLoading, clickedVoivodeship } = useData();
 
   if (isLoading) {
     return (
@@ -67,34 +67,34 @@ export default function Map(props) {
     )
   }
 
-  const groupedCases = groupBy(cases, 'city');
-  const groupedDeaths = groupBy(deaths, 'city');
+  const groupedCases = groupBy(cases, 'voivodeship');
+  const groupedDeaths = groupBy(deaths, 'voivodeship');
 
   let data = [];
 
   if (!data.length) {
-    for (const city of cities) {
+    for (const voivodeship of voivodeships) {
       data.push({
-        city,
+        voivodeship,
         cases: {
-          total: sum(groupedCases[city.name]),
-          data: groupedCases[city.name] || []
+          total: sum(groupedCases[voivodeship.name]),
+          data: groupedCases[voivodeship.name] || []
         },
         deaths: {
-          total: sum(groupedDeaths[city.name]),
-          data: groupedDeaths[city.name] || []
+          total: sum(groupedDeaths[voivodeship.name]),
+          data: groupedDeaths[voivodeship.name] || []
         }
       })
     }
   }
 
   const max = Math.max(...(data.map(({ cases }) => cases.total)));
-  const position = clickedCity ? getLocationForCity(clickedCity, data) : [51.984880, 19.368896];
+  const position = clickedVoivodeship ? getLocationForVoivodeship(clickedVoivodeship, data) : [51.984880, 19.368896];
 
   return (
     <LeafletMap
       center={position}
-      zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 6 : 7}
+      zoom={clickedVoivodeship ? 9 : width < theme.breakpoints.medium ? 6 : 7}
       zoomControl={false}
       maxZoom={10}
       minZoom={4}
@@ -125,22 +125,22 @@ export default function Map(props) {
           return createMarkerIcon(getMarkerSize(max, count.cases), count.cases, count.deaths);
         }}
       >
-        {data && data.map(({ city, cases, deaths }) => (
+        {data && data.map(({ voivodeship, cases, deaths }) => (
           <Marker
-            key={city.name}
-            position={city.location}
+            key={voivodeship.name}
+            position={voivodeship.location}
             icon={createMarkerIcon(getMarkerSize(max, cases.total), cases.total, deaths.total)}
             onClick={() => {
-              setActiveCity({ ...city, cases, deaths });
+              setActiveVoivodeship({ ...voivodeship, cases, deaths });
             }}
             casesCount={cases.total}
             deathsCount={deaths.total}
           />
         ))}
       </MarkerClusterGroup>
-      {activeCity && <Popup
-        position={activeCity.location}
-        onClose={() => setActiveCity(null)}
+      {activeVoivodeship && <Popup
+        position={activeVoivodeship.location}
+        onClose={() => setActiveVoivodeship(null)}
       >
         <StyledCard
           style={$theme => ({
@@ -150,18 +150,18 @@ export default function Map(props) {
           })}
         >
           <StyledBody>
-            <Label1>{activeCity.name}</Label1>
+            <Label1>{activeVoivodeship.name}</Label1>
 
             <Block marginTop="10px">
               <Figure
-                data={activeCity.deaths.data}
+                data={activeVoivodeship.deaths.data}
                 label="Zgony"
                 color={theme.colors.primary}
                 size="compact"
               />
 
               <Figure
-                data={activeCity.cases.data}
+                data={activeVoivodeship.cases.data}
                 label="Potwierdzone przypadki"
                 color={theme.colors.negative}
                 size="compact"

@@ -38,9 +38,9 @@ export default function Recent({ isLoading, data }) {
   const [filter, setFilter] = useState('');
   const filteredData =
     data?.filter(
-      ({ city, date }) => compare(city, filter) || compare(date, filter)
+      ({ voivodeship, date }) => compare(voivodeship, filter) || compare(date, filter)
     ) || [];
-  const { setClickedCity } = useData();
+  const { setClickedVoivodeship } = useData();
 
   return (
     <>
@@ -82,11 +82,11 @@ export default function Recent({ isLoading, data }) {
             <Paragraph3 margin={0}>Liczba</Paragraph3>
           </StyledHeadCell>
           <StyledHeadCell role="columnheader">
-            <Paragraph3 margin={0}>Miasto</Paragraph3>
+            <Paragraph3 margin={0}>Województwo</Paragraph3>
           </StyledHeadCell>
         </StyledHead>
         <StyledTableBody>
-          {filteredData.slice().reverse().map(({date, count, city, source}, index) => (
+          {filteredData.slice().reverse().map(({date, count, voivodeship, source}, index) => (
             <StyledRow key={index}>
               <StyledCell>
                 <Paragraph4
@@ -105,8 +105,11 @@ export default function Recent({ isLoading, data }) {
               <StyledCell>
                 <Paragraph4
                   margin={0}
+                  $style={{
+                    wordBreak: 'break-all'
+                  }}
                 >
-                  {city ? <StyledLink onClick={() => setClickedCity(city)} $style={{ cursor: 'pointer' }}>{city}</StyledLink> : 'Brak szczegółów' }
+                  {voivodeship ? <StyledLink onClick={() => setClickedVoivodeship(voivodeship)} $style={{ cursor: 'pointer' }}>{voivodeship}</StyledLink> : 'Brak szczegółów' }
                 </Paragraph4>
               </StyledCell>
             </StyledRow>

@@ -6,13 +6,13 @@ import { useStyletron } from 'baseui';
 import Loader from "./Loader"
 import { useData } from '../../contexts/DataContext';
 
-export default function CitiesSplit({ isLoading, data }) {
+export default function VoivodeshipsSplit({ isLoading, data }) {
   const [, theme] = useStyletron();
-  const { setClickedCity } = useData();
+  const { setClickedVoivodeship } = useData();
 
   return (
     <>
-      <Label3>Podział na miasta</Label3>
+      <Label3>Podział na województwa</Label3>
       <Block
         $style={{
           height: '196px',
@@ -27,14 +27,14 @@ export default function CitiesSplit({ isLoading, data }) {
             layout="vertical"
           >
             <YAxis
-              dataKey="city"
+              dataKey="voivodeship"
               type="category"
               tick={{
                 fill: theme.colors.contentPrimary,
                 cursor: 'pointer'
               }}
               width={100}
-              onClick={({ value }) => setClickedCity(value)}
+              onClick={({ value }) => setClickedVoivodeship(value)}
             />
             <XAxis type="number" hide />
             <Tooltip
