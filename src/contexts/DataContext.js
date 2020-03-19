@@ -26,14 +26,14 @@ firebase.initializeApp({
 firebase.analytics();
 
 const updatedAtDatabaseRef = firebase.database().ref('/updatedAt');
-const rootDatabaseRef = firebase.database().ref('/newDataSchema');
+const rootDatabaseRef = firebase.database().ref('/');
 
 const DataContext = createContext();
 
 export function DataProvider(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [clickedCity, setClickedCity] = useState(null)
+  const [clickedVoivodeship, setClickedVoivodeship] = useState(null)
 
   useEffect(() => {
     const cachedData = JSON.parse(localStorage.getItem('data'));
@@ -64,8 +64,8 @@ export function DataProvider(props) {
       value={{
         isLoading,
         ...data,
-        clickedCity,
-        setClickedCity
+        clickedVoivodeship,
+        setClickedVoivodeship
       }}
       {...props}
     />
