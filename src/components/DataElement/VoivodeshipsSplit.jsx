@@ -15,8 +15,6 @@ export default function VoivodeshipsSplit({ isLoading, data }) {
       <Label3>Podział na województwa</Label3>
       <Block
         $style={{
-          height: '196px',
-          overflow: 'auto',
           margin: '12px 0 20px'
         }}
       >
@@ -25,6 +23,7 @@ export default function VoivodeshipsSplit({ isLoading, data }) {
           <BarChart
             data={data}
             layout="vertical"
+            className="voivodeship-charts"
           >
             <YAxis
               dataKey="voivodeship"
@@ -33,7 +32,7 @@ export default function VoivodeshipsSplit({ isLoading, data }) {
                 fill: theme.colors.contentPrimary,
                 cursor: 'pointer'
               }}
-              width={100}
+              width={130}
               onClick={({ value }) => setClickedVoivodeship(value)}
             />
             <XAxis type="number" hide />
