@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import { divIcon } from 'leaflet';
@@ -46,13 +46,17 @@ function getMarkerSize(max, count) {
   return (count / max * (MAX_MARKER_SIZE - MIN_MARKER_SIZE)) + MIN_MARKER_SIZE;
 }
 
+function getLocationForVoivodeship(clickedVoivodeship, data) {
+  return data.filter((item) => item.voivodeship.name === clickedVoivodeship).pop().voivodeship.location;
+}
+
 export default function Map(props) {
-  const position = [51.984880, 19.368896];
-  const [activeCity, setActiveCity] = useState(null);
+  const [activeVoivodeship, setActiveVoivodeship] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
+  const rand = useRef(Math.random());
 
-  const { cities, cases, deaths, isLoading } = useData();
+  const { voivodeships, cases, deaths, cures, isLoading, clickedVoivodeship } = useData();
 
   if (isLoading) {
     return (
@@ -63,33 +67,51 @@ export default function Map(props) {
     )
   }
 
-  const groupedCases = groupBy(cases, 'city');
-  const groupedDeaths = groupBy(deaths, 'city');
+  const groupedCases = groupBy(cases, 'voivodeship');
+  const groupedDeaths = groupBy(deaths, 'voivodeship');
+  const groupedCures = groupBy(cures, 'voivodeship');
 
   let data = [];
 
   if (!data.length) {
-    for (const city of cities) {
+    for (const voivodeship of voivodeships) {
       data.push({
-        city,
+        voivodeship,
         cases: {
-          total: sum(groupedCases[city.name]),
-          data: groupedCases[city.name] || []
+          total: sum(groupedCases[voivodeship.name]),
+          data: groupedCases[voivodeship.name] || []
         },
         deaths: {
-          total: sum(groupedDeaths[city.name]),
-          data: groupedDeaths[city.name] || []
+          total: sum(groupedDeaths[voivodeship.name]),
+          data: groupedDeaths[voivodeship.name] || []
+        },
+        cures: {
+          total: sum(groupedCures[voivodeship.name]),
+          data: groupedCures[voivodeship.name] || []
         }
       })
     }
   }
 
   const max = Math.max(...(data.map(({ cases }) => cases.total)));
+  const position = clickedVoivodeship ? getLocationForVoivodeship(clickedVoivodeship, data) : [51.984880, 19.368896];
 
   return (
-    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
+    <LeafletMap
+      center={position}
+      zoom={clickedVoivodeship ? 9 : width < theme.breakpoints.medium ? 6 : 7}
+      zoomControl={false}
+      maxZoom={10}
+      minZoom={4}
+      maxBounds={[[42.509902, 4.150977], [60.079457, 33.587441]]}
+      {...props}
+    >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url={
+          rand.current > 0.8
+            ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            : 'https://osm.korona.ws/tile/{z}/{x}/{y}.png'
+        }
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
       <MarkerClusterGroup
@@ -108,39 +130,52 @@ export default function Map(props) {
           return createMarkerIcon(getMarkerSize(max, count.cases), count.cases, count.deaths);
         }}
       >
-        {data && data.map(({ city, cases, deaths }) => (
+        {data && data.map(({ voivodeship, cases, deaths, cures }) => (
           <Marker
-            key={city.name}
-            position={city.location}
+            key={voivodeship.name}
+            position={voivodeship.location}
             icon={createMarkerIcon(getMarkerSize(max, cases.total), cases.total, deaths.total)}
             onClick={() => {
-              setActiveCity({ ...city, cases, deaths });
+              setActiveVoivodeship({ ...voivodeship, cases, deaths, cures });
             }}
             casesCount={cases.total}
             deathsCount={deaths.total}
           />
         ))}
       </MarkerClusterGroup>
-      {activeCity && <Popup
-        position={activeCity.location}
-        onClose={() => setActiveCity(null)}
+      {activeVoivodeship && <Popup
+        position={activeVoivodeship.location}
+        onClose={() => setActiveVoivodeship(null)}
       >
-        <StyledCard width="320px">
+        <StyledCard
+          style={$theme => ({
+            [$theme.mediaQuery.large]: {
+              width: '320px'
+            }
+          })}
+        >
           <StyledBody>
-            <Label1>{activeCity.name}</Label1>
+            <Label1>{activeVoivodeship.name}</Label1>
 
             <Block marginTop="10px">
               <Figure
-                data={activeCity.deaths.data}
+                data={activeVoivodeship.deaths.data}
                 label="Zgony"
                 color={theme.colors.primary}
                 size="compact"
               />
 
               <Figure
-                data={activeCity.cases.data}
+                data={activeVoivodeship.cases.data}
                 label="Potwierdzone przypadki"
                 color={theme.colors.negative}
+                size="compact"
+              />
+
+              <Figure
+                data={activeVoivodeship.cures.data}
+                label="Wyleczenia"
+                color={theme.colors.positive}
                 size="compact"
               />
             </Block>

@@ -33,6 +33,7 @@ const DataContext = createContext();
 export function DataProvider(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [clickedVoivodeship, setClickedVoivodeship] = useState(null)
 
   useEffect(() => {
     const cachedData = JSON.parse(localStorage.getItem('data'));
@@ -62,7 +63,9 @@ export function DataProvider(props) {
     <DataContext.Provider
       value={{
         isLoading,
-        ...data
+        ...data,
+        clickedVoivodeship,
+        setClickedVoivodeship
       }}
       {...props}
     />

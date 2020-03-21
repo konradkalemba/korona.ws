@@ -4,18 +4,18 @@ import {Tab, Tabs} from 'baseui/tabs';
 import {StyledCard} from '..';
 import { Notification } from 'baseui/notification';
 
-import {useData} from '../../contexts/DataContext';
+import { useData } from '../../contexts/DataContext';
 import groupBy from 'lodash.groupby';
 import {sum} from '../../helpers/misc';
-import CitiesSplit from './CitiesSplit';
+import VoivodeshipsSplit from './VoivodeshipsSplit';
 import Recent from './Recent';
 
-function prepareData(cases) {
+function prepareData(cases, voivodeships) {
   return Object
-    .entries(groupBy(cases, 'city'))
-    .map(([city, data]) => ({ city, count: sum(data) }))
-    .sort((a, b) => b.count - a.count)
-    .filter(({ city }) => city !== 'undefined');
+    .entries(groupBy(cases, 'voivodeship'))
+    .map(([voivodeship, data]) => ({ voivodeship, count: sum(data) }))
+    .filter(({ voivodeship }) => voivodeship !== 'undefined')
+    .sort((a, b) => b.count - a.count);
 }
 
 export default function DataElement() {
@@ -32,8 +32,16 @@ export default function DataElement() {
   }, [cases, deaths, cures])
 
   return (
-    <StyledCard
-      width="420px"
+    <StyledCard 
+      style={$theme => ({
+        [$theme.mediaQuery.medium]: {
+          maxHeight: 'calc(100vh - 200px)',
+          overflow: 'auto'
+        },
+        [$theme.mediaQuery.large]: {
+          width: '420px'
+        }
+      })}
     >
       <StyledBody>
         <Tabs
@@ -53,11 +61,11 @@ export default function DataElement() {
           }}
         >
           <Tab title="Potwierdzone przypadki">
-            <CitiesSplit data={groupedCases} isLoading={isLoading} />
+            <VoivodeshipsSplit data={groupedCases} isLoading={isLoading} />
             <Recent data={cases} isLoading={isLoading} />
           </Tab>
           <Tab title="Zgony">
-            <CitiesSplit data={groupedDeaths} isLoading={isLoading} />
+            <VoivodeshipsSplit data={groupedDeaths} isLoading={isLoading} />
             <Recent data={deaths} isLoading={isLoading} />
           </Tab>
           <Tab title="Wyleczenia">       
@@ -73,7 +81,7 @@ export default function DataElement() {
             >
               Liczba wyleczonych została skorygowana po błędnej interpretacji komunikatu GIS-u, który mówił o 13 ozdrowiałych.
             </Notification>
-            <CitiesSplit data={groupedCures} isLoading={isLoading} />
+            <VoivodeshipsSplit data={groupedCures} isLoading={isLoading} />
             <Recent data={cures} isLoading={isLoading} />
           </Tab>
         </Tabs>
