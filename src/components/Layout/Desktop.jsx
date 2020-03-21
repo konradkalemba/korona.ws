@@ -9,7 +9,7 @@ import { Paragraph3, Label2 } from 'baseui/typography';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
-import Graphs from "../Graphs/Graphs"
+import DailyGrowth from '../DailyGrowth/DailyGrowth';
 
 export default function Layout() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,21 +21,21 @@ export default function Layout() {
         <Map className={useDarkTheme ? 'dark-theme' : ''} />
       </Layer>
       <Layer>
-        <Block position={'fixed'} top={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '40px']}>
-          <Figures />
+        <Block position={'fixed'} bottom={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '20px']}>
+          <DailyGrowth />
         </Block>
       </Layer>
       <Layer>
-        <Block position={'fixed'} bottom={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '40px']}>
-          <Graphs />
+        <Block position={'fixed'} top={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '20px']}>
+          <Figures />
         </Block>
       </Layer>
       <Layer>
         <Block 
           display={['none', 'none', 'none', 'block']}
           position={'fixed'}
-          top={'40px'}
-          right={'40px'}
+          top={'20px'}
+          right={'20px'}
           $style={({ $theme }) => ({
             [$theme.mediaQuery.medium]: {
               maxHeight: 'calc(100vh - 100px)'
@@ -64,7 +64,7 @@ export default function Layout() {
         </Block>
       </Layer>
       <Layer>
-        <Block position={'fixed'} bottom={'40px'} right={'40px'} display="flex">
+        <Block position={'fixed'} bottom={'20px'} right={'20px'} display="flex">
           <div className="fb-share-button" data-href="https://korona.ws" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Udostępnij</a></div>
           <Button
             size={SIZE.mini}
