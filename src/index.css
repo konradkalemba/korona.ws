@@ -62,10 +62,6 @@ svg.marker text {
   font-weight: 500;
 }
 
-.voivodeship-charts {
-  font-size: 12px;
-}
-
 [data-theme=dark] *::-webkit-scrollbar {
   width: .35em;
 }

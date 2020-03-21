@@ -7,7 +7,7 @@ import Loader from "./Loader"
 import { useData } from '../../contexts/DataContext';
 
 export default function VoivodeshipsSplit({ isLoading, data }) {
-  const [, theme] = useStyletron();
+  const [css, theme] = useStyletron();
   const { setClickedVoivodeship } = useData();
 
   return (
@@ -23,7 +23,9 @@ export default function VoivodeshipsSplit({ isLoading, data }) {
           <BarChart
             data={data}
             layout="vertical"
-            className="voivodeship-charts"
+            className={css({
+              fontSize: '12px'
+            })}
           >
             <YAxis
               dataKey="voivodeship"
