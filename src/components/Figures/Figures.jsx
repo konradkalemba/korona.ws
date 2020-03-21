@@ -23,14 +23,14 @@ function CountLoader() {
   return (
     <ContentLoader
       speed={0.6}
-      width={50}
-      height={64}
+      width={80}
+      height={44}
       display={'block'}
-      viewBox="0 0 50 64"
+      viewBox="0 0 80 44"
       backgroundColor={theme.colors.backgroundTertiary}
       foregroundColor={theme.colors.backgroundSecondary}
     >
-      <rect x="0" y="5" rx="2" ry="2" width="40" height="54" />
+      <rect x="0" y="5" rx="2" ry="2" width="70" height="36" />
     </ContentLoader>
   );
 }
@@ -107,7 +107,7 @@ export default function Figures() {
           overflow: 'auto'
         },
         [$theme.mediaQuery.large]: {
-          width: '380px'
+          width: '320px'
         }
       })}
     >
@@ -117,21 +117,21 @@ export default function Figures() {
           isLoading={isLoading}
           label="Zgony"
           color={theme.colors.primary}
-          size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
+          size={'compact'}
         />
         <Figure
           data={cases}
           isLoading={isLoading}
           label="Potwierdzone przypadki"
           color={theme.colors.negative}
-          size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
+          size={'compact'}
         />
         <Figure
           data={cures}
           isLoading={isLoading}
           label="Wyleczenia"
           color={theme.colors.positive}
-          size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
+          size={'compact'}
         />
 
         <Block
