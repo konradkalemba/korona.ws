@@ -25,7 +25,6 @@ export default function Layout() {
         <Map className={useDarkTheme ? "dark-theme" : ""} />
       </Layer>
       <Layer>
-<<<<<<< HEAD
         <Block position={'fixed'} bottom={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '20px']}>
           <Block
             overrides={{
@@ -43,16 +42,6 @@ export default function Layout() {
           >
             <DailyGrowth />
           </Block>
-=======
-        <Block
-          position={"fixed"}
-          bottom={0}
-          left={0}
-          width={["100%", "100%", "auto"]}
-          margin={["0", "0", "20px"]}
-        >
-          <DailyGrowth />
->>>>>>> Feat: update translations
         </Block>
       </Layer>
       <Layer>
