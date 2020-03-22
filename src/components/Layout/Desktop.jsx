@@ -15,7 +15,7 @@ import DailyGrowth from '../DailyGrowth/DailyGrowth';
 export default function Layout() {
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
-  const [css] = useStyletron()
+  const [css] = useStyletron();
 
   return (
     <>
