@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
-import { Map, DataElement, Contributors } from '../../components';
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Map, DataElement, Contributors } from "../../components";
 
-import { useStyletron } from 'baseui';
-import { Layer } from 'baseui/layer';
-import { Button, SIZE } from 'baseui/button';
-import { Block } from 'baseui/block';
-import { Modal, ModalHeader, ModalBody, ROLE } from 'baseui/modal';
-import { Paragraph3, Label2, HeadingSmall } from 'baseui/typography';
+import { useStyletron } from "baseui";
+import { Layer } from "baseui/layer";
+import { Button, SIZE, KIND } from "baseui/button";
+import { Block } from "baseui/block";
+import { Modal, ModalHeader, ModalBody, ROLE } from "baseui/modal";
+import { Paragraph3, Label2, HeadingSmall } from "baseui/typography";
 
-import { useTheme } from '../../contexts/ThemeContext';
-import { StyledLink } from 'baseui/link';
-import { Tabs, Tab } from 'baseui/tabs';
-import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
-import { Figure } from '../Figures/Figures';
-import { useData } from '../../contexts/DataContext';
-import DailyGrowth from "../DailyGrowth/DailyGrowth"
+import { switchLanguage } from "../../helpers/switchLanguage";
+
+import { useTheme } from "../../contexts/ThemeContext";
+import { StyledLink } from "baseui/link";
+import { Tabs, Tab } from "baseui/tabs";
+import { FlexGrid, FlexGridItem } from "baseui/flex-grid";
+import { Figure } from "../Figures/Figures";
+import { useData } from "../../contexts/DataContext";
+import DailyGrowth from "../DailyGrowth/DailyGrowth";
 
 function CustomTab(props) {
   return (
@@ -23,31 +26,41 @@ function CustomTab(props) {
         Tab: {
           style: {
             flexGrow: 1,
-            textAlign: 'center',
-            padding: '10px 0'
+            textAlign: "center",
+            padding: "10px 0"
           }
         }
       }}
       {...props}
     />
-  )
+  );
 }
 
 export default function Mobile() {
-  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
+  const {
+    cases,
+    cures,
+    deaths,
+    hospitalizations,
+    quarantines,
+    supervisions,
+    tests,
+    isLoading
+  } = useData();
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
-  const [activeKey, setActiveKey] = useState('0');
+  const [activeKey, setActiveKey] = useState("0");
   const [css, theme] = useStyletron();
 
   return (
     <>
       <div
         className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-          width: '100vw'
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+          width: "100vw"
         })}
       >
         <div
@@ -57,13 +70,13 @@ export default function Mobile() {
             paddingBottom: 0
           })}
         >
-          <HeadingSmall margin={0}>Koronawirus w Polsce</HeadingSmall>
+          <HeadingSmall margin={0}>{t("coronavirusInPoland")}</HeadingSmall>
           <FlexGrid flexGridColumnCount={3}>
             <FlexGridItem>
               <Figure
                 data={deaths}
                 isLoading={isLoading}
-                label="Zgony"
+                label={t("deaths")}
                 color={theme.colors.primary}
                 size="compact"
               />
@@ -72,7 +85,7 @@ export default function Mobile() {
               <Figure
                 data={cases}
                 isLoading={isLoading}
-                label="Potw. przypadki"
+                label={t("confirmedCasesShort")}
                 color={theme.colors.negative}
                 size="compact"
               />
@@ -81,7 +94,7 @@ export default function Mobile() {
               <Figure
                 data={cures}
                 isLoading={isLoading}
-                label="Wyleczenia"
+                label={t("cured")}
                 color={theme.colors.positive}
                 size="compact"
               />
@@ -98,12 +111,12 @@ export default function Mobile() {
             Root: {
               style: {
                 flexGrow: 1,
-                display: 'flex'
+                display: "flex"
               }
             },
             TabBar: {
               style: {
-                display: 'flex'
+                display: "flex"
               }
             },
             TabContent: {
@@ -112,21 +125,24 @@ export default function Mobile() {
                   backgroundColor: theme.colors.backgroundPrimary,
                   padding: 0,
                   flexGrow: 1,
-                  display: $active ? 'flex' : 'none',
-                  width: '100vw'
+                  display: $active ? "flex" : "none",
+                  width: "100vw"
                 };
               }
             }
           }}
         >
-          <CustomTab title="Mapa">
-            <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: 'auto' }} />
+          <CustomTab title={t("map")}>
+            <Map
+              className={useDarkTheme ? "dark-theme" : ""}
+              style={{ height: "auto" }}
+            />
           </CustomTab>
-          <CustomTab title="Statystyki">
+          <CustomTab title={t("statistics")}>
             <div
               className={css({
                 padding: theme.sizing.scale600,
-                height: 'auto'
+                height: "auto"
               })}
             >
               <FlexGrid flexGridColumnCount={2}>
@@ -134,7 +150,7 @@ export default function Mobile() {
                   <Figure
                     data={hospitalizations}
                     isLoading={isLoading}
-                    label="Hospitalizowani"
+                    label={t("hospitalized")}
                     color={theme.colors.accent}
                     size="compact"
                   />
@@ -143,7 +159,7 @@ export default function Mobile() {
                   <Figure
                     data={quarantines}
                     isLoading={isLoading}
-                    label="Poddani kwarantannie"
+                    label={t("quarantined")}
                     color={theme.colors.accent}
                     size="compact"
                   />
@@ -152,7 +168,7 @@ export default function Mobile() {
                   <Figure
                     data={supervisions}
                     isLoading={isLoading}
-                    label="Objęci nadzorem epidemiologicznym"
+                    label={t("underSurveillance")}
                     color={theme.colors.accent}
                     size="compact"
                   />
@@ -161,22 +177,21 @@ export default function Mobile() {
                   <Figure
                     data={tests}
                     isLoading={isLoading}
-                    label="Testy"
+                    label={t("tests")}
                     color={theme.colors.accent}
                     size="compact"
                   />
                 </FlexGridItem>
               </FlexGrid>
               <DailyGrowth />
-              <br/>
+              <br />
               <DataElement />
             </div>
           </CustomTab>
         </Tabs>
-
       </div>
       <Layer>
-        <Block position={'fixed'} bottom={'16px'} left={'0px'} display="flex">
+        <Block position={"fixed"} bottom={"16px"} left={"0px"} display="flex">
           <Button
             size={SIZE.mini}
             onClick={() => setIsOpen(true)}
@@ -185,12 +200,12 @@ export default function Mobile() {
                 style: ({ $theme }) => ({
                   borderRadius: $theme.borders.radius200,
                   boxShadow: $theme.lighting.shadow500,
-                  marginLeft: '10px'
+                  marginLeft: "10px"
                 })
               }
             }}
           >
-            Informacje
+            {t("information")}
           </Button>
           <Button
             size={SIZE.mini}
@@ -200,12 +215,28 @@ export default function Mobile() {
                 style: ({ $theme }) => ({
                   borderRadius: $theme.borders.radius200,
                   boxShadow: $theme.lighting.shadow500,
-                  marginLeft: '10px'
+                  marginLeft: "10px"
                 })
               }
             }}
           >
-            {useDarkTheme ? 'Wyłącz' : 'Włącz'} tryb ciemny
+            {useDarkTheme ? t("turnOff") : t("turnOn")} {t("darkMode")}
+          </Button>
+          <Button
+            size={SIZE.mini}
+            kind={KIND.secondary}
+            onClick={() => switchLanguage({ i18n })}
+            overrides={{
+              BaseButton: {
+                style: ({ $theme }) => ({
+                  borderRadius: $theme.borders.radius200,
+                  boxShadow: $theme.lighting.shadow500,
+                  marginLeft: "10px"
+                })
+              }
+            }}
+          >
+            {t("switchLang")}
           </Button>
           <Modal
             onClose={() => setIsOpen(false)}
@@ -221,25 +252,26 @@ export default function Mobile() {
               }
             }}
           >
-            <ModalHeader>Informacje</ModalHeader>
+            <ModalHeader>{t("information")}</ModalHeader>
             <ModalBody>
+              <Paragraph3>{t("relevanceInfo")}</Paragraph3>
               <Paragraph3>
-                Autor nie ponosi odpowiedzialności za aktualność i poprawność przedstawionych treści. Dane mogą być nieaktualne.
-              </Paragraph3>
-              <Paragraph3>
-                Autor: Konrad Kalemba<br />
-                    Kontakt: <StyledLink target="_blank" href="mailto:admin@korona.ws">
+                {t("author")}
+                <br />
+                {t("contact")}:{" "}
+                <StyledLink target="_blank" href="mailto:admin@korona.ws">
                   admin@korona.ws
-              </StyledLink>
+                </StyledLink>
               </Paragraph3>
-              <Paragraph3>
-                Aplikacja jest "open-source" — każdy chętny może bezpośrednio pomóc w rozwoju projektu. Kod źródłowy znajduje się pod poniższym odnośnikiem:
-              </Paragraph3>
-              <StyledLink target="_blank" href="https://github.com/konradkalemba/korona.ws">
+              <Paragraph3>{t("openSourceApp")}</Paragraph3>
+              <StyledLink
+                target="_blank"
+                href="https://github.com/konradkalemba/korona.ws"
+              >
                 https://github.com/konradkalemba/korona.ws
               </StyledLink>
 
-              <Label2 margin="20px 0 10px">Współtwórcy</Label2>
+              <Label2 margin="20px 0 10px">{t("contributors")}</Label2>
               <Contributors />
             </ModalBody>
           </Modal>
