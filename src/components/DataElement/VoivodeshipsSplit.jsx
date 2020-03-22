@@ -21,7 +21,7 @@ export default function VoivodeshipsSplit({ isLoading, data }) {
 
   return (
     <>
-      <Label3>{t("divisionIntoVoivodships")}</Label3>
+      <Label3>{t("divisionIntoVoivodeships")}</Label3>
       <Block
         $style={{
           margin: "12px 0 20px"
