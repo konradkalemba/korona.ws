@@ -14,6 +14,7 @@ import { Tabs, Tab } from 'baseui/tabs';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Figure } from '../Figures/Figures';
 import { useData } from '../../contexts/DataContext';
+import DailyGrowth from "../DailyGrowth/DailyGrowth"
 
 function CustomTab(props) {
   return (
@@ -166,7 +167,8 @@ export default function Mobile() {
                   />
                 </FlexGridItem>
               </FlexGrid>
-
+              <DailyGrowth />
+              <br/>
               <DataElement />
             </div>
           </CustomTab>
