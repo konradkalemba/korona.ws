@@ -49,7 +49,7 @@ export default function VoivodeshipsSplit({ isLoading, data }) {
               />
               <XAxis type="number" hide />
               <Tooltip
-                formatter={value => [value, "Liczba"]}
+                formatter={value => [value, t("quantity")]}
                 contentStyle={{
                   backgroundColor: theme.colors.backgroundPrimary,
                   borderColor: theme.colors.backgroundTertiary

@@ -1,5 +1,5 @@
 {
-  "notification": "Due to the lack of precise information on the location of individual cases in the latest announcements of the Ministry of Health, we are forced to limit ourselves to displaying data by voivodship.",
+  "notification": "Due to the lack of precise information on the location of individual cases in the latest announcements of the Ministry of Health, we are forced to limit ourselves to displaying data by voivodeship.",
   "todaysChange": "Today's change",
   "coronavirusInPoland": "Coronavirus in Poland",
   "deaths": "Deaths",
@@ -31,7 +31,7 @@
   "search": "Search",
   "date": "Date",
   "quantity": "Quantity",
-  "voivodship": "Voivodship",
+  "voivodeship": "Voivodeship",
   "noDetails": "No Details",
   "moreInfo": "More information on coronavirus",
   "share": "Share",

@@ -86,7 +86,7 @@ export default function Recent({ isLoading, data }) {
             <Paragraph3 margin={0}>{t("quantity")}</Paragraph3>
           </StyledHeadCell>
           <StyledHeadCell role="columnheader">
-            <Paragraph3 margin={0}>{t("voivodship")}</Paragraph3>
+            <Paragraph3 margin={0}>{t("voivodeship")}</Paragraph3>
           </StyledHeadCell>
         </StyledHead>
         <StyledTableBody>
