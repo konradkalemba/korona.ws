@@ -75,10 +75,8 @@ export default function DailyGrowth() {
   return (
     <StyledCard
       style={$theme => ({
-        width: "320px",
         [$theme.mediaQuery.medium]: {
-          maxHeight: "calc(100vh - 80px)",
-          overflow: "auto"
+          maxHeight: "calc(100vh - 80px)"
         }
       })}
     >
@@ -93,7 +91,7 @@ export default function DailyGrowth() {
         {isLoading ? (
           <Loader />
         ) : (
-          <ResponsiveContainer height={180} width={"99%"}>
+          <ResponsiveContainer height={180}>
             <LineChart data={groupedData}>
               <XAxis dataKey="date" />
               <YAxis hide={true} />

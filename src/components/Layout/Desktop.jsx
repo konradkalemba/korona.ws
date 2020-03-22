@@ -7,6 +7,7 @@ import { Button, KIND, SIZE } from "baseui/button";
 import { Block } from "baseui/block";
 import { Modal, ModalHeader, ModalBody, ROLE } from "baseui/modal";
 import { Paragraph3, Label2 } from "baseui/typography";
+import { useStyletron } from "styletron-react";
 
 import { switchLanguage } from "../../helpers/switchLanguage";
 
@@ -16,6 +17,7 @@ import DailyGrowth from "../DailyGrowth/DailyGrowth";
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
+  const [css] = useStyletron();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
 
@@ -25,21 +27,14 @@ export default function Layout() {
         <Map className={useDarkTheme ? "dark-theme" : ""} />
       </Layer>
       <Layer>
-        <Block position={'fixed'} bottom={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '20px']}>
-          <Block
-            overrides={{
-              Block: {
-                style: ({ $theme }) => ({
-                  [$theme.mediaQuery.medium]: {
-                    width: '288px'
-                  },
-                  [$theme.mediaQuery.large]: {
-                    width: '320px'
-                  }
-                })
-              }
-            }}
-          >
+        <Block
+          position={"fixed"}
+          bottom={0}
+          left={0}
+          width={["100%", "100%", "auto"]}
+          margin={["0", "0", "20px"]}
+        >
+          <Block className={css({ width: "288px" })}>
             <DailyGrowth />
           </Block>
         </Block>
