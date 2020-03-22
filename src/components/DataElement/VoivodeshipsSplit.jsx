@@ -1,18 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Label3 } from "baseui/typography";
-import { Block } from "baseui/block";
-import {
-  Bar,
-  BarChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-  ResponsiveContainer
-} from "recharts";
-import { useStyletron } from "baseui";
-import Loader from "./Loader";
-import { useData } from "../../contexts/DataContext";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Label3 } from 'baseui/typography';
+import { Block } from 'baseui/block';
+import { Bar, BarChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { useStyletron } from 'baseui';
+import Loader from './Loader';
+import { useData } from '../../contexts/DataContext';
 
 export default function VoivodeshipsSplit({ isLoading, data }) {
   const { t } = useTranslation();
@@ -21,42 +14,42 @@ export default function VoivodeshipsSplit({ isLoading, data }) {
 
   return (
     <>
-      <Label3>{t("divisionIntoVoivodeships")}</Label3>
+      <Label3>{t('divisionIntoVoivodeships')}</Label3>
       <Block
         $style={{
-          margin: "12px 0 20px"
+          margin: '12px 0 20px',
         }}
       >
         {isLoading && <Loader />}
         {data && (
-          <ResponsiveContainer height={data.length * 32} width={"99%"}>
+          <ResponsiveContainer height={data.length * 32} width={'99%'}>
             <BarChart
               data={data}
-              layout="vertical"
+              layout='vertical'
               className={css({
-                fontSize: "12px"
+                fontSize: '12px',
               })}
             >
               <YAxis
-                dataKey="voivodeship"
-                type="category"
+                dataKey='voivodeship'
+                type='category'
                 tick={{
                   fill: theme.colors.contentPrimary,
-                  cursor: "pointer"
+                  cursor: 'pointer',
                 }}
                 width={130}
                 onClick={({ value }) => setClickedVoivodeship(value)}
               />
-              <XAxis type="number" hide />
+              <XAxis type='number' hide />
               <Tooltip
-                formatter={value => [value, t("quantity")]}
+                formatter={(value) => [value, t('quantity')]}
                 contentStyle={{
                   backgroundColor: theme.colors.backgroundPrimary,
-                  borderColor: theme.colors.backgroundTertiary
+                  borderColor: theme.colors.backgroundTertiary,
                 }}
                 cursor={{ fill: theme.colors.backgroundTertiary }}
               />
-              <Bar dataKey="count" fill={theme.colors.accent} />
+              <Bar dataKey='count' fill={theme.colors.accent} />
             </BarChart>
           </ResponsiveContainer>
         )}

@@ -9,7 +9,7 @@ const {
   REACT_APP_FIREBASE_STORAGE_BUCKET,
   REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   REACT_APP_FIREBASE_APP_ID,
-  REACT_APP_FIREBASE_MEASUREMENT_ID
+  REACT_APP_FIREBASE_MEASUREMENT_ID,
 } = process.env;
 
 firebase.initializeApp({
@@ -20,7 +20,7 @@ firebase.initializeApp({
   ...(REACT_APP_FIREBASE_STORAGE_BUCKET && { storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET }),
   ...(REACT_APP_FIREBASE_MESSAGING_SENDER_ID && { messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID }),
   ...(REACT_APP_FIREBASE_APP_ID && { appId: REACT_APP_FIREBASE_APP_ID }),
-  ...(REACT_APP_FIREBASE_MEASUREMENT_ID && { measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID })
+  ...(REACT_APP_FIREBASE_MEASUREMENT_ID && { measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID }),
 });
 
 firebase.analytics();
@@ -33,19 +33,19 @@ const DataContext = createContext();
 export function DataProvider(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [clickedVoivodeship, setClickedVoivodeship] = useState(null)
+  const [clickedVoivodeship, setClickedVoivodeship] = useState(null);
 
   useEffect(() => {
     const cachedData = JSON.parse(localStorage.getItem('data'));
 
     // Listen to `updatedAt` property changes
-    updatedAtDatabaseRef.on('value', snapshot => {
+    updatedAtDatabaseRef.on('value', (snapshot) => {
       // Check if cached data is valid
       if (cachedData && cachedData.updatedAt === snapshot.val()) {
         setData(cachedData);
         setIsLoading(false);
       } else {
-        rootDatabaseRef.on('value', snapshot => {
+        rootDatabaseRef.on('value', (snapshot) => {
           // Update cache
           localStorage.setItem('data', JSON.stringify(snapshot.val()));
 
@@ -65,11 +65,11 @@ export function DataProvider(props) {
         isLoading,
         ...data,
         clickedVoivodeship,
-        setClickedVoivodeship
+        setClickedVoivodeship,
       }}
       {...props}
     />
-  )
+  );
 }
 
 export function useData() {

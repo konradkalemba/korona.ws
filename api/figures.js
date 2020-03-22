@@ -10,7 +10,7 @@ const {
   REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   REACT_APP_FIREBASE_APP_ID,
   REACT_APP_FIREBASE_MEASUREMENT_ID,
-  API_KEY
+  API_KEY,
 } = process.env;
 
 firebase.initializeApp({
@@ -21,7 +21,7 @@ firebase.initializeApp({
   ...(REACT_APP_FIREBASE_STORAGE_BUCKET && { storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET }),
   ...(REACT_APP_FIREBASE_MESSAGING_SENDER_ID && { messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID }),
   ...(REACT_APP_FIREBASE_APP_ID && { appId: REACT_APP_FIREBASE_APP_ID }),
-  ...(REACT_APP_FIREBASE_MEASUREMENT_ID && { measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID })
+  ...(REACT_APP_FIREBASE_MEASUREMENT_ID && { measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID }),
 });
 
 const rootDatabaseRef = firebase.database().ref('/');
@@ -30,13 +30,11 @@ export default function handle(request, response) {
   const { query } = request;
 
   if (!query.key || query.key !== API_KEY) {
-    response
-      .status(401)
-      .send({
-        error: 'wrong_api_key'
-      });
+    response.status(401).send({
+      error: 'wrong_api_key',
+    });
   } else {
-    rootDatabaseRef.once('value').then(snapshot => {
+    rootDatabaseRef.once('value').then((snapshot) => {
       let { deaths, cases, cures, updatedAt } = snapshot.val();
 
       deaths = sum(deaths);
@@ -47,7 +45,7 @@ export default function handle(request, response) {
         deaths,
         cases,
         cures,
-        updatedAt
+        updatedAt,
       });
     });
   }
