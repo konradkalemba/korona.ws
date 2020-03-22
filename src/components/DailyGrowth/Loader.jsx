@@ -8,7 +8,7 @@ export default function Loader() {
   return (
     <ContentLoader
       speed={0.6}
-      width={285}
+      width={250}
       height={180}
       display={'block'}
       viewBox="0 0 300 200"

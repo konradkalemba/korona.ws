@@ -22,7 +22,22 @@ export default function Layout() {
       </Layer>
       <Layer>
         <Block position={'fixed'} bottom={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '20px']}>
-          <DailyGrowth />
+          <Block
+            overrides={{
+              Block: {
+                style: ({ $theme }) => ({
+                  [$theme.mediaQuery.medium]: {
+                    width: '288px'
+                  },
+                  [$theme.mediaQuery.large]: {
+                    width: '320px'
+                  }
+                })
+              }
+            }}
+          >
+            <DailyGrowth />
+          </Block>
         </Block>
       </Layer>
       <Layer>
