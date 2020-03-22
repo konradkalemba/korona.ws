@@ -7,7 +7,6 @@ import { Button, KIND, SIZE } from "baseui/button";
 import { Block } from "baseui/block";
 import { Modal, ModalHeader, ModalBody, ROLE } from "baseui/modal";
 import { Paragraph3, Label2 } from "baseui/typography";
-import { useStyletron } from "styletron-react";
 
 import { switchLanguage } from "../../helpers/switchLanguage";
 
@@ -17,7 +16,6 @@ import DailyGrowth from "../DailyGrowth/DailyGrowth";
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
-  const [css] = useStyletron();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
 
