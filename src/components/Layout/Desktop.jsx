@@ -34,7 +34,20 @@ export default function Layout() {
           width={["100%", "100%", "auto"]}
           margin={["0", "0", "20px"]}
         >
-          <Block className={css({ width: "288px" })}>
+          <Block
+            overrides={{
+              Block: {
+                style: ({ $theme }) => ({
+                  [$theme.mediaQuery.medium]: {
+                    width: "288px"
+                  },
+                  [$theme.mediaQuery.large]: {
+                    width: "320px"
+                  }
+                })
+              }
+            }}
+          >
             <DailyGrowth />
           </Block>
         </Block>
