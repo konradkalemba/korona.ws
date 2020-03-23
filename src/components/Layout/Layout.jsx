@@ -10,12 +10,5 @@ export default function Layout() {
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
-  return (
-    <>
-      {width < theme.breakpoints.medium 
-        ? <Mobile />
-        : <Desktop />
-      }
-    </>
-  );
+  return <>{width < theme.breakpoints.medium ? <Mobile /> : <Desktop />}</>;
 }

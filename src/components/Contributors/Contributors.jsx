@@ -8,7 +8,7 @@ export default function Contributors() {
   const [data, setData] = useState([]);
 
   fetch(`https://api.github.com/repos/${REPO}/contributors`)
-    .then(async response => {
+    .then(async (response) => {
       if (response.ok) {
         setData(await response.json());
       } else {
@@ -16,31 +16,27 @@ export default function Contributors() {
       }
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
     });
 
   return (
-    <FlexGrid
-      flexGridColumnCount={10}
-      flexGridColumnGap="scale800"
-      flexGridRowGap="scale800"
-    >
-      {data && data.filter(({ type }) => type === 'User').map(contributor => (
-        <FlexGridItem>
-          <a
-            key={contributor.id}
-            href={contributor.html_url}
-            title={contributor.login}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Avatar
-              name={contributor.login}
-              src={contributor.avatar_url}
-            />
-          </a>
-        </FlexGridItem>
-      ))}
+    <FlexGrid flexGridColumnCount={10} flexGridColumnGap='scale800' flexGridRowGap='scale800'>
+      {data &&
+        data
+          .filter(({ type }) => type === 'User')
+          .map((contributor) => (
+            <FlexGridItem>
+              <a
+                key={contributor.id}
+                href={contributor.html_url}
+                title={contributor.login}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <Avatar name={contributor.login} src={contributor.avatar_url} />
+              </a>
+            </FlexGridItem>
+          ))}
     </FlexGrid>
   );
 }

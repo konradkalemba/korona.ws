@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "Rubik";
+  font-family: 'Rubik';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,7 +14,8 @@ code {
   height: 100vh;
 }
 
-.leaflet-container, .leaflet-pane:not(.leaflet-popup-pane) {
+.leaflet-container,
+.leaflet-pane:not(.leaflet-popup-pane) {
   z-index: unset;
 }
 
@@ -29,7 +30,8 @@ code {
   margin: 0;
 }
 
-.leaflet-popup-tip-container, .leaflet-popup-close-button {
+.leaflet-popup-tip-container,
+.leaflet-popup-close-button {
   display: none;
 }
 
@@ -58,30 +60,30 @@ code {
 }
 
 svg.marker text {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 500;
 }
 
-[data-theme=dark] *::-webkit-scrollbar {
-  width: .35em;
+[data-theme='dark'] *::-webkit-scrollbar {
+  width: 0.35em;
 }
 
-[data-theme=dark] *::-webkit-scrollbar-track {
+[data-theme='dark'] *::-webkit-scrollbar-track {
   background: #000000;
 }
 
-[data-theme=dark] *::-webkit-scrollbar-thumb {
+[data-theme='dark'] *::-webkit-scrollbar-thumb {
   background-color: #333333;
 }
 
-[data-theme=light] *::-webkit-scrollbar {
-  width: .35em;
+[data-theme='light'] *::-webkit-scrollbar {
+  width: 0.35em;
 }
 
-[data-theme=light] *::-webkit-scrollbar-track {
+[data-theme='light'] *::-webkit-scrollbar-track {
   background: #f6f6f6;
 }
 
-[data-theme=light] *::-webkit-scrollbar-thumb {
+[data-theme='light'] *::-webkit-scrollbar-thumb {
   background-color: #cccccc;
 }

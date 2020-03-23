@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Map, Figures, DataElement, Contributors } from '..';
 
 import { Layer } from 'baseui/layer';
@@ -7,11 +8,14 @@ import { Block } from 'baseui/block';
 import { Modal, ModalHeader, ModalBody, ROLE } from 'baseui/modal';
 import { Paragraph3, Label2 } from 'baseui/typography';
 
+import { switchLanguage } from '../../helpers/switchLanguage';
+
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
 import DailyGrowth from '../DailyGrowth/DailyGrowth';
 
 export default function Layout() {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
 
@@ -27,13 +31,13 @@ export default function Layout() {
               Block: {
                 style: ({ $theme }) => ({
                   [$theme.mediaQuery.medium]: {
-                    width: '288px'
+                    width: '288px',
                   },
                   [$theme.mediaQuery.large]: {
-                    width: '320px'
-                  }
-                })
-              }
+                    width: '320px',
+                  },
+                }),
+              },
             }}
           >
             <DailyGrowth />
@@ -46,41 +50,50 @@ export default function Layout() {
         </Block>
       </Layer>
       <Layer>
-        <Block 
+        <Block
           display={['none', 'none', 'none', 'block']}
           position={'fixed'}
           top={'20px'}
           right={'20px'}
           $style={({ $theme }) => ({
             [$theme.mediaQuery.medium]: {
-              maxHeight: 'calc(100vh - 100px)'
+              maxHeight: 'calc(100vh - 100px)',
             },
-            textAlign: 'right'
+            textAlign: 'right',
           })}
         >
           <DataElement />
           <Button
-            $as="a"
-            target="_blank"
-            href="https://www.gov.pl/web/koronawirus"
+            $as='a'
+            target='_blank'
+            href='https://www.gov.pl/web/koronawirus'
             kind={KIND.secondary}
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
                   borderRadius: $theme.borders.radius200,
                   boxShadow: $theme.lighting.shadow500,
-                  marginTop: '20px'
-                })
-              }
+                  marginTop: '20px',
+                }),
+              },
             }}
           >
-            Więcej informacji nt. koronawirusa
+            {t('moreInfo')}
           </Button>
         </Block>
       </Layer>
       <Layer>
-        <Block position={'fixed'} bottom={'20px'} right={'20px'} display="flex">
-          <div className="fb-share-button" data-href="https://korona.ws" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Udostępnij</a></div>
+        <Block position={'fixed'} bottom={'20px'} right={'20px'} display='flex'>
+          <div className='fb-share-button' data-href='https://korona.ws' data-layout='button' data-size='large'>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse'
+              className='fb-xfbml-parse-ignore'
+            >
+              {t('share')}
+            </a>
+          </div>
           <Button
             size={SIZE.mini}
             onClick={() => setIsOpen(true)}
@@ -89,12 +102,12 @@ export default function Layout() {
                 style: ({ $theme }) => ({
                   borderRadius: $theme.borders.radius200,
                   boxShadow: $theme.lighting.shadow500,
-                  marginLeft: '10px'
-                })
-              }
+                  marginLeft: '10px',
+                }),
+              },
             }}
           >
-            Informacje
+            {t('information')}
           </Button>
           <Button
             size={SIZE.mini}
@@ -104,12 +117,28 @@ export default function Layout() {
                 style: ({ $theme }) => ({
                   borderRadius: $theme.borders.radius200,
                   boxShadow: $theme.lighting.shadow500,
-                  marginLeft: '10px'
-                })
-              }
+                  marginLeft: '10px',
+                }),
+              },
             }}
           >
-            {useDarkTheme ? 'Wyłącz' : 'Włącz'} tryb ciemny
+            {useDarkTheme ? t('turnOff') : t('turnOn')} {t('darkMode')}
+          </Button>
+          <Button
+            size={SIZE.mini}
+            kind={KIND.secondary}
+            onClick={() => switchLanguage({ i18n })}
+            overrides={{
+              BaseButton: {
+                style: ({ $theme }) => ({
+                  borderRadius: $theme.borders.radius200,
+                  boxShadow: $theme.lighting.shadow500,
+                  marginLeft: '10px',
+                }),
+              },
+            }}
+          >
+            {t('switchLang')}
           </Button>
           <Modal
             onClose={() => setIsOpen(false)}
@@ -120,30 +149,28 @@ export default function Layout() {
             overrides={{
               Dialog: {
                 style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200
-                })
-              }
+                  borderRadius: $theme.borders.radius200,
+                }),
+              },
             }}
           >
-            <ModalHeader>Informacje</ModalHeader>
+            <ModalHeader>{t('information')}</ModalHeader>
             <ModalBody>
+              <Paragraph3>{t('relevanceInfo')}</Paragraph3>
               <Paragraph3>
-                Autor nie ponosi odpowiedzialności za aktualność i poprawność przedstawionych treści. Dane mogą być nieaktualne.
-                  </Paragraph3>
-              <Paragraph3>
-                Autor: Konrad Kalemba<br />
-                Kontakt: <StyledLink target="_blank" href="mailto:admin@korona.ws">
+                {t('author')}
+                <br />
+                {t('contact')}:{' '}
+                <StyledLink target='_blank' href='mailto:admin@korona.ws'>
                   admin@korona.ws
                 </StyledLink>
               </Paragraph3>
-              <Paragraph3>
-                Aplikacja jest "open-source" — każdy chętny może bezpośrednio pomóc w rozwoju projektu. Kod źródłowy znajduje się pod poniższym odnośnikiem:
-              </Paragraph3>
-              <StyledLink target="_blank" href="https://github.com/konradkalemba/korona.ws">
+              <Paragraph3>{t('openSourceApp')}</Paragraph3>
+              <StyledLink target='_blank' href='https://github.com/konradkalemba/korona.ws'>
                 https://github.com/konradkalemba/korona.ws
               </StyledLink>
 
-              <Label2 margin="20px 0 10px">Współtwórcy</Label2>
+              <Label2 margin='20px 0 10px'>{t('contributors')}</Label2>
               <Contributors />
             </ModalBody>
           </Modal>

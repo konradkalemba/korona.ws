@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { BaseProvider, darkThemePrimitives, createTheme, DarkTheme, lightThemePrimitives } from 'baseui';
@@ -18,6 +19,8 @@ const lightTheme = createTheme({ ...lightThemePrimitives, primaryFontFamily: 'Ru
 const darkTheme = createTheme({ ...darkThemePrimitives, primaryFontFamily: 'Rubik' }, { ...rest });
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <DataProvider>
       <StyletronProvider value={engine}>
@@ -29,41 +32,35 @@ export default function App() {
                 overrides={{
                   AppContainer: {
                     props: {
-                      'data-theme': useDarkTheme ? 'dark' : 'light'
-                    }
+                      'data-theme': useDarkTheme ? 'dark' : 'light',
+                    },
                   },
                   LayersContainer: {
                     props: {
-                      'data-theme': useDarkTheme ? 'dark' : 'light'
-                    }
-                  }
+                      'data-theme': useDarkTheme ? 'dark' : 'light',
+                    },
+                  },
                 }}
               >
                 <Layout />
 
                 {!localStorage.getItem('notificationDismissed') && (
                   <Layer>
-                    <Block
-                      position={'fixed'}
-                      top="0"
-                      padding="0"
-                      width="100%"
-                    >
-
+                    <Block position={'fixed'} top='0' padding='0' width='100%'>
                       <Notification
                         overrides={{
                           Body: {
                             style: {
                               marginTop: 0,
                               width: '100%',
-                              boxSizing: 'border-box'
-                            }
-                          }
+                              boxSizing: 'border-box',
+                            },
+                          },
                         }}
                         closeable
                         onClose={() => localStorage.setItem('notificationDismissed', true)}
                       >
-                        Ze względu na brak precyzyjnych informacji o lokalizacji poszczególnych przypadków w najnowszych komunikatach Ministerstwa Zdrowia, zmuszeni jesteśmy ograniczyć się do wyświetlania danych z podziałem na województwa.
+                        {t('notification')}
                       </Notification>
                     </Block>
                   </Layer>

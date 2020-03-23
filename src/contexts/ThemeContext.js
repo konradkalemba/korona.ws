@@ -7,7 +7,11 @@ export function ThemeProvider(props) {
   const [useDarkTheme, setUseDarkTheme] = useState(localStorage.getItem('useDarkTheme') === 'true' || false);
 
   useEffect(() => {
-    if (localStorage.getItem('useDarkTheme') === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (
+      localStorage.getItem('useDarkTheme') === null &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
       setUseDarkTheme(true);
     }
   }, []);
@@ -21,11 +25,11 @@ export function ThemeProvider(props) {
     <ThemeContext.Provider
       value={{
         useDarkTheme,
-        setUseDarkTheme
+        setUseDarkTheme,
       }}
       {...props}
     />
-  )
+  );
 }
 
 export function useTheme() {

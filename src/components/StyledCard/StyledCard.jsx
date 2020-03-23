@@ -13,10 +13,10 @@ export default function StyledCard({ children, style, ...props }) {
               boxSizing: 'border-box',
               borderRadius: $theme.borders.radius200,
               boxShadow: $theme.lighting.shadow500,
-              ...styleOverrides
+              ...styleOverrides,
             };
-          }
-        }
+          },
+        },
       }}
       {...props}
     >

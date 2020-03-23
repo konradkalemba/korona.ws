@@ -1,6 +1,6 @@
 # Contributing
 
-All contributions are welcome, whether it is a new feature or code refactoring, it doesn't matter. 
+All contributions are welcome, whether it is a new feature or code refactoring, it doesn't matter.
 
 Thanks for wanting to contribute. After you are done with your contribution [create a pull request](https://github.com/konradkalemba/korona.ws/pulls) and wait for an approval. :)
 
@@ -8,12 +8,13 @@ Thanks for wanting to contribute. After you are done with your contribution [cre
 
 To run the project in your local environment:
 
-* [Install Node.js](https://nodejs.org/en/download/)
-* [Fork the project](https://guides.github.com/activities/forking/#fork)
+- [Install Node.js](https://nodejs.org/en/download/)
+- [Fork the project](https://guides.github.com/activities/forking/#fork)
 
 Then in your terminal:
-* `cd path/to/project/directory`
-* `yarn install`
+
+- `cd path/to/project/directory`
+- `yarn install`
 
 In the project's root directory add `.env` file with the following content:
 
