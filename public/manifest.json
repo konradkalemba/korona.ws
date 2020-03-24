@@ -1,10 +1,11 @@
 {
   "name": "korona.ws",
   "short_name": "korona.ws",
+  "description": "Mapa potwierdzonych przypadków koronawirusa w Polsce. Aktualizowana na bieżąco.",
   "theme_color": "#ff3c5c",
   "background_color": "#ff3c5c",
   "display": "standalone",
-  "Scope": "/",
+  "scope": "/",
   "start_url": "/",
   "icons": [
     {
