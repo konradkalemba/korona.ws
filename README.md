@@ -1,6 +1,6 @@
-# korona.ws
+![Imgur](https://i.imgur.com/eul83tL.png)
 
-### Map of confirmed coronavirus cases in Poland
+### Coronavirus interactive map of Poland
 
 Created in React.
 
