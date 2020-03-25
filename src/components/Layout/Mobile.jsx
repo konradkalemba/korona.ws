@@ -82,7 +82,7 @@ export default function Mobile() {
           <div
             className={css({
               display: 'flex',
-              justifyContent: 'space-arount'
+              justifyContent: 'space-around'
             })}
           >
             <FlexGridItemCentered>
