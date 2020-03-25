@@ -16,7 +16,11 @@ import moment from 'moment';
 const CASES_KEY = 'cases';
 const DAILY_CASES_KEY = 'dailyCases';
 const DEATHS_KEY = 'deaths';
+const DAILY_DEATH_KEY = 'dailyDeaths';
 const CURES_KEY = 'cures';
+const DAILY_CURES_KEY = 'dailyCures';
+
+const STACK_PER_DATE_ID = 'stackPerDate';
 
 function accumulateData(data) {
   let cumulativeCases = 0;
@@ -37,7 +41,9 @@ function accumulateData(data) {
       [CASES_KEY]: cumulativeCases,
       [DAILY_CASES_KEY]: casesDateCount,
       [DEATHS_KEY]: cumulativeDeaths,
+      [DAILY_DEATH_KEY]: deathsDateCount,
       [CURES_KEY]: cumulativeCures,
+      [DAILY_CURES_KEY]: curesDateCount
     };
   });
 }
@@ -139,7 +145,7 @@ export default function DailyGrowth() {
                 <ResponsiveContainer height={180}>
                   <BarChart data={groupedData}>
                     <XAxis dataKey="date" />
-                    <YAxis hide={true}/>
+                    <YAxis hide={true} />
                     <Tooltip
                       contentStyle={{
                         backgroundColor: theme.colors.backgroundPrimary,
@@ -148,9 +154,22 @@ export default function DailyGrowth() {
                       cursor={{ fill: theme.colors.backgroundTertiary }}
                     />
                     <Bar
+                      name={t('confirmedCasesShort')}
+                      stackId={STACK_PER_DATE_ID}
                       dataKey={DAILY_CASES_KEY}
                       fill={theme.colors.negative}
-                      name={t('confirmedCasesShort')}
+                    />
+                    <Bar
+                      name={t('deaths')}
+                      stackId={STACK_PER_DATE_ID}
+                      dataKey={DAILY_DEATH_KEY}
+                      fill={theme.colors.primary}
+                    />
+                    <Bar
+                      name={t('cured')}
+                      stackId={STACK_PER_DATE_ID}
+                      dataKey={DAILY_CURES_KEY}
+                      fill={theme.colors.positive}
                     />
                   </BarChart>
                 </ResponsiveContainer>
