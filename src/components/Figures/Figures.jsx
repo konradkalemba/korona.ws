@@ -16,7 +16,6 @@ import ContentLoader from 'react-content-loader';
 import { useData } from '../../contexts/DataContext';
 import moment from 'moment';
 import { sum } from '../../helpers/misc';
-import useWindowDimensions from '../../hooks/window-dimensions';
 
 function CountLoader() {
   const [, theme] = useStyletron();
@@ -102,7 +101,6 @@ export default function Figures() {
   const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
-  const { width } = useWindowDimensions();
 
   return (
     <StyledCard

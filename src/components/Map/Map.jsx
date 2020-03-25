@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Map as LeafletMap, Marker, Popup, TileLayer, AttributionControl } from 'react-leaflet';
+import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import { styled, useStyletron } from 'baseui';
 import MarkerClusterGroup from 'react-leaflet-markercluster';

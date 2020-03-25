@@ -36,6 +36,23 @@ function CustomTab(props) {
   );
 }
 
+const FlexGridItemCenterd = ({ children }) => {
+  const [css] = useStyletron();
+
+  return (
+    <div
+      className={css({
+        display: 'flex',
+        width: '100%',
+        padding: '10px',
+        justifyContent: 'center'
+      })}
+    >
+      {children}
+    </div>
+  );
+};
+
 export default function Mobile() {
   const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
   const { t, i18n } = useTranslation();
@@ -62,8 +79,13 @@ export default function Mobile() {
           })}
         >
           <HeadingSmall margin={0}>{t('coronavirusInPoland')}</HeadingSmall>
-          <FlexGrid flexGridColumnCount={3}>
-            <FlexGridItem>
+          <div
+            className={css({
+              display: 'flex',
+              justifyContent: 'space-arount'
+            })}
+          >
+            <FlexGridItemCenterd>
               <Figure
                 data={deaths}
                 isLoading={isLoading}
@@ -71,8 +93,8 @@ export default function Mobile() {
                 color={theme.colors.primary}
                 size='compact'
               />
-            </FlexGridItem>
-            <FlexGridItem>
+            </FlexGridItemCenterd>
+            <FlexGridItemCenterd>
               <Figure
                 data={cases}
                 isLoading={isLoading}
@@ -80,8 +102,8 @@ export default function Mobile() {
                 color={theme.colors.negative}
                 size='compact'
               />
-            </FlexGridItem>
-            <FlexGridItem>
+            </FlexGridItemCenterd>
+            <FlexGridItemCenterd>
               <Figure
                 data={cures}
                 isLoading={isLoading}
@@ -89,8 +111,8 @@ export default function Mobile() {
                 color={theme.colors.positive}
                 size='compact'
               />
-            </FlexGridItem>
-          </FlexGrid>
+            </FlexGridItemCenterd>
+          </div>
         </div>
 
         <Tabs
