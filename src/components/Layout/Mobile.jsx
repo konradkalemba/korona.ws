@@ -36,7 +36,7 @@ function CustomTab(props) {
   );
 }
 
-const FlexGridItemCenterd = ({ children }) => {
+const FlexGridItemCentered = ({ children }) => {
   const [css] = useStyletron();
 
   return (
@@ -85,7 +85,7 @@ export default function Mobile() {
               justifyContent: 'space-arount'
             })}
           >
-            <FlexGridItemCenterd>
+            <FlexGridItemCentered>
               <Figure
                 data={deaths}
                 isLoading={isLoading}
@@ -93,8 +93,8 @@ export default function Mobile() {
                 color={theme.colors.primary}
                 size='compact'
               />
-            </FlexGridItemCenterd>
-            <FlexGridItemCenterd>
+            </FlexGridItemCentered>
+            <FlexGridItemCentered>
               <Figure
                 data={cases}
                 isLoading={isLoading}
@@ -102,8 +102,8 @@ export default function Mobile() {
                 color={theme.colors.negative}
                 size='compact'
               />
-            </FlexGridItemCenterd>
-            <FlexGridItemCenterd>
+            </FlexGridItemCentered>
+            <FlexGridItemCentered>
               <Figure
                 data={cures}
                 isLoading={isLoading}
@@ -111,7 +111,7 @@ export default function Mobile() {
                 color={theme.colors.positive}
                 size='compact'
               />
-            </FlexGridItemCenterd>
+            </FlexGridItemCentered>
           </div>
         </div>
 
