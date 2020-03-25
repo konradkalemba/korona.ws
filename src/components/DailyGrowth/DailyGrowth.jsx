@@ -83,7 +83,7 @@ export default function DailyGrowth() {
               }
             }}
           >
-            <Tab title={t('overallGrowth')}>
+            <Tab title={t('casesOverall')}>
               <StyledBody>
                 <Block
                   $style={{
@@ -129,7 +129,7 @@ export default function DailyGrowth() {
                 </ResponsiveContainer>
               </StyledBody>
             </Tab>
-            <Tab title={t('dailyGrowth')}>
+            <Tab title={t('casesDaily')}>
               <StyledBody>
                 <Block
                   $style={{
@@ -150,7 +150,7 @@ export default function DailyGrowth() {
                     <Bar
                       dataKey={DAILY_CASES_KEY}
                       fill={theme.colors.negative}
-                      name={t('confirmedCasesDailyShort')}
+                      name={t('confirmedCasesShort')}
                     />
                   </BarChart>
                 </ResponsiveContainer>
