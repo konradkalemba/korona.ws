@@ -10,6 +10,7 @@ import groupBy from 'lodash.groupby';
 import { sum } from '../../helpers/misc';
 import VoivodeshipsSplit from './VoivodeshipsSplit';
 import Recent from './Recent';
+import { FlexGrid } from 'baseui/flex-grid';
 
 function prepareData(cases, voivodeships) {
   return Object.entries(groupBy(cases, 'voivodeship'))
@@ -59,6 +60,12 @@ export default function DataElement() {
                 padding: '14px',
               },
             },
+            TabBar: {
+              style: {
+                textAlign: 'center',
+                justifyContent: 'center'
+              }
+            }
           }}
         >
           <Tab title={t('confirmedCases')}>
