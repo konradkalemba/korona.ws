@@ -4,10 +4,14 @@ import { Map, DataElement, Contributors } from '../../components';
 
 import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
-import { Button, SIZE, KIND } from 'baseui/button';
+import { Button } from 'baseui/button';
 import { Block } from 'baseui/block';
 import { Modal, ModalHeader, ModalBody, ROLE } from 'baseui/modal';
 import { Paragraph3, Label2, HeadingSmall } from 'baseui/typography';
+import { StatefulPopover } from 'baseui/popover';
+import { StatefulMenu } from 'baseui/menu';
+import { StyledFlag } from 'baseui/phone-input';
+import { Overflow } from 'baseui/icon';
 
 import { switchLanguage } from '../../helpers/switchLanguage';
 
@@ -44,7 +48,6 @@ export default function Mobile() {
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [activeKey, setActiveKey] = useState('0');
   const [css, theme] = useStyletron();
-
   return (
     <>
       <div
@@ -62,7 +65,71 @@ export default function Mobile() {
             paddingBottom: 0,
           })}
         >
-          <HeadingSmall margin={0}>{t('coronavirusInPoland')}</HeadingSmall>
+          <div
+            className={css({
+              display: 'flex',
+              flexWrap: 'nowrap',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            })}
+          >
+            <HeadingSmall margin={0}>{t('coronavirusInPoland')}</HeadingSmall>
+
+            <StatefulPopover
+              focusLock
+              placement='auto'
+              content={({ close }) => (
+                <StatefulMenu
+                  items={[
+                    { label: t('information'), onClick: () => setIsOpen(true) },
+                    {
+                      label: (useDarkTheme ? t('turnOff') : t('turnOn')) + ' ' + t('darkMode'),
+                      onClick: () => setUseDarkTheme(!useDarkTheme),
+                    },
+                    {
+                      label: t('switchLang'),
+                      renderLabel: () => (
+                        <div
+                          className={css({
+                            display: 'flex',
+                            flexWrap: 'nowrap',
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                          })}
+                        >
+                          <StyledFlag
+                            iso={i18n.language === 'pl' ? 'gb' : 'pl'}
+                            $size='mini'
+                            className={css({ marginRight: '8px', marginTop: '-2px' })}
+                          />
+
+                          {t('switchLang')}
+                        </div>
+                      ),
+                      onClick: () => switchLanguage({ i18n }),
+                    },
+                  ]}
+                  onItemSelect={({ item }) => {
+                    item.onClick();
+                    close();
+                  }}
+                  overrides={{
+                    Option: {
+                      props: {
+                        getItemLabel: (item) => (item.renderLabel ? item.renderLabel() : item.label),
+                        size: 'default',
+                      },
+                    },
+                  }}
+                />
+              )}
+            >
+              <Button kind='tertiary' size='mini'>
+                <Overflow size={30} />
+              </Button>
+            </StatefulPopover>
+          </div>
+
           <div
             className={css({
               display: 'flex',
@@ -186,52 +253,6 @@ export default function Mobile() {
       </div>
       <Layer>
         <Block position={'fixed'} bottom={'16px'} left={'0px'} display='flex'>
-          <Button
-            size={SIZE.mini}
-            onClick={() => setIsOpen(true)}
-            overrides={{
-              BaseButton: {
-                style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200,
-                  boxShadow: $theme.lighting.shadow500,
-                  marginLeft: '10px',
-                }),
-              },
-            }}
-          >
-            {t('information')}
-          </Button>
-          <Button
-            size={SIZE.mini}
-            onClick={() => setUseDarkTheme(!useDarkTheme)}
-            overrides={{
-              BaseButton: {
-                style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200,
-                  boxShadow: $theme.lighting.shadow500,
-                  marginLeft: '10px',
-                }),
-              },
-            }}
-          >
-            {useDarkTheme ? t('turnOff') : t('turnOn')} {t('darkMode')}
-          </Button>
-          <Button
-            size={SIZE.mini}
-            kind={KIND.secondary}
-            onClick={() => switchLanguage({ i18n })}
-            overrides={{
-              BaseButton: {
-                style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200,
-                  boxShadow: $theme.lighting.shadow500,
-                  marginLeft: '10px',
-                }),
-              },
-            }}
-          >
-            {t('switchLang')}
-          </Button>
           <Modal
             onClose={() => setIsOpen(false)}
             closeable
