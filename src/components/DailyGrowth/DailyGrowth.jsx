@@ -44,7 +44,7 @@ function accumulateData(data) {
       [DEATHS_KEY]: cumulativeDeaths,
       [DAILY_DEATH_KEY]: deathsDateCount,
       [CURES_KEY]: cumulativeCures,
-      [DAILY_CURES_KEY]: curesDateCount
+      [DAILY_CURES_KEY]: curesDateCount,
     };
   });
 }
@@ -54,7 +54,7 @@ export default function DailyGrowth() {
 
   const { t } = useTranslation();
   const [groupedData, setGroupedData] = useState(null);
-  const [activeKey, setActiveKey] = useState("0");
+  const [activeKey, setActiveKey] = useState('0');
   const [, theme] = useStyletron();
 
   useEffect(() => {
@@ -76,100 +76,100 @@ export default function DailyGrowth() {
       {isLoading ? (
         <Loader />
       ) : (
-          <Tabs
-            onChange={({ activeKey }) => {
-              setActiveKey(activeKey);
-            }}
-            activeKey={activeKey}
-          >
-            <ResponsiveTab title={t('casesOverall')}>
-              <StyledBody>
-                <Block
-                  $style={{
-                    margin: '12px 0 20px',
-                  }}
-                />
-                <ResponsiveContainer height={180}>
-                  <LineChart data={groupedData}>
-                    <XAxis dataKey='date' />
-                    <YAxis hide={true} />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: theme.colors.backgroundPrimary,
-                        borderColor: theme.colors.backgroundTertiary,
-                      }}
-                      cursor={{ fill: theme.colors.backgroundTertiary }}
-                    />
-                    <Line
-                      name={t('confirmedCasesShort')}
-                      type='monotone'
-                      dataKey={CASES_KEY}
-                      strokeWidth={2}
-                      stroke={theme.colors.negative}
-                      dot={false}
-                    />
-                    <Line
-                      name={t('deaths')}
-                      type='monotone'
-                      dataKey={DEATHS_KEY}
-                      strokeWidth={2}
-                      stroke={theme.colors.primary}
-                      dot={false}
-                    />
-                    <Line
-                      name={t('cured')}
-                      type='monotone'
-                      dataKey={CURES_KEY}
-                      strokeWidth={2}
-                      stroke={theme.colors.positive}
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </StyledBody>
-            </ResponsiveTab>
-            <ResponsiveTab title={t('casesDaily')}>
-              <StyledBody>
-                <Block
-                  $style={{
-                    margin: '12px 0 20px',
-                  }}
-                />
-                <ResponsiveContainer height={180}>
-                  <BarChart data={groupedData}>
-                    <XAxis dataKey="date" />
-                    <YAxis hide={true} />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: theme.colors.backgroundPrimary,
-                        borderColor: theme.colors.backgroundTertiary
-                      }}
-                      cursor={{ fill: theme.colors.backgroundTertiary }}
-                    />
-                    <Bar
-                      name={t('confirmedCasesShort')}
-                      stackId={STACK_PER_DATE_ID}
-                      dataKey={DAILY_CASES_KEY}
-                      fill={theme.colors.negative}
-                    />
-                    <Bar
-                      name={t('deaths')}
-                      stackId={STACK_PER_DATE_ID}
-                      dataKey={DAILY_DEATH_KEY}
-                      fill={theme.colors.primary}
-                    />
-                    <Bar
-                      name={t('cured')}
-                      stackId={STACK_PER_DATE_ID}
-                      dataKey={DAILY_CURES_KEY}
-                      fill={theme.colors.positive}
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </StyledBody>
-            </ResponsiveTab>
-          </Tabs>
-        )}
+        <Tabs
+          onChange={({ activeKey }) => {
+            setActiveKey(activeKey);
+          }}
+          activeKey={activeKey}
+        >
+          <ResponsiveTab title={t('casesOverall')}>
+            <StyledBody>
+              <Block
+                $style={{
+                  margin: '12px 0 20px',
+                }}
+              />
+              <ResponsiveContainer height={180}>
+                <LineChart data={groupedData}>
+                  <XAxis dataKey='date' />
+                  <YAxis hide={true} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: theme.colors.backgroundPrimary,
+                      borderColor: theme.colors.backgroundTertiary,
+                    }}
+                    cursor={{ fill: theme.colors.backgroundTertiary }}
+                  />
+                  <Line
+                    name={t('confirmedCasesShort')}
+                    type='monotone'
+                    dataKey={CASES_KEY}
+                    strokeWidth={2}
+                    stroke={theme.colors.negative}
+                    dot={false}
+                  />
+                  <Line
+                    name={t('deaths')}
+                    type='monotone'
+                    dataKey={DEATHS_KEY}
+                    strokeWidth={2}
+                    stroke={theme.colors.primary}
+                    dot={false}
+                  />
+                  <Line
+                    name={t('cured')}
+                    type='monotone'
+                    dataKey={CURES_KEY}
+                    strokeWidth={2}
+                    stroke={theme.colors.positive}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </StyledBody>
+          </ResponsiveTab>
+          <ResponsiveTab title={t('casesDaily')}>
+            <StyledBody>
+              <Block
+                $style={{
+                  margin: '12px 0 20px',
+                }}
+              />
+              <ResponsiveContainer height={180}>
+                <BarChart data={groupedData}>
+                  <XAxis dataKey='date' />
+                  <YAxis hide={true} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: theme.colors.backgroundPrimary,
+                      borderColor: theme.colors.backgroundTertiary,
+                    }}
+                    cursor={{ fill: theme.colors.backgroundTertiary }}
+                  />
+                  <Bar
+                    name={t('confirmedCasesShort')}
+                    stackId={STACK_PER_DATE_ID}
+                    dataKey={DAILY_CASES_KEY}
+                    fill={theme.colors.negative}
+                  />
+                  <Bar
+                    name={t('deaths')}
+                    stackId={STACK_PER_DATE_ID}
+                    dataKey={DAILY_DEATH_KEY}
+                    fill={theme.colors.primary}
+                  />
+                  <Bar
+                    name={t('cured')}
+                    stackId={STACK_PER_DATE_ID}
+                    dataKey={DAILY_CURES_KEY}
+                    fill={theme.colors.positive}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </StyledBody>
+          </ResponsiveTab>
+        </Tabs>
+      )}
     </StyledCard>
   );
 }

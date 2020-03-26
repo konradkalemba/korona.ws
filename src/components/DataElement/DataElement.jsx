@@ -59,7 +59,7 @@ export default function DataElement() {
                 textAlign: 'left',
                 padding: '14px',
               },
-            }
+            },
           }}
         >
           <ResponsiveTab title={t('confirmedCases')}>

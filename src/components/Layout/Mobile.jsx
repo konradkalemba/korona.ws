@@ -29,7 +29,7 @@ const FlexGridItemCentered = ({ children }) => {
         display: 'flex',
         width: '100%',
         padding: '10px',
-        justifyContent: 'center'
+        justifyContent: 'center',
       })}
     >
       {children}
@@ -66,7 +66,7 @@ export default function Mobile() {
           <div
             className={css({
               display: 'flex',
-              justifyContent: 'space-around'
+              justifyContent: 'space-around',
             })}
           >
             <FlexGridItemCentered>
