@@ -37,7 +37,13 @@ const Centered = styled('div', ({ $theme }) => ({
 function createMarkerIcon(size, casesCount, deathsCount) {
   return divIcon({
     iconSize: [size, size],
-    html: renderToStaticMarkup(<MarkerIcon size={size} casesCount={casesCount} deathsCount={deathsCount} />),
+    html: renderToStaticMarkup(
+      <MarkerIcon
+        size={size}
+        casesCount={casesCount}
+        deathsCount={deathsCount}
+      />
+    ),
   });
 }
 
@@ -46,7 +52,9 @@ function getMarkerSize(max, count) {
 }
 
 function getLocationForVoivodeship(clickedVoivodeship, data) {
-  return data.filter((item) => item.voivodeship.name === clickedVoivodeship).pop().voivodeship.location;
+  return data
+    .filter((item) => item.voivodeship.name === clickedVoivodeship)
+    .pop().voivodeship.location;
 }
 
 export default function Map(props) {
@@ -55,7 +63,14 @@ export default function Map(props) {
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
-  const { voivodeships, cases, deaths, cures, isLoading, clickedVoivodeship } = useData();
+  const {
+    voivodeships,
+    cases,
+    deaths,
+    cures,
+    isLoading,
+    clickedVoivodeship,
+  } = useData();
 
   if (isLoading) {
     return (
@@ -93,7 +108,9 @@ export default function Map(props) {
   }
 
   const max = Math.max(...data.map(({ cases }) => cases.total));
-  const position = clickedVoivodeship ? getLocationForVoivodeship(clickedVoivodeship, data) : [51.98488, 19.368896];
+  const position = clickedVoivodeship
+    ? getLocationForVoivodeship(clickedVoivodeship, data)
+    : [51.98488, 19.368896];
 
   return (
     <LeafletMap
@@ -126,7 +143,11 @@ export default function Map(props) {
             }
           );
 
-          return createMarkerIcon(getMarkerSize(max, count.cases), count.cases, count.deaths);
+          return createMarkerIcon(
+            getMarkerSize(max, count.cases),
+            count.cases,
+            count.deaths
+          );
         }}
       >
         {data &&
@@ -134,7 +155,11 @@ export default function Map(props) {
             <Marker
               key={voivodeship.name}
               position={voivodeship.location}
-              icon={createMarkerIcon(getMarkerSize(max, cases.total), cases.total, deaths.total)}
+              icon={createMarkerIcon(
+                getMarkerSize(max, cases.total),
+                cases.total,
+                deaths.total
+              )}
               onClick={() => {
                 setActiveVoivodeship({ ...voivodeship, cases, deaths, cures });
               }}
@@ -144,7 +169,10 @@ export default function Map(props) {
           ))}
       </MarkerClusterGroup>
       {activeVoivodeship && (
-        <Popup position={activeVoivodeship.location} onClose={() => setActiveVoivodeship(null)}>
+        <Popup
+          position={activeVoivodeship.location}
+          onClose={() => setActiveVoivodeship(null)}
+        >
           <StyledCard
             style={($theme) => ({
               [$theme.mediaQuery.large]: {

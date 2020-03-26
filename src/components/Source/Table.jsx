@@ -39,7 +39,10 @@ export default function Table({ isLoading, data }) {
   const [, theme] = useStyletron();
   const [filter, setFilter] = useState('');
   const filteredData =
-    data?.filter(({ voivodeship, date }) => compare(voivodeship, filter) || compare(date, filter)) || [];
+    data?.filter(
+      ({ voivodeship, date }) =>
+        compare(voivodeship, filter) || compare(date, filter)
+    ) || [];
   const { setClickedVoivodeship } = useData();
 
   return (
@@ -109,7 +112,10 @@ export default function Table({ isLoading, data }) {
                     }}
                   >
                     {voivodeship ? (
-                      <StyledLink onClick={() => setClickedVoivodeship(voivodeship)} $style={{ cursor: 'pointer' }}>
+                      <StyledLink
+                        onClick={() => setClickedVoivodeship(voivodeship)}
+                        $style={{ cursor: 'pointer' }}
+                      >
                         {voivodeship}
                       </StyledLink>
                     ) : (

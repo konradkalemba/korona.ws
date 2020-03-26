@@ -26,7 +26,13 @@ export default function Contributors() {
         data
           .filter(({ type }) => type === 'User')
           .map((contributor) => (
-            <Block as='a' href={contributor.html_url} target='_blank' key={contributor.id} title={contributor.login}>
+            <Block
+              as='a'
+              href={contributor.html_url}
+              target='_blank'
+              key={contributor.id}
+              title={contributor.login}
+            >
               <Avatar
                 name={contributor.login}
                 src={contributor.avatar_url}

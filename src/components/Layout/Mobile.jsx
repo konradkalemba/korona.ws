@@ -42,7 +42,16 @@ const FlexGridItemCentered = ({ children }) => {
 };
 
 export default function Mobile() {
-  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
+  const {
+    cases,
+    cures,
+    deaths,
+    hospitalizations,
+    quarantines,
+    supervisions,
+    tests,
+    isLoading,
+  } = useData();
   const { t, i18n } = useTranslation();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
@@ -82,10 +91,19 @@ export default function Mobile() {
               content={({ close }) => (
                 <StatefulMenu
                   items={[
-                    { label: t('information'), onClick: () => setIsInfoModalOpen(true) },
-                    { label: t('source'), onClick: () => setIsSourceModalOpen(true) },
                     {
-                      label: (useDarkTheme ? t('turnOff') : t('turnOn')) + ' ' + t('darkMode'),
+                      label: t('information'),
+                      onClick: () => setIsInfoModalOpen(true),
+                    },
+                    {
+                      label: t('source'),
+                      onClick: () => setIsSourceModalOpen(true),
+                    },
+                    {
+                      label:
+                        (useDarkTheme ? t('turnOff') : t('turnOn')) +
+                        ' ' +
+                        t('darkMode'),
                       onClick: () => setUseDarkTheme(!useDarkTheme),
                     },
                     {
@@ -102,7 +120,10 @@ export default function Mobile() {
                           <StyledFlag
                             iso={i18n.language === 'pl' ? 'gb' : 'pl'}
                             $size='mini'
-                            className={css({ marginRight: '8px', marginTop: '-2px' })}
+                            className={css({
+                              marginRight: '8px',
+                              marginTop: '-2px',
+                            })}
                           />
 
                           {t('switchLang')}
@@ -118,7 +139,8 @@ export default function Mobile() {
                   overrides={{
                     Option: {
                       props: {
-                        getItemLabel: (item) => (item.renderLabel ? item.renderLabel() : item.label),
+                        getItemLabel: (item) =>
+                          item.renderLabel ? item.renderLabel() : item.label,
                         size: 'default',
                       },
                     },
@@ -199,7 +221,10 @@ export default function Mobile() {
           }}
         >
           <ResponsiveTab title={t('map')}>
-            <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: 'auto' }} />
+            <Map
+              className={useDarkTheme ? 'dark-theme' : ''}
+              style={{ height: 'auto' }}
+            />
           </ResponsiveTab>
           <ResponsiveTab title={t('statistics')}>
             <div
@@ -281,7 +306,10 @@ export default function Mobile() {
                 </StyledLink>
               </Paragraph3>
               <Paragraph3>{t('openSourceApp')}</Paragraph3>
-              <StyledLink target='_blank' href='https://github.com/konradkalemba/korona.ws'>
+              <StyledLink
+                target='_blank'
+                href='https://github.com/konradkalemba/korona.ws'
+              >
                 https://github.com/konradkalemba/korona.ws
               </StyledLink>
 

@@ -15,8 +15,17 @@ export default function Marker({ size, casesCount, deathsCount }) {
     >
       {deathsCount && (
         <defs>
-          <linearGradient id={`combined-${offset}`} x1='0%' y1='0%' x2='100%' y2='0%'>
-            <stop offset={`${100 - offset}%`} stopColor={theme.colors.negative} />
+          <linearGradient
+            id={`combined-${offset}`}
+            x1='0%'
+            y1='0%'
+            x2='100%'
+            y2='0%'
+          >
+            <stop
+              offset={`${100 - offset}%`}
+              stopColor={theme.colors.negative}
+            />
             <stop offset={`${offset}%`} stopColor={theme.colors.primary} />
           </linearGradient>
         </defs>
@@ -29,7 +38,15 @@ export default function Marker({ size, casesCount, deathsCount }) {
         fill={deathsCount ? `url(#combined-${offset})` : theme.colors.negative}
       ></circle>
       {casesCount && (
-        <text className='text' x='50%' y='50%' fontSize={'60%'} fill='white' textAnchor='middle' dy='.3em'>
+        <text
+          className='text'
+          x='50%'
+          y='50%'
+          fontSize={'60%'}
+          fill='white'
+          textAnchor='middle'
+          dy='.3em'
+        >
           {casesCount}
         </text>
       )}

@@ -4,7 +4,14 @@ import { StyledBody } from 'baseui/card';
 import { StyledCard } from '..';
 import { Label3 } from 'baseui/typography';
 import { Block } from 'baseui/block';
-import { Bar, BarChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+} from 'recharts';
 import Loader from './Loader';
 
 import { useData } from '../../contexts/DataContext';
@@ -19,9 +26,15 @@ const CURES_KEY = 'cures';
 function accumulateData(data) {
   return Object.entries(groupBy(data, 'voivodeship'))
     .map(([voivodeship, dataPerVoivodeship]) => {
-      const casesCount = sum(dataPerVoivodeship.filter((el) => el.key === CASES_KEY));
-      const deathsCount = sum(dataPerVoivodeship.filter((el) => el.key === DEATHS_KEY));
-      const curescount = sum(dataPerVoivodeship.filter((el) => el.key === CURES_KEY));
+      const casesCount = sum(
+        dataPerVoivodeship.filter((el) => el.key === CASES_KEY)
+      );
+      const deathsCount = sum(
+        dataPerVoivodeship.filter((el) => el.key === DEATHS_KEY)
+      );
+      const curescount = sum(
+        dataPerVoivodeship.filter((el) => el.key === CURES_KEY)
+      );
 
       return {
         voivodeship,
@@ -41,11 +54,19 @@ export default function VoivodeshipsSplit() {
   const { setClickedVoivodeship } = useData();
 
   useEffect(() => {
-    const preparedCases = cases ? cases.map((el) => ({ ...el, key: CASES_KEY })) : [];
-    const preparedDeaths = deaths ? deaths.map((el) => ({ ...el, key: DEATHS_KEY })) : [];
-    const preparedCures = cures ? cures.map((el) => ({ ...el, key: CURES_KEY })) : [];
+    const preparedCases = cases
+      ? cases.map((el) => ({ ...el, key: CASES_KEY }))
+      : [];
+    const preparedDeaths = deaths
+      ? deaths.map((el) => ({ ...el, key: DEATHS_KEY }))
+      : [];
+    const preparedCures = cures
+      ? cures.map((el) => ({ ...el, key: CURES_KEY }))
+      : [];
 
-    setGroupedData(accumulateData([...preparedCases, ...preparedDeaths, ...preparedCures]));
+    setGroupedData(
+      accumulateData([...preparedCases, ...preparedDeaths, ...preparedCures])
+    );
   }, [cases, deaths, cures]);
   console.log(groupedData);
 
@@ -95,9 +116,24 @@ export default function VoivodeshipsSplit() {
                   }}
                   cursor={{ fill: theme.colors.backgroundTertiary }}
                 />
-                <Bar name={t('confirmedCasesShort')} stackId={'a'} dataKey={CASES_KEY} fill={theme.colors.negative} />
-                <Bar name={t('deaths')} stackId={'a'} dataKey={DEATHS_KEY} fill={theme.colors.primary} />
-                <Bar name={t('cured')} stackId={'a'} dataKey={CURES_KEY} fill={theme.colors.positive} />
+                <Bar
+                  name={t('confirmedCasesShort')}
+                  stackId={'a'}
+                  dataKey={CASES_KEY}
+                  fill={theme.colors.negative}
+                />
+                <Bar
+                  name={t('deaths')}
+                  stackId={'a'}
+                  dataKey={DEATHS_KEY}
+                  fill={theme.colors.primary}
+                />
+                <Bar
+                  name={t('cured')}
+                  stackId={'a'}
+                  dataKey={CURES_KEY}
+                  fill={theme.colors.positive}
+                />
               </BarChart>
             </ResponsiveContainer>
           )}

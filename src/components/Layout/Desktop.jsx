@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Map, Figures, DailyGrowth, Source, VoivodeshipsSplit, Contributors } from '..';
+import {
+  Map,
+  Figures,
+  DailyGrowth,
+  Source,
+  VoivodeshipsSplit,
+  Contributors,
+} from '..';
 
 import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
@@ -28,7 +35,13 @@ export default function Desktop() {
         <Map className={useDarkTheme ? 'dark-theme' : ''} />
       </Layer>
       <Layer>
-        <Block position={'fixed'} bottom={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '20px']}>
+        <Block
+          position={'fixed'}
+          bottom={0}
+          left={0}
+          width={['100%', '100%', 'auto']}
+          margin={['0', '0', '20px']}
+        >
           <Block
             overrides={{
               Block: {
@@ -48,7 +61,13 @@ export default function Desktop() {
         </Block>
       </Layer>
       <Layer>
-        <Block position={'fixed'} top={0} left={0} width={['100%', '100%', 'auto']} margin={['0', '0', '20px']}>
+        <Block
+          position={'fixed'}
+          top={0}
+          left={0}
+          width={['100%', '100%', 'auto']}
+          margin={['0', '0', '20px']}
+        >
           <Figures />
         </Block>
       </Layer>
@@ -87,7 +106,12 @@ export default function Desktop() {
       </Layer>
       <Layer>
         <Block position={'fixed'} bottom={'20px'} right={'20px'} display='flex'>
-          <div className='fb-share-button' data-href='https://korona.ws' data-layout='button' data-size='large'>
+          <div
+            className='fb-share-button'
+            data-href='https://korona.ws'
+            data-layout='button'
+            data-size='large'
+          >
             <a
               target='_blank'
               rel='noopener noreferrer'
@@ -189,7 +213,10 @@ export default function Desktop() {
                 </StyledLink>
               </Paragraph3>
               <Paragraph3>{t('openSourceApp')}</Paragraph3>
-              <StyledLink target='_blank' href='https://github.com/konradkalemba/korona.ws'>
+              <StyledLink
+                target='_blank'
+                href='https://github.com/konradkalemba/korona.ws'
+              >
                 https://github.com/konradkalemba/korona.ws
               </StyledLink>
 

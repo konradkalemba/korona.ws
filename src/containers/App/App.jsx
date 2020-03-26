@@ -2,10 +2,19 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
-import { BaseProvider, darkThemePrimitives, createTheme, DarkTheme, lightThemePrimitives } from 'baseui';
+import {
+  BaseProvider,
+  darkThemePrimitives,
+  createTheme,
+  DarkTheme,
+  lightThemePrimitives,
+} from 'baseui';
 import { ThemeContext, ThemeProvider } from './../../contexts/ThemeContext';
 import { DataProvider } from './../../contexts/DataContext';
-import { ConnectionProvider, ConnectionContext } from '../../contexts/ConnectionContext';
+import {
+  ConnectionProvider,
+  ConnectionContext,
+} from '../../contexts/ConnectionContext';
 
 import { Notification } from 'baseui/notification';
 import { Block } from 'baseui/block';
@@ -18,8 +27,14 @@ const engine = new Styletron();
 
 const { typography, ...rest } = DarkTheme;
 
-const lightTheme = createTheme({ ...lightThemePrimitives, primaryFontFamily: 'Rubik' }, {});
-const darkTheme = createTheme({ ...darkThemePrimitives, primaryFontFamily: 'Rubik' }, { ...rest });
+const lightTheme = createTheme(
+  { ...lightThemePrimitives, primaryFontFamily: 'Rubik' },
+  {}
+);
+const darkTheme = createTheme(
+  { ...darkThemePrimitives, primaryFontFamily: 'Rubik' },
+  { ...rest }
+);
 
 export default function App() {
   const { t } = useTranslation();
@@ -52,7 +67,12 @@ export default function App() {
 
                       {!localStorage.getItem('notificationDismissed') && (
                         <Layer>
-                          <Block position={'fixed'} top='0' padding='0' width='100%'>
+                          <Block
+                            position={'fixed'}
+                            top='0'
+                            padding='0'
+                            width='100%'
+                          >
                             <Notification
                               overrides={{
                                 Body: {
@@ -64,7 +84,12 @@ export default function App() {
                                 },
                               }}
                               closeable
-                              onClose={() => localStorage.setItem('notificationDismissed', true)}
+                              onClose={() =>
+                                localStorage.setItem(
+                                  'notificationDismissed',
+                                  true
+                                )
+                              }
                             >
                               {t('notification')}
                             </Notification>
@@ -74,7 +99,12 @@ export default function App() {
 
                       {!isOnline && (
                         <Layer>
-                          <Block position={'fixed'} top='0' padding='0' width='100%'>
+                          <Block
+                            position={'fixed'}
+                            top='0'
+                            padding='0'
+                            width='100%'
+                          >
                             <Notification
                               kind={'negative'}
                               overrides={{
@@ -88,7 +118,10 @@ export default function App() {
                               }}
                               closeable
                             >
-                              {t('offline')} <StyledLink href=''>{t('offlineRetry')}</StyledLink>
+                              {t('offline')}{' '}
+                              <StyledLink href=''>
+                                {t('offlineRetry')}
+                              </StyledLink>
                             </Notification>
                           </Block>
                         </Layer>

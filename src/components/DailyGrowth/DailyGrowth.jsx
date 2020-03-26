@@ -7,7 +7,16 @@ import groupBy from 'lodash.groupby';
 
 import { StyledCard } from '..';
 import { useData } from '../../contexts/DataContext';
-import { BarChart, Bar, ResponsiveContainer, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  Line,
+  LineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import Loader from './Loader';
 import { sum } from '../../helpers/misc';
 import { Block } from 'baseui/block';
@@ -29,9 +38,15 @@ function accumulateData(data) {
   let cumulativeCures = 0;
 
   return Object.entries(groupBy(data, 'date')).map(([date, dataPerDate]) => {
-    const casesDateCount = sum(dataPerDate.filter((el) => el.key === CASES_KEY));
-    const deathsDateCount = sum(dataPerDate.filter((el) => el.key === DEATHS_KEY));
-    const curesDateCount = sum(dataPerDate.filter((el) => el.key === CURES_KEY));
+    const casesDateCount = sum(
+      dataPerDate.filter((el) => el.key === CASES_KEY)
+    );
+    const deathsDateCount = sum(
+      dataPerDate.filter((el) => el.key === DEATHS_KEY)
+    );
+    const curesDateCount = sum(
+      dataPerDate.filter((el) => el.key === CURES_KEY)
+    );
 
     cumulativeCases += casesDateCount;
     cumulativeDeaths += deathsDateCount;
@@ -58,11 +73,19 @@ export default function DailyGrowth() {
   const [, theme] = useStyletron();
 
   useEffect(() => {
-    const preparedCases = cases ? cases.map((el) => ({ ...el, key: CASES_KEY })) : [];
-    const preparedDeaths = deaths ? deaths.map((el) => ({ ...el, key: DEATHS_KEY })) : [];
-    const preparedCures = cures ? cures.map((el) => ({ ...el, key: CURES_KEY })) : [];
+    const preparedCases = cases
+      ? cases.map((el) => ({ ...el, key: CASES_KEY }))
+      : [];
+    const preparedDeaths = deaths
+      ? deaths.map((el) => ({ ...el, key: DEATHS_KEY }))
+      : [];
+    const preparedCures = cures
+      ? cures.map((el) => ({ ...el, key: CURES_KEY }))
+      : [];
 
-    setGroupedData(accumulateData([...preparedCases, ...preparedDeaths, ...preparedCures]));
+    setGroupedData(
+      accumulateData([...preparedCases, ...preparedDeaths, ...preparedCures])
+    );
   }, [cases, deaths, cures]);
 
   return (
