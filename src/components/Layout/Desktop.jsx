@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Map, Figures, DailyGrowth, Source, VoivodeshipsSplit, Contributors } from '..';
 
+import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
 import { Button, KIND, SIZE } from 'baseui/button';
 import { Block } from 'baseui/block';
 import { Modal, ModalHeader, ModalBody, ROLE } from 'baseui/modal';
 import { Paragraph3, Label2 } from 'baseui/typography';
+import { StyledFlag } from 'baseui/phone-input';
 
 import { switchLanguage } from '../../helpers/switchLanguage';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
 
-export default function Layout() {
+export default function Desktop() {
   const { t, i18n } = useTranslation();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [isRecentModalOpen, setIsRecentModalOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
+  const [css, theme] = useStyletron();
 
   return (
     <>
@@ -152,6 +155,12 @@ export default function Layout() {
               },
             }}
           >
+            <StyledFlag
+              iso={i18n.language === 'pl' ? 'gb' : 'pl'}
+              $size='mini'
+              className={css({ marginRight: '8px', marginTop: '0px' })}
+            />
+
             {t('switchLang')}
           </Button>
           <Modal

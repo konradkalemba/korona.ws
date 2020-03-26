@@ -25,20 +25,14 @@ export default function Contributors() {
       {data &&
         data
           .filter(({ type }) => type === 'User')
-          .map(contributor => (
-            <Block
-              as='a'
-              href={contributor.html_url}
-              target='_blank'
-              key={contributor.id}
-              title={contributor.login}
-            >
+          .map((contributor) => (
+            <Block as='a' href={contributor.html_url} target='_blank' key={contributor.id} title={contributor.login}>
               <Avatar
                 name={contributor.login}
                 src={contributor.avatar_url}
                 overrides={{
                   Root: {
-                    style: ({$theme}) => ({
+                    style: ({ $theme }) => ({
                       margin: $theme.sizing.scale100,
                       transitionProperty: 'all',
                       transitionDuration: $theme.animation.timing100,
@@ -51,8 +45,7 @@ export default function Contributors() {
                 }}
               />
             </Block>
-          ))
-      }
+          ))}
     </Block>
   );
 }
