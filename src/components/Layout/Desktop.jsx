@@ -126,7 +126,6 @@ export default function Layout() {
           </Button>
           <Button
             size={SIZE.mini}
-            kind={KIND.secondary}
             onClick={() => switchLanguage({ i18n })}
             overrides={{
               BaseButton: {

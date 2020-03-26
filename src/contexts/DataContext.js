@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import firebase from 'firebase';
 
+import { useConnection } from './ConnectionContext';
+
 const {
   REACT_APP_FIREBASE_API_KEY,
   REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -35,8 +37,18 @@ export function DataProvider(props) {
   const [data, setData] = useState(null);
   const [clickedVoivodeship, setClickedVoivodeship] = useState(null);
 
+  const { isOnline } = useConnection();
+
   useEffect(() => {
     const cachedData = JSON.parse(localStorage.getItem('data'));
+
+    // Set cached data (if available) if no Internet access
+    if (!isOnline && cachedData) {
+      setData(cachedData);
+      setIsLoading(false);
+
+      return false;
+    }
 
     // Listen to `updatedAt` property changes
     updatedAtDatabaseRef.on('value', (snapshot) => {

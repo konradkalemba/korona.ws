@@ -1,5 +1,7 @@
 {
   "notification": "Due to the lack of precise information on the location of individual cases in the latest announcements of the Ministry of Health, we are forced to limit ourselves to displaying data by voivodeship.",
+  "offline": "No Internet connection detected.",
+  "offlineRetry": "Retry.",
   "todaysChange": "Today's change",
   "coronavirusInPoland": "Coronavirus in Poland",
   "deaths": "Deaths",
