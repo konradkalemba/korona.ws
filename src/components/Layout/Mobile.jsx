@@ -13,28 +13,12 @@ import { switchLanguage } from '../../helpers/switchLanguage';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
-import { Tabs, Tab } from 'baseui/tabs';
+import { Tabs } from 'baseui/tabs';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Figure } from '../Figures/Figures';
 import { useData } from '../../contexts/DataContext';
 import DailyGrowth from '../DailyGrowth/DailyGrowth';
-
-function CustomTab(props) {
-  return (
-    <Tab
-      overrides={{
-        Tab: {
-          style: {
-            flexGrow: 1,
-            textAlign: 'center',
-            padding: '10px 0',
-          },
-        },
-      }}
-      {...props}
-    />
-  );
-}
+import ResponsiveTab from '../Common/ResponsiveTab';
 
 const FlexGridItemCentered = ({ children }) => {
   const [css] = useStyletron();
@@ -145,10 +129,10 @@ export default function Mobile() {
             },
           }}
         >
-          <CustomTab title={t('map')}>
+          <ResponsiveTab title={t('map')}>
             <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: 'auto' }} />
-          </CustomTab>
-          <CustomTab title={t('statistics')}>
+          </ResponsiveTab>
+          <ResponsiveTab title={t('statistics')}>
             <div
               className={css({
                 padding: theme.sizing.scale600,
@@ -197,7 +181,7 @@ export default function Mobile() {
               <br />
               <DataElement />
             </div>
-          </CustomTab>
+          </ResponsiveTab>
         </Tabs>
       </div>
       <Layer>
