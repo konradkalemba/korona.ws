@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Avatar } from 'baseui/avatar';
-import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Block } from 'baseui/block';
 
 const REPO = 'konradkalemba/korona.ws';

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledBody } from 'baseui/card';
 import { StyledCard } from '..';
-import { Label3 } from 'baseui/typography';
 import { Block } from 'baseui/block';
 import {
   Bar,

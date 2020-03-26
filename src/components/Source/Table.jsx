@@ -11,7 +11,7 @@ import {
   StyledRow,
   StyledTable,
 } from 'baseui/table';
-import { Label3, Paragraph3, Paragraph4 } from 'baseui/typography';
+import { Paragraph3, Paragraph4 } from 'baseui/typography';
 import { StyledLink } from 'baseui/link';
 import { ProgressBar } from 'baseui/progress-bar';
 import { useData } from '../../contexts/DataContext';
