@@ -13,28 +13,29 @@ import { switchLanguage } from '../../helpers/switchLanguage';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
-import { Tabs, Tab } from 'baseui/tabs';
+import { Tabs } from 'baseui/tabs';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Figure } from '../Figures/Figures';
 import { useData } from '../../contexts/DataContext';
 import DailyGrowth from '../DailyGrowth/DailyGrowth';
+import ResponsiveTab from '../Common/ResponsiveTab';
 
-function CustomTab(props) {
+const FlexGridItemCentered = ({ children }) => {
+  const [css] = useStyletron();
+
   return (
-    <Tab
-      overrides={{
-        Tab: {
-          style: {
-            flexGrow: 1,
-            textAlign: 'center',
-            padding: '10px 0',
-          },
-        },
-      }}
-      {...props}
-    />
+    <div
+      className={css({
+        display: 'flex',
+        width: '100%',
+        padding: '10px',
+        justifyContent: 'center',
+      })}
+    >
+      {children}
+    </div>
   );
-}
+};
 
 export default function Mobile() {
   const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
@@ -62,8 +63,13 @@ export default function Mobile() {
           })}
         >
           <HeadingSmall margin={0}>{t('coronavirusInPoland')}</HeadingSmall>
-          <FlexGrid flexGridColumnCount={3}>
-            <FlexGridItem>
+          <div
+            className={css({
+              display: 'flex',
+              justifyContent: 'space-around',
+            })}
+          >
+            <FlexGridItemCentered>
               <Figure
                 data={deaths}
                 isLoading={isLoading}
@@ -71,8 +77,8 @@ export default function Mobile() {
                 color={theme.colors.primary}
                 size='compact'
               />
-            </FlexGridItem>
-            <FlexGridItem>
+            </FlexGridItemCentered>
+            <FlexGridItemCentered>
               <Figure
                 data={cases}
                 isLoading={isLoading}
@@ -80,8 +86,8 @@ export default function Mobile() {
                 color={theme.colors.negative}
                 size='compact'
               />
-            </FlexGridItem>
-            <FlexGridItem>
+            </FlexGridItemCentered>
+            <FlexGridItemCentered>
               <Figure
                 data={cures}
                 isLoading={isLoading}
@@ -89,8 +95,8 @@ export default function Mobile() {
                 color={theme.colors.positive}
                 size='compact'
               />
-            </FlexGridItem>
-          </FlexGrid>
+            </FlexGridItemCentered>
+          </div>
         </div>
 
         <Tabs
@@ -123,10 +129,10 @@ export default function Mobile() {
             },
           }}
         >
-          <CustomTab title={t('map')}>
+          <ResponsiveTab title={t('map')}>
             <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: 'auto' }} />
-          </CustomTab>
-          <CustomTab title={t('statistics')}>
+          </ResponsiveTab>
+          <ResponsiveTab title={t('statistics')}>
             <div
               className={css({
                 padding: theme.sizing.scale600,
@@ -175,7 +181,7 @@ export default function Mobile() {
               <br />
               <DataElement />
             </div>
-          </CustomTab>
+          </ResponsiveTab>
         </Tabs>
       </div>
       <Layer>
