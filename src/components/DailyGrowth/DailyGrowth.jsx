@@ -104,14 +104,16 @@ export default function DailyGrowth() {
             setActiveKey(activeKey);
           }}
           activeKey={activeKey}
+          overrides={{
+            TabContent: {
+              style: {
+                padding: '10px 0 0 0',
+              },
+            },
+          }}
         >
           <ResponsiveTab title={t('casesOverall')}>
             <StyledBody>
-              <Block
-                $style={{
-                  margin: '12px 0 20px',
-                }}
-              />
               <ResponsiveContainer height={180}>
                 <LineChart data={groupedData}>
                   <XAxis dataKey='date' />
@@ -153,11 +155,6 @@ export default function DailyGrowth() {
           </ResponsiveTab>
           <ResponsiveTab title={t('casesDaily')}>
             <StyledBody>
-              <Block
-                $style={{
-                  margin: '12px 0 20px',
-                }}
-              />
               <ResponsiveContainer height={180}>
                 <BarChart data={groupedData}>
                   <XAxis dataKey='date' />
