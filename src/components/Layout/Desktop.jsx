@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Map, Figures, VoivodeshipsSplit, Contributors } from '..';
+import { Map, Figures, DailyGrowth, Source, VoivodeshipsSplit, Contributors } from '..';
 
 import { Layer } from 'baseui/layer';
 import { Button, KIND, SIZE } from 'baseui/button';
@@ -12,11 +12,11 @@ import { switchLanguage } from '../../helpers/switchLanguage';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
-import DailyGrowth from '../DailyGrowth/DailyGrowth';
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+  const [isRecentModalOpen, setIsRecentModalOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
 
   return (
@@ -96,7 +96,7 @@ export default function Layout() {
           </div>
           <Button
             size={SIZE.mini}
-            onClick={() => setIsOpen(true)}
+            onClick={() => setIsInfoModalOpen(true)}
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
@@ -108,6 +108,21 @@ export default function Layout() {
             }}
           >
             {t('information')}
+          </Button>
+          <Button
+            size={SIZE.mini}
+            onClick={() => setIsRecentModalOpen(true)}
+            overrides={{
+              BaseButton: {
+                style: ({ $theme }) => ({
+                  borderRadius: $theme.borders.radius200,
+                  boxShadow: $theme.lighting.shadow500,
+                  marginLeft: '10px',
+                }),
+              },
+            }}
+          >
+            {t('source')}
           </Button>
           <Button
             size={SIZE.mini}
@@ -140,9 +155,9 @@ export default function Layout() {
             {t('switchLang')}
           </Button>
           <Modal
-            onClose={() => setIsOpen(false)}
+            onClose={() => setIsInfoModalOpen(false)}
             closeable
-            isOpen={isOpen}
+            isOpen={isInfoModalOpen}
             animate
             role={ROLE.dialog}
             overrides={{
@@ -171,6 +186,26 @@ export default function Layout() {
 
               <Label2 margin='20px 0 10px'>{t('contributors')}</Label2>
               <Contributors />
+            </ModalBody>
+          </Modal>
+          <Modal
+            onClose={() => setIsRecentModalOpen(false)}
+            closeable
+            isOpen={isRecentModalOpen}
+            animate
+            role={ROLE.dialog}
+            overrides={{
+              Dialog: {
+                style: ({ $theme }) => ({
+                  borderRadius: $theme.borders.radius200,
+                }),
+              },
+            }}
+          >
+            <ModalHeader>{t('source')}</ModalHeader>
+            <ModalBody>
+              <Paragraph3>{t('sourceInfo')}</Paragraph3>
+              <Source />
             </ModalBody>
           </Modal>
         </Block>

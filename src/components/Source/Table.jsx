@@ -34,7 +34,7 @@ function SearchIcon() {
 const compare = (originalText = '', filterValue = '') =>
   originalText.toLowerCase().includes(filterValue.toLowerCase().trim());
 
-export default function Recent({ isLoading, data }) {
+export default function Table({ isLoading, data }) {
   const { t } = useTranslation();
   const [, theme] = useStyletron();
   const [filter, setFilter] = useState('');
@@ -44,7 +44,6 @@ export default function Recent({ isLoading, data }) {
 
   return (
     <>
-      <Label3 $style={{ marginBottom: '12px' }}>{t('recent')}</Label3>
       <Input
         size={SIZE.compact}
         overrides={{ Before: SearchIcon }}
