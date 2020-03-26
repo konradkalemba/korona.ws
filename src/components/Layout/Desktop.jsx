@@ -219,6 +219,13 @@ export default function Desktop() {
               >
                 https://github.com/konradkalemba/korona.ws
               </StyledLink>
+              <Paragraph3>{t('donation')}</Paragraph3>
+              <StyledLink
+                target='_blank'
+                href='https://www.paypal.me/konradkalemba'
+              >
+                https://www.paypal.me/konradkalemba
+              </StyledLink>
 
               <Label2 margin='20px 0 10px'>{t('contributors')}</Label2>
               <Contributors />
