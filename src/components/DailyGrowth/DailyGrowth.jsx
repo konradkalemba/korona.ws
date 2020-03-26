@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledBody } from 'baseui/card';
-import { Tabs, Tab } from 'baseui/tabs';
+import { Tabs } from 'baseui/tabs';
 import { useStyletron } from 'baseui';
 import groupBy from 'lodash.groupby';
 
@@ -12,6 +12,7 @@ import Loader from './Loader';
 import { sum } from '../../helpers/misc';
 import { Block } from 'baseui/block';
 import moment from 'moment';
+import ResponsiveTab from '../Common/ResponsiveTab';
 
 const CASES_KEY = 'cases';
 const DAILY_CASES_KEY = 'dailyCases';
@@ -80,16 +81,8 @@ export default function DailyGrowth() {
               setActiveKey(activeKey);
             }}
             activeKey={activeKey}
-            overrides={{
-              TabBar: {
-                style: {
-                  textAlign: 'center',
-                  justifyContent: 'center'
-                }
-              }
-            }}
           >
-            <Tab title={t('casesOverall')}>
+            <ResponsiveTab title={t('casesOverall')}>
               <StyledBody>
                 <Block
                   $style={{
@@ -134,8 +127,8 @@ export default function DailyGrowth() {
                   </LineChart>
                 </ResponsiveContainer>
               </StyledBody>
-            </Tab>
-            <Tab title={t('casesDaily')}>
+            </ResponsiveTab>
+            <ResponsiveTab title={t('casesDaily')}>
               <StyledBody>
                 <Block
                   $style={{
@@ -174,7 +167,7 @@ export default function DailyGrowth() {
                   </BarChart>
                 </ResponsiveContainer>
               </StyledBody>
-            </Tab>
+            </ResponsiveTab>
           </Tabs>
         )}
     </StyledCard>

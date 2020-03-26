@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledBody } from 'baseui/card';
-import { Tab, Tabs } from 'baseui/tabs';
+import { Tabs } from 'baseui/tabs';
 import { StyledCard } from '..';
 import { Notification } from 'baseui/notification';
 
@@ -10,6 +10,7 @@ import groupBy from 'lodash.groupby';
 import { sum } from '../../helpers/misc';
 import VoivodeshipsSplit from './VoivodeshipsSplit';
 import Recent from './Recent';
+import ResponsiveTab from '../Common/ResponsiveTab';
 
 function prepareData(cases, voivodeships) {
   return Object.entries(groupBy(cases, 'voivodeship'))
@@ -58,24 +59,18 @@ export default function DataElement() {
                 textAlign: 'left',
                 padding: '14px',
               },
-            },
-            TabBar: {
-              style: {
-                textAlign: 'center',
-                justifyContent: 'center'
-              }
             }
           }}
         >
-          <Tab title={t('confirmedCases')}>
+          <ResponsiveTab title={t('confirmedCases')}>
             <VoivodeshipsSplit data={groupedCases} isLoading={isLoading} />
             <Recent data={cases} isLoading={isLoading} />
-          </Tab>
-          <Tab title={t('deaths')}>
+          </ResponsiveTab>
+          <ResponsiveTab title={t('deaths')}>
             <VoivodeshipsSplit data={groupedDeaths} isLoading={isLoading} />
             <Recent data={deaths} isLoading={isLoading} />
-          </Tab>
-          <Tab title={t('cured')}>
+          </ResponsiveTab>
+          <ResponsiveTab title={t('cured')}>
             <Notification
               overrides={{
                 Body: {
@@ -90,7 +85,7 @@ export default function DataElement() {
             </Notification>
             <VoivodeshipsSplit data={groupedCures} isLoading={isLoading} />
             <Recent data={cures} isLoading={isLoading} />
-          </Tab>
+          </ResponsiveTab>
         </Tabs>
       </StyledBody>
     </StyledCard>
