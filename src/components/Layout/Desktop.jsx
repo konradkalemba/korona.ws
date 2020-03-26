@@ -18,9 +18,9 @@ import { StyledLink } from 'baseui/link';
 export default function Desktop() {
   const { t, i18n } = useTranslation();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-  const [isRecentModalOpen, setIsRecentModalOpen] = useState(false);
+  const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
-  const [css, theme] = useStyletron();
+  const [css] = useStyletron();
 
   return (
     <>
@@ -114,7 +114,7 @@ export default function Desktop() {
           </Button>
           <Button
             size={SIZE.mini}
-            onClick={() => setIsRecentModalOpen(true)}
+            onClick={() => setIsSourceModalOpen(true)}
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
@@ -198,9 +198,9 @@ export default function Desktop() {
             </ModalBody>
           </Modal>
           <Modal
-            onClose={() => setIsRecentModalOpen(false)}
+            onClose={() => setIsSourceModalOpen(false)}
             closeable
-            isOpen={isRecentModalOpen}
+            isOpen={isSourceModalOpen}
             animate
             role={ROLE.dialog}
             overrides={{

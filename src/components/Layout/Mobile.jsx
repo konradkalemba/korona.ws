@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Map, VoivodeshipsSplit, Contributors } from '../../components';
+import { Map, VoivodeshipsSplit, Source, Contributors } from '../../components';
 
 import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
@@ -44,7 +44,8 @@ const FlexGridItemCentered = ({ children }) => {
 export default function Mobile() {
   const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
   const { t, i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+  const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [activeKey, setActiveKey] = useState('0');
   const [css, theme] = useStyletron();
@@ -81,7 +82,8 @@ export default function Mobile() {
               content={({ close }) => (
                 <StatefulMenu
                   items={[
-                    { label: t('information'), onClick: () => setIsOpen(true) },
+                    { label: t('information'), onClick: () => setIsInfoModalOpen(true) },
+                    { label: t('source'), onClick: () => setIsSourceModalOpen(true) },
                     {
                       label: (useDarkTheme ? t('turnOff') : t('turnOn')) + ' ' + t('darkMode'),
                       onClick: () => setUseDarkTheme(!useDarkTheme),
@@ -254,9 +256,9 @@ export default function Mobile() {
       <Layer>
         <Block position={'fixed'} bottom={'16px'} left={'0px'} display='flex'>
           <Modal
-            onClose={() => setIsOpen(false)}
+            onClose={() => setIsInfoModalOpen(false)}
             closeable
-            isOpen={isOpen}
+            isOpen={isInfoModalOpen}
             animate
             role={ROLE.dialog}
             overrides={{
@@ -285,6 +287,26 @@ export default function Mobile() {
 
               <Label2 margin='20px 0 10px'>{t('contributors')}</Label2>
               <Contributors />
+            </ModalBody>
+          </Modal>
+          <Modal
+            onClose={() => setIsSourceModalOpen(false)}
+            closeable
+            isOpen={isSourceModalOpen}
+            animate
+            role={ROLE.dialog}
+            overrides={{
+              Dialog: {
+                style: ({ $theme }) => ({
+                  borderRadius: $theme.borders.radius200,
+                }),
+              },
+            }}
+          >
+            <ModalHeader>{t('source')}</ModalHeader>
+            <ModalBody>
+              <Paragraph3>{t('sourceInfo')}</Paragraph3>
+              <Source />
             </ModalBody>
           </Modal>
         </Block>
