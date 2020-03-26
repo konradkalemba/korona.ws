@@ -19,6 +19,7 @@ export function ThemeProvider(props) {
   useEffect(() => {
     localStorage.setItem('useDarkTheme', useDarkTheme);
     firebase.analytics().setUserProperties({ appTheme: useDarkTheme ? 'dark' : 'light' });
+    document.getElementById('manifest').setAttribute('href', `/manifest.${useDarkTheme ? 'dark' : 'light'}.json`);
   }, [useDarkTheme]);
 
   return (
