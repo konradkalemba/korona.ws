@@ -54,7 +54,8 @@ code {
   right: 0;
 }
 
-.dark-theme .leaflet-tile-pane {
+.dark-theme .leaflet-tile-pane,
+.dark-theme .leaflet-control-attribution {
   -webkit-filter: invert(1) grayscale(1);
   filter: invert(1) grayscale(1);
 }
