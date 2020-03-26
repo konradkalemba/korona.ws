@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Map, DataElement, Contributors } from '../../components';
+import { Map, VoivodeshipsSplit, Contributors } from '../../components';
 
 import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
@@ -179,7 +179,7 @@ export default function Mobile() {
               </FlexGrid>
               <DailyGrowth />
               <br />
-              <DataElement />
+              <VoivodeshipsSplit />
             </div>
           </ResponsiveTab>
         </Tabs>

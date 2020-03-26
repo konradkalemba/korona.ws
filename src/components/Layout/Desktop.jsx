@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Map, Figures, DataElement, Contributors } from '..';
+import { Map, Figures, VoivodeshipsSplit, Contributors } from '..';
 
 import { Layer } from 'baseui/layer';
 import { Button, KIND, SIZE } from 'baseui/button';
@@ -62,7 +62,7 @@ export default function Layout() {
             textAlign: 'right',
           })}
         >
-          <DataElement />
+          <VoivodeshipsSplit />
           <Button
             $as='a'
             target='_blank'
