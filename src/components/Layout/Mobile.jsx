@@ -124,7 +124,7 @@ export default function Mobile() {
                 />
               )}
             >
-              <Button kind='tertiary' size='compact'>
+              <Button kind='tertiary' size='mini'>
                 <Overflow size={30} />
               </Button>
             </StatefulPopover>
