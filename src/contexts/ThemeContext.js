@@ -4,7 +4,9 @@ import firebase from 'firebase';
 export const ThemeContext = createContext();
 
 export function ThemeProvider(props) {
-  const [useDarkTheme, setUseDarkTheme] = useState(localStorage.getItem('useDarkTheme') === 'true' || false);
+  const [useDarkTheme, setUseDarkTheme] = useState(
+    localStorage.getItem('useDarkTheme') === 'true' || false
+  );
 
   useEffect(() => {
     if (
@@ -18,7 +20,15 @@ export function ThemeProvider(props) {
 
   useEffect(() => {
     localStorage.setItem('useDarkTheme', useDarkTheme);
-    firebase.analytics().setUserProperties({ appTheme: useDarkTheme ? 'dark' : 'light' });
+    firebase
+      .analytics()
+      .setUserProperties({ appTheme: useDarkTheme ? 'dark' : 'light' });
+    document
+      .getElementById('manifest')
+      .setAttribute(
+        'href',
+        `/manifest.${useDarkTheme ? 'dark' : 'light'}.json`
+      );
   }, [useDarkTheme]);
 
   return (

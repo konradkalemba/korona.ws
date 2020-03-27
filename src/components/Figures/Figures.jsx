@@ -38,7 +38,10 @@ function CountLoader() {
 export function Figure({ data, isLoading, label, color, size = 'standard' }) {
   const { t } = useTranslation();
   const total = (data && sum(data)) || 0;
-  const todayGrowth = (data && sum(data.filter(({ date }) => date === moment().format('YYYY-MM-DD')))) || 0;
+  const todayGrowth =
+    (data &&
+      sum(data.filter(({ date }) => date === moment().format('YYYY-MM-DD')))) ||
+    0;
 
   return (
     <div>
@@ -52,7 +55,11 @@ export function Figure({ data, isLoading, label, color, size = 'standard' }) {
           )}
           {todayGrowth > 0 && (
             <StatefulTooltip
-              content={() => <Paragraph3 color='backgroundPrimary'>{t('todaysChange')}</Paragraph3>}
+              content={() => (
+                <Paragraph3 color='backgroundPrimary'>
+                  {t('todaysChange')}
+                </Paragraph3>
+              )}
               overrides={{
                 Body: {
                   style: {
@@ -98,7 +105,16 @@ export function Figure({ data, isLoading, label, color, size = 'standard' }) {
 
 export default function Figures() {
   const { t } = useTranslation();
-  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
+  const {
+    cases,
+    deaths,
+    cures,
+    hospitalizations,
+    quarantines,
+    supervisions,
+    tests,
+    isLoading,
+  } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
 
@@ -116,7 +132,13 @@ export default function Figures() {
       })}
     >
       <StyledBody>
-        <Figure data={deaths} isLoading={isLoading} label={t('deaths')} color={theme.colors.primary} size={'compact'} />
+        <Figure
+          data={deaths}
+          isLoading={isLoading}
+          label={t('deaths')}
+          color={theme.colors.primary}
+          size={'compact'}
+        />
         <Figure
           data={cases}
           isLoading={isLoading}
@@ -124,7 +146,13 @@ export default function Figures() {
           color={theme.colors.negative}
           size={'compact'}
         />
-        <Figure data={cures} isLoading={isLoading} label={t('cured')} color={theme.colors.positive} size={'compact'} />
+        <Figure
+          data={cures}
+          isLoading={isLoading}
+          label={t('cured')}
+          color={theme.colors.positive}
+          size={'compact'}
+        />
 
         <Block
           $style={{
@@ -136,7 +164,9 @@ export default function Figures() {
             onClick={() => setShowMore(!showMore)}
             kind={KIND.secondary}
             size={SIZE.mini}
-            startEnhancer={() => (!showMore ? <ChevronDown size={16} /> : <ChevronUp size={16} />)}
+            startEnhancer={() =>
+              !showMore ? <ChevronDown size={16} /> : <ChevronUp size={16} />
+            }
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
@@ -172,7 +202,13 @@ export default function Figures() {
               color={theme.colors.accent}
               size='compact'
             />
-            <Figure data={tests} isLoading={isLoading} label={t('tests')} color={theme.colors.accent} size='compact' />
+            <Figure
+              data={tests}
+              isLoading={isLoading}
+              label={t('tests')}
+              color={theme.colors.accent}
+              size='compact'
+            />
           </>
         )}
       </StyledBody>

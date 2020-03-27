@@ -8,10 +8,10 @@ export default function Loader() {
   return (
     <ContentLoader
       speed={0.6}
-      width={300}
+      width={260}
       height={200}
       display={'block'}
-      viewBox='0 0 300 200'
+      viewBox='0 0 280 200'
       backgroundColor={theme.colors.backgroundTertiary}
       foregroundColor={theme.colors.backgroundSecondary}
     >

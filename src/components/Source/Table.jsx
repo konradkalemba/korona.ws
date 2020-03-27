@@ -11,7 +11,7 @@ import {
   StyledRow,
   StyledTable,
 } from 'baseui/table';
-import { Label3, Paragraph3, Paragraph4 } from 'baseui/typography';
+import { Paragraph3, Paragraph4 } from 'baseui/typography';
 import { StyledLink } from 'baseui/link';
 import { ProgressBar } from 'baseui/progress-bar';
 import { useData } from '../../contexts/DataContext';
@@ -34,17 +34,19 @@ function SearchIcon() {
 const compare = (originalText = '', filterValue = '') =>
   originalText.toLowerCase().includes(filterValue.toLowerCase().trim());
 
-export default function Recent({ isLoading, data }) {
+export default function Table({ isLoading, data }) {
   const { t } = useTranslation();
   const [, theme] = useStyletron();
   const [filter, setFilter] = useState('');
   const filteredData =
-    data?.filter(({ voivodeship, date }) => compare(voivodeship, filter) || compare(date, filter)) || [];
+    data?.filter(
+      ({ voivodeship, date }) =>
+        compare(voivodeship, filter) || compare(date, filter)
+    ) || [];
   const { setClickedVoivodeship } = useData();
 
   return (
     <>
-      <Label3 $style={{ marginBottom: '12px' }}>{t('recent')}</Label3>
       <Input
         size={SIZE.compact}
         overrides={{ Before: SearchIcon }}
@@ -110,7 +112,10 @@ export default function Recent({ isLoading, data }) {
                     }}
                   >
                     {voivodeship ? (
-                      <StyledLink onClick={() => setClickedVoivodeship(voivodeship)} $style={{ cursor: 'pointer' }}>
+                      <StyledLink
+                        onClick={() => setClickedVoivodeship(voivodeship)}
+                        $style={{ cursor: 'pointer' }}
+                      >
                         {voivodeship}
                       </StyledLink>
                     ) : (

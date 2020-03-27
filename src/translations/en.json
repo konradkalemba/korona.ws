@@ -1,5 +1,7 @@
 {
   "notification": "Due to the lack of precise information on the location of individual cases in the latest announcements of the Ministry of Health, we are forced to limit ourselves to displaying data by voivodeship.",
+  "offline": "No Internet connection detected.",
+  "offlineRetry": "Retry.",
   "todaysChange": "Today's change",
   "coronavirusInPoland": "Coronavirus in Poland",
   "deaths": "Deaths",
@@ -23,12 +25,12 @@
   "contact": "Contact",
   "openSourceApp": "The application is 'open-source' - anyone willing can directly help in the development of the project. Source code can be found at the following link:",
   "contributors": "Contributors",
-  "casesOverall" : "Overall",
+  "casesOverall": "Overall",
   "casesDaily": "Daily",
-  "curedInfo": "The daily number of healed was corrected after misinterpreting the GIS message, which spoke of 13 healers.",
+  "sourceInfo": "The data is updated basing on the official Twitter account of Polish Ministry of Health. Every information below is confirmed by a tweet, which can be reached by clicking on a date.",
   "loadingData": "Loading data",
   "divisionIntoVoivodeships": "Division into voivodeships",
-  "recent": "Recent",
+  "source": "Data source",
   "search": "Search",
   "date": "Date",
   "quantity": "Quantity",
@@ -36,5 +38,6 @@
   "noDetails": "No Details",
   "moreInfo": "More information on coronavirus",
   "share": "Share",
-  "switchLang": "Zmień na PL"
+  "switchLang": "Polski",
+  "donation": "The application is free to use, but not to operate. Help me by clicking the link below and donating. Thank you!"
 }
