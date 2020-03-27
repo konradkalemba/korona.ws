@@ -19,7 +19,6 @@ import {
 } from 'recharts';
 import Loader from './Loader';
 import { sum } from '../../helpers/misc';
-import { Block } from 'baseui/block';
 import moment from 'moment';
 import ResponsiveTab from '../Common/ResponsiveTab';
 
