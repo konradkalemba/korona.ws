@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import firebase from 'firebase';
+import { firebase } from '../helpers/firebase';
 
 export const ThemeContext = createContext();
 

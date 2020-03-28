@@ -15,9 +15,7 @@ export default function Contributors() {
         throw new Error('GitHub API rate limit exceeded!');
       }
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch(() => {});
 
   return (
     <Block display='flex' flexWrap>
