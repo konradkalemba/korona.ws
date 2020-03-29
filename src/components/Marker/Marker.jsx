@@ -13,36 +13,26 @@ export default function Marker({ size, casesCount, deathsCount }) {
       height={size || '32'}
       viewBox='0 0 32 32'
     >
-      {deathsCount && (
-        <defs>
-          <linearGradient
-            id={`combined-${offset}`}
-            x1='0%'
-            y1='0%'
-            x2='100%'
-            y2='0%'
-          >
-            <stop
-              offset={`${100 - offset}%`}
-              stopColor={theme.colors.negative}
-            />
-            <stop offset={`${offset}%`} stopColor={theme.colors.primary} />
-          </linearGradient>
-        </defs>
-      )}
-
       <circle
         cx='50%'
         cy='50%'
-        r='8px'
-        fill={deathsCount ? `url(#combined-${offset})` : theme.colors.negative}
+        r='7.5px'
+        fill={theme.colors.negative}
+        opacity={0.8}
+      ></circle>
+      <circle
+        cx='50%'
+        cy='50%'
+        r='10px'
+        fill={theme.colors.negative}
+        opacity={0.2}
       ></circle>
       {casesCount && (
         <text
           className='text'
           x='50%'
           y='50%'
-          fontSize={'60%'}
+          fontSize={'40%'}
           fill='white'
           textAnchor='middle'
           dy='.3em'
