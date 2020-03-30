@@ -59,6 +59,7 @@ export default function Table({ isLoading, data }) {
           borderColor: theme.colors.backgroundTertiary,
           marginTop: '12px',
           minHeight: '100px',
+          maxHeight: '350px'
         }}
       >
         {isLoading && (
