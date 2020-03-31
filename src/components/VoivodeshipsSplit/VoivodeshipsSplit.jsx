@@ -67,7 +67,6 @@ export default function VoivodeshipsSplit() {
       accumulateData([...preparedCases, ...preparedDeaths, ...preparedCures])
     );
   }, [cases, deaths, cures]);
-  console.log(groupedData);
 
   return (
     <StyledCard

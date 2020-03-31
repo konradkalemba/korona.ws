@@ -23,7 +23,7 @@ export default function Source() {
             maxHeight: '400px',
             overflow: 'auto',
             textAlign: 'left',
-            padding: '14px',
+            padding: '14px 0 0 0',
           },
         },
       }}

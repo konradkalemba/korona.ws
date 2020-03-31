@@ -18,8 +18,8 @@ import groupBy from 'lodash.groupby';
 import useWindowDimensions from '../../hooks/window-dimensions';
 import { sum } from '../../helpers/misc';
 
-const MIN_MARKER_SIZE = 32;
-const MAX_MARKER_SIZE = 64;
+const MIN_MARKER_SIZE = 90;
+const MAX_MARKER_SIZE = 180;
 
 const Centered = styled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.backgroundPrimary,
