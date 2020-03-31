@@ -32,35 +32,42 @@ const DAILY_CURES_KEY = 'dailyCures';
 const STACK_PER_DATE_ID = 'stackPerDate';
 
 function accumulateData(data) {
+  const DATE_FORMAT = 'DD/MM';
   let cumulativeCases = 0;
   let cumulativeDeaths = 0;
   let cumulativeCures = 0;
 
-  return Object.entries(groupBy(data, 'date')).map(([date, dataPerDate]) => {
-    const casesDateCount = sum(
-      dataPerDate.filter((el) => el.key === CASES_KEY)
-    );
-    const deathsDateCount = sum(
-      dataPerDate.filter((el) => el.key === DEATHS_KEY)
-    );
-    const curesDateCount = sum(
-      dataPerDate.filter((el) => el.key === CURES_KEY)
-    );
+  const accumulatedData = Object.entries(groupBy(data, 'date')).map(
+    ([date, dataPerDate]) => {
+      const casesDateCount = sum(
+        dataPerDate.filter((el) => el.key === CASES_KEY)
+      );
+      const deathsDateCount = sum(
+        dataPerDate.filter((el) => el.key === DEATHS_KEY)
+      );
+      const curesDateCount = sum(
+        dataPerDate.filter((el) => el.key === CURES_KEY)
+      );
 
-    cumulativeCases += casesDateCount;
-    cumulativeDeaths += deathsDateCount;
-    cumulativeCures += curesDateCount;
+      cumulativeCases += casesDateCount;
+      cumulativeDeaths += deathsDateCount;
+      cumulativeCures += curesDateCount;
 
-    return {
-      date: moment(date).format('DD/MM'),
-      [CASES_KEY]: cumulativeCases,
-      [DAILY_CASES_KEY]: casesDateCount,
-      [DEATHS_KEY]: cumulativeDeaths,
-      [DAILY_DEATH_KEY]: deathsDateCount,
-      [CURES_KEY]: cumulativeCures,
-      [DAILY_CURES_KEY]: curesDateCount,
-    };
-  });
+      return {
+        date: moment(date).format(DATE_FORMAT),
+        [CASES_KEY]: cumulativeCases,
+        [DAILY_CASES_KEY]: casesDateCount,
+        [DEATHS_KEY]: cumulativeDeaths,
+        [DAILY_DEATH_KEY]: deathsDateCount,
+        [CURES_KEY]: cumulativeCures,
+        [DAILY_CURES_KEY]: curesDateCount,
+      };
+    }
+  );
+
+  return accumulatedData.filter(
+    (caseElement) => caseElement.date !== moment().format(DATE_FORMAT)
+  );
 }
 
 export default function DailyGrowth() {
