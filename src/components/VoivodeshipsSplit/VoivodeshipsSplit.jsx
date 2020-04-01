@@ -84,6 +84,7 @@ export default function VoivodeshipsSplit() {
         <Block
           $style={{
             margin: '12px 0 20px',
+            overflow: 'hidden',
           }}
         >
           {isLoading && <Loader />}
