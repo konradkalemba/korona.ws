@@ -3,7 +3,6 @@ import { useStyletron } from 'baseui';
 
 export default function Marker({ size, casesCount, deathsCount }) {
   const [, theme] = useStyletron();
-  const offset = (deathsCount / casesCount) * 100;
 
   return (
     <svg

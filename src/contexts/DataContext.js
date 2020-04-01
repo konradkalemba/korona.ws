@@ -45,7 +45,7 @@ export function DataProvider(props) {
         updatedAtDatabaseRef.off('value');
       }
     });
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <DataContext.Provider
