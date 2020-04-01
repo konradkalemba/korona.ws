@@ -23,6 +23,7 @@ import { Figure } from '../Figures/Figures';
 import { useData } from '../../contexts/DataContext';
 import DailyGrowth from '../DailyGrowth/DailyGrowth';
 import ResponsiveTab from '../Common/ResponsiveTab';
+import { Map as MapIcon, ChartPie } from 'tabler-icons-react';
 
 const FlexGridItemCentered = ({ children }) => {
   const [css] = useStyletron();
@@ -64,7 +65,7 @@ export default function Mobile() {
         className={css({
           display: 'flex',
           flexDirection: 'column',
-          minHeight: '100vh',
+          height: '100%',
           width: '100vw',
         })}
       >
@@ -200,6 +201,8 @@ export default function Mobile() {
               style: {
                 flexGrow: 1,
                 display: 'flex',
+                flexDirection: 'column-reverse',
+                overflow: 'hidden',
               },
             },
             TabBar: {
@@ -215,18 +218,37 @@ export default function Mobile() {
                   flexGrow: 1,
                   display: $active ? 'flex' : 'none',
                   width: '100vw',
+                  overflowY: 'auto',
                 };
               },
             },
           }}
         >
-          <ResponsiveTab title={t('map')}>
+          <ResponsiveTab
+            isCompact
+            title={
+              <Block>
+                <MapIcon />
+                <br />
+                {t('map')}
+              </Block>
+            }
+          >
             <Map
               className={useDarkTheme ? 'dark-theme' : ''}
               style={{ height: 'auto' }}
             />
           </ResponsiveTab>
-          <ResponsiveTab title={t('statistics')}>
+          <ResponsiveTab
+            isCompact
+            title={
+              <Block>
+                <ChartPie />
+                <br />
+                {t('statistics')}
+              </Block>
+            }
+          >
             <div
               className={css({
                 padding: theme.sizing.scale600,
@@ -274,6 +296,7 @@ export default function Mobile() {
               <DailyGrowth />
               <br />
               <VoivodeshipsSplit />
+              <br />
             </div>
           </ResponsiveTab>
         </Tabs>
