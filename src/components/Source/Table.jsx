@@ -78,7 +78,7 @@ export default function Table({ isLoading, data }) {
           />
         )}
 
-        <StyledHead role='row'>
+        <StyledHead role='row' style={{flexShrink: 0}}>
           <StyledHeadCell role='columnheader'>
             <Paragraph3 margin={0}>{t('date')}</Paragraph3>
           </StyledHeadCell>
@@ -120,8 +120,8 @@ export default function Table({ isLoading, data }) {
                         {voivodeship}
                       </StyledLink>
                     ) : (
-                      t('noDetails')
-                    )}
+                        t('noDetails')
+                      )}
                   </Paragraph4>
                 </StyledCell>
               </StyledRow>
