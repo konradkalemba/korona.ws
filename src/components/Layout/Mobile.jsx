@@ -208,6 +208,7 @@ export default function Mobile() {
             TabBar: {
               style: {
                 display: 'flex',
+                flexShrink: 0,
               },
             },
             TabContent: {
