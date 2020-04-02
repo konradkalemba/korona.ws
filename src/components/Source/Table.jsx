@@ -36,7 +36,7 @@ const compare = (originalText = '', filterValue = '') =>
 
 export default function Table({ isLoading, data }) {
   const { t } = useTranslation();
-  const [, theme] = useStyletron();
+  const [css, theme] = useStyletron();
   const [filter, setFilter] = useState('');
   const filteredData =
     data?.filter(
@@ -78,7 +78,7 @@ export default function Table({ isLoading, data }) {
           />
         )}
 
-        <StyledHead role='row'>
+        <StyledHead role='row' className={css({ flexShrink: 0 })}>
           <StyledHeadCell role='columnheader'>
             <Paragraph3 margin={0}>{t('date')}</Paragraph3>
           </StyledHeadCell>
@@ -120,8 +120,8 @@ export default function Table({ isLoading, data }) {
                         {voivodeship}
                       </StyledLink>
                     ) : (
-                      t('noDetails')
-                    )}
+                        t('noDetails')
+                      )}
                   </Paragraph4>
                 </StyledCell>
               </StyledRow>
