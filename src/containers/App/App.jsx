@@ -22,6 +22,7 @@ import { Layer } from 'baseui/layer';
 import { StyledLink } from 'baseui/link';
 
 import { Layout } from '../../components';
+import useWindowDimensions from '../../hooks/window-dimensions';
 
 const engine = new Styletron();
 
@@ -38,6 +39,7 @@ const darkTheme = createTheme(
 
 export default function App() {
   const { t } = useTranslation();
+  const { width } = useWindowDimensions();
 
   return (
     <ConnectionProvider>
@@ -54,6 +56,10 @@ export default function App() {
                         AppContainer: {
                           props: {
                             'data-theme': useDarkTheme ? 'dark' : 'light',
+                          },
+                          style: {
+                            height: '100%',
+                            ...(width >= 600 && { display: 'none' }),
                           },
                         },
                         LayersContainer: {

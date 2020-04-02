@@ -98,7 +98,7 @@ export default function Table({ isLoading, data }) {
                 <StyledCell>
                   <Paragraph4 margin={0}>
                     <StyledLink href={source} target='_blank'>
-                      {date}
+                      {date || t('noDetails')}
                     </StyledLink>
                   </Paragraph4>
                 </StyledCell>
