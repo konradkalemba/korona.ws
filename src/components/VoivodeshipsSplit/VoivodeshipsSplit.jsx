@@ -54,13 +54,19 @@ export default function VoivodeshipsSplit() {
 
   useEffect(() => {
     const preparedCases = cases
-      ? cases.map((el) => ({ ...el, key: CASES_KEY }))
+      ? cases
+          .filter((el) => el.voivodeship)
+          .map((el) => ({ ...el, key: CASES_KEY }))
       : [];
     const preparedDeaths = deaths
-      ? deaths.map((el) => ({ ...el, key: DEATHS_KEY }))
+      ? deaths
+          .filter((el) => el.voivodeship)
+          .map((el) => ({ ...el, key: DEATHS_KEY }))
       : [];
     const preparedCures = cures
-      ? cures.map((el) => ({ ...el, key: CURES_KEY }))
+      ? cures
+          .filter((el) => el.voivodeship)
+          .map((el) => ({ ...el, key: CURES_KEY }))
       : [];
 
     setGroupedData(
