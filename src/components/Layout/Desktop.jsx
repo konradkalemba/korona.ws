@@ -88,7 +88,10 @@ export default function Desktop() {
           <Button
             $as='a'
             target='_blank'
-            href='https://www.gov.pl/web/koronawirus'
+            href={i18n.language === 'pl' ?
+              'https://www.gov.pl/web/koronawirus' :
+              'https://www.gov.pl/web/coronavirus'
+            }
             kind={KIND.secondary}
             overrides={{
               BaseButton: {
