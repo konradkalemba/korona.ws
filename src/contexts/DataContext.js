@@ -1,10 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { firebase } from '../helpers/firebase';
+import { connect, db } from '../helpers/stitch';
 import { useConnection } from './ConnectionContext';
 
-const updatedAtDatabaseRef = firebase.database().ref('/updatedAt');
-const rootDatabaseRef = firebase.database().ref('/');
+const COLLECTIONS = [
+  'voivodeships',
+  'cases',
+  'deaths',
+  'cures',
+  'hospitalizations',
+  'quarantines',
+  'supervisions',
+  'tests',
+];
 
 const DataContext = createContext();
 
@@ -26,26 +34,42 @@ export function DataProvider(props) {
       return false;
     }
 
-    // Listen to `updatedAt` property changes
-    updatedAtDatabaseRef.on('value', (snapshot) => {
-      // Check if cached data is valid
-      if (cachedData && cachedData.updatedAt === snapshot.val()) {
-        setData(cachedData);
-        setIsLoading(false);
-      } else {
-        rootDatabaseRef.on('value', (snapshot) => {
-          // Update cache
-          localStorage.setItem('data', JSON.stringify(snapshot.val()));
+    async function fetchData() {
+      await connect();
+      const fetchedData = {};
 
-          setData(snapshot.val());
-          setIsLoading(false);
+      async function registerCollection(collectionName) {
+        const collection = db.collection(collectionName);
+
+        fetchedData[collectionName] = await collection.find().toArray();
+
+        // Set up a watcher
+        const stream = await collection.watch();
+
+        // Watch for the changes
+        stream.onNext(async () => {
+          fetchedData[collectionName] = await collection.find().toArray();
+
+          setData({
+            ...fetchedData,
+          });
         });
-
-        // Disable listening to `updatedAt` changes since we are now listening to the root object changes
-        updatedAtDatabaseRef.off('value');
       }
-    });
+
+      await Promise.all(
+        COLLECTIONS.map((collectionName) => registerCollection(collectionName))
+      );
+
+      setData(fetchedData);
+      setIsLoading(false);
+    }
+
+    fetchData();
   }, []); // eslint-disable-line
+
+  useEffect(() => {
+    data && localStorage.setItem('data', JSON.stringify(data));
+  }, [data]);
 
   return (
     <DataContext.Provider

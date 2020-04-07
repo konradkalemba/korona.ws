@@ -1,6 +1,5 @@
 import * as Firebase from 'firebase/app';
 import 'firebase/analytics';
-import 'firebase/database';
 
 const {
   REACT_APP_FIREBASE_API_KEY,
