@@ -1,61 +1,41 @@
-import firebase from 'firebase';
 import { sum } from '../src/helpers/misc';
+import {
+  Stitch,
+  RemoteMongoClient,
+  AnonymousCredential,
+} from 'mongodb-stitch-server-sdk';
 
 const {
-  REACT_APP_FIREBASE_API_KEY,
-  REACT_APP_FIREBASE_AUTH_DOMAIN,
-  REACT_APP_FIREBASE_PROJECT_ID,
-  REACT_APP_FIREBASE_STORAGE_BUCKET,
-  REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  REACT_APP_FIREBASE_APP_ID,
-  REACT_APP_FIREBASE_MEASUREMENT_ID,
   API_KEY,
+  REACT_APP_STITCH_APP_ID,
+  REACT_APP_STITCH_SERVICE_NAME,
+  REACT_APP_MONGO_DB_NAME,
 } = process.env;
 
-firebase.initializeApp({
-  ...(REACT_APP_FIREBASE_API_KEY && { apiKey: REACT_APP_FIREBASE_API_KEY }),
-  ...(REACT_APP_FIREBASE_AUTH_DOMAIN && {
-    authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN,
-  }),
-  databaseURL: 'https://korona-ws.firebaseio.com',
-  ...(REACT_APP_FIREBASE_PROJECT_ID && {
-    projectId: REACT_APP_FIREBASE_PROJECT_ID,
-  }),
-  ...(REACT_APP_FIREBASE_STORAGE_BUCKET && {
-    storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET,
-  }),
-  ...(REACT_APP_FIREBASE_MESSAGING_SENDER_ID && {
-    messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  }),
-  ...(REACT_APP_FIREBASE_APP_ID && { appId: REACT_APP_FIREBASE_APP_ID }),
-  ...(REACT_APP_FIREBASE_MEASUREMENT_ID && {
-    measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID,
-  }),
-});
+const client = Stitch.initializeDefaultAppClient(REACT_APP_STITCH_APP_ID);
 
-const rootDatabaseRef = firebase.database().ref('/');
+const db = client
+  .getServiceClient(RemoteMongoClient.factory, REACT_APP_STITCH_SERVICE_NAME)
+  .db(REACT_APP_MONGO_DB_NAME);
 
-export default function handle(request, response) {
+export default async function handle(request, response) {
   const { query } = request;
+
+  await client.auth.loginWithCredential(new AnonymousCredential());
 
   if (!query.key || query.key !== API_KEY) {
     response.status(401).send({
       error: 'wrong_api_key',
     });
   } else {
-    rootDatabaseRef.once('value').then((snapshot) => {
-      let { deaths, cases, cures, updatedAt } = snapshot.val();
+    const deaths = sum(await db.collection('deaths').find().toArray());
+    const cases = sum(await db.collection('cases').find().toArray());
+    const cures = sum(await db.collection('cures').find().toArray());
 
-      deaths = sum(deaths);
-      cases = sum(cases);
-      cures = sum(cures);
-
-      response.send({
-        deaths,
-        cases,
-        cures,
-        updatedAt,
-      });
+    response.send({
+      deaths,
+      cases,
+      cures,
     });
   }
 }
