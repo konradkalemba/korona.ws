@@ -15,7 +15,7 @@ const {
 
 const client = Stitch.initializeDefaultAppClient(
   REACT_APP_STITCH_APP_ID,
-  new StitchAppClientConfiguration.Builder().withDataDirectory('./').build()
+  new StitchAppClientConfiguration.Builder().withDataDirectory('/tmp/').build()
 );
 
 const db = client
