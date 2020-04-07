@@ -3,6 +3,7 @@ import {
   Stitch,
   RemoteMongoClient,
   AnonymousCredential,
+  StitchAppClientConfiguration,
 } from 'mongodb-stitch-server-sdk';
 
 const {
@@ -12,7 +13,10 @@ const {
   REACT_APP_MONGO_DB_NAME,
 } = process.env;
 
-const client = Stitch.initializeDefaultAppClient(REACT_APP_STITCH_APP_ID);
+const client = Stitch.initializeDefaultAppClient(
+  REACT_APP_STITCH_APP_ID,
+  new StitchAppClientConfiguration.Builder().withDataDirectory('./').build()
+);
 
 const db = client
   .getServiceClient(RemoteMongoClient.factory, REACT_APP_STITCH_SERVICE_NAME)
