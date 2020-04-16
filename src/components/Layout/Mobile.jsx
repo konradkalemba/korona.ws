@@ -239,6 +239,22 @@ export default function Mobile() {
               className={useDarkTheme ? 'dark-theme' : ''}
               style={{ height: 'auto' }}
             />
+            <div
+              className={css({
+                position: 'absolute',
+                left: '10px',
+                bottom: '62px',
+                pointerEvents: 'none',
+              })}
+            >
+              <img
+                className={css({
+                  height: '26px',
+                })}
+                src={`${process.env.PUBLIC_URL}/images/zeit.svg`}
+                alt='Sponsored by Zeit'
+              />
+            </div>
           </ResponsiveTab>
           <ResponsiveTab
             isCompact
