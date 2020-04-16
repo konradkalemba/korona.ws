@@ -10,7 +10,9 @@ const {
   REACT_APP_MONGO_DB_NAME,
 } = process.env;
 
-const client = Stitch.initializeDefaultAppClient(REACT_APP_STITCH_APP_ID);
+const client = Stitch.hasAppClient(REACT_APP_STITCH_APP_ID)
+  ? Stitch.getAppClient(REACT_APP_STITCH_APP_ID)
+  : Stitch.initializeAppClient(REACT_APP_STITCH_APP_ID);
 
 const db = client
   .getServiceClient(RemoteMongoClient.factory, REACT_APP_STITCH_SERVICE_NAME)

@@ -88,9 +88,10 @@ export default function Desktop() {
           <Button
             $as='a'
             target='_blank'
-            href={i18n.language === 'pl' ?
-              'https://www.gov.pl/web/koronawirus' :
-              'https://www.gov.pl/web/coronavirus'
+            href={
+              i18n.language === 'pl'
+                ? 'https://www.gov.pl/web/koronawirus'
+                : 'https://www.gov.pl/web/coronavirus'
             }
             kind={KIND.secondary}
             overrides={{
@@ -105,6 +106,21 @@ export default function Desktop() {
           >
             {t('moreInfo')}
           </Button>
+          <div
+            className={css({
+              display: 'block',
+              textAlign: 'right',
+              marginTop: '20px',
+            })}
+          >
+            <img
+              className={css({
+                height: '36px',
+              })}
+              src={`${process.env.PUBLIC_URL}/images/zeit.svg`}
+              alt='Sponsored by Zeit'
+            />
+          </div>
         </Block>
       </Layer>
       <Layer>
