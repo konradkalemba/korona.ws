@@ -32,13 +32,14 @@ const DAILY_CURES_KEY = 'dailyCures';
 const STACK_PER_DATE_ID = 'stackPerDate';
 
 function accumulateData(data) {
-  const DATE_FORMAT = 'DD/MM';
+  const DATE_FORMAT = 'DD.MM';
   let cumulativeCases = 0;
   let cumulativeDeaths = 0;
   let cumulativeCures = 0;
 
-  const accumulatedData = Object.entries(groupBy(data, 'date')).map(
-    ([date, dataPerDate]) => {
+  const accumulatedData = Object.entries(groupBy(data, 'date'))
+    .sort(([a], [b]) => moment(a).diff(b))
+    .map(([date, dataPerDate]) => {
       const casesDateCount = sum(
         dataPerDate.filter((el) => el.key === CASES_KEY)
       );
@@ -62,8 +63,7 @@ function accumulateData(data) {
         [CURES_KEY]: cumulativeCures,
         [DAILY_CURES_KEY]: curesDateCount,
       };
-    }
-  );
+    });
 
   return accumulatedData.filter(
     (caseElement) => caseElement.date !== moment().format(DATE_FORMAT)
