@@ -16,6 +16,7 @@ import ContentLoader from 'react-content-loader';
 import { useData } from '../../contexts/DataContext';
 import moment from 'moment';
 import { sum } from '../../helpers/misc';
+import { ArrowDown } from 'baseui/icon';
 
 function CountLoader() {
   const [, theme] = useStyletron();
@@ -53,7 +54,7 @@ export function Figure({ data, isLoading, label, color, size = 'standard' }) {
           ) : (
             <Display4 color={color}>{total.toLocaleString()}</Display4>
           )}
-          {todayGrowth > 0 && (
+          {todayGrowth !== 0 && (
             <StatefulTooltip
               content={() => (
                 <Paragraph3 color='backgroundPrimary'>
@@ -87,8 +88,12 @@ export function Figure({ data, isLoading, label, color, size = 'standard' }) {
                   lineHeight: size === 'standard' ? '32px' : '24px',
                 }}
               >
-                <ArrowUp size={size === 'standard' ? 32 : 24} />
-                {todayGrowth}
+                {todayGrowth < 0 ? (
+                  <ArrowDown size={size === 'standard' ? 32 : 24} />
+                ) : (
+                  <ArrowUp size={size === 'standard' ? 32 : 24} />
+                )}
+                {Math.abs(todayGrowth)}
               </span>
             </StatefulTooltip>
           )}
