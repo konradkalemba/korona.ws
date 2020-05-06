@@ -81,17 +81,17 @@ export default function DailyGrowth() {
 
   const [graphFilter, setGraphFilter] = useState([
     {
-      key: t('confirmedCasesShort'),
+      translationKey: 'confirmedCasesShort',
       group: [CASES_KEY, DAILY_CASES_KEY],
       selected: true,
     },
     {
-      key: t('deaths'),
+      translationKey: 'deaths',
       group: [DEATHS_KEY, DAILY_DEATH_KEY],
       selected: true,
     },
     {
-      key: t('cured'),
+      translationKey: 'cured',
       group: [DAILY_CURES_KEY, CURES_KEY],
       selected: true,
     },
@@ -252,7 +252,7 @@ export default function DailyGrowth() {
             onChange={() => handleInputChange(item, index)}
             labelPlacement={LABEL_PLACEMENT.right}
           >
-            {item.key}
+            {t(item.translationKey)}
           </Checkbox>
         ))}
       </div>
