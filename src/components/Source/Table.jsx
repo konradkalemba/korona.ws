@@ -120,8 +120,8 @@ export default function Table({ isLoading, data }) {
                         {voivodeship}
                       </StyledLink>
                     ) : (
-                        t('noDetails')
-                      )}
+                      t('noDetails')
+                    )}
                   </Paragraph4>
                 </StyledCell>
               </StyledRow>
