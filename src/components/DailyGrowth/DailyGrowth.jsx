@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StyledBody } from 'baseui/card';
 import { Tabs } from 'baseui/tabs';
 import { useStyletron } from 'baseui';
+import { Checkbox, LABEL_PLACEMENT } from 'baseui/checkbox';
 import groupBy from 'lodash.groupby';
 
 import { StyledCard } from '..';
@@ -76,7 +77,67 @@ export default function DailyGrowth() {
   const { t } = useTranslation();
   const [groupedData, setGroupedData] = useState(null);
   const [activeKey, setActiveKey] = useState('0');
-  const [, theme] = useStyletron();
+  const [css, theme] = useStyletron();
+
+  const [graphFilter, setGraphFilter] = useState([
+    {
+      key: t('confirmedCasesShort'),
+      group: [CASES_KEY, DAILY_CASES_KEY],
+      selected: true,
+    },
+    {
+      key: t('deaths'),
+      group: [DEATHS_KEY, DAILY_DEATH_KEY],
+      selected: true,
+    },
+    {
+      key: t('cured'),
+      group: [DAILY_CURES_KEY, CURES_KEY],
+      selected: true,
+    },
+  ]);
+
+  const lineGraph = [
+    {
+      name: t('confirmedCasesShort'),
+      key: CASES_KEY,
+      color: theme.colors.negative,
+    },
+    {
+      name: t('deaths'),
+      key: DEATHS_KEY,
+      color: theme.colors.primary,
+    },
+    {
+      name: t('cured'),
+      key: CURES_KEY,
+      color: theme.colors.positive,
+    },
+  ];
+
+  const barGraph = [
+    {
+      name: t('confirmedCasesShort'),
+      key: DAILY_CASES_KEY,
+      color: theme.colors.negative,
+    },
+    {
+      name: t('deaths'),
+      key: DAILY_DEATH_KEY,
+      color: theme.colors.primary,
+    },
+    {
+      name: t('cured'),
+      key: DAILY_CURES_KEY,
+      color: theme.colors.positive,
+    },
+  ];
+
+  function filterGroups(item) {
+    return graphFilter.find(
+      ({ group, selected }) => group.includes(item.key) && selected
+    );
+  }
 
   useEffect(() => {
     const preparedCases = cases
@@ -93,6 +154,12 @@ export default function DailyGrowth() {
       accumulateData([...preparedCases, ...preparedDeaths, ...preparedCures])
     );
   }, [cases, deaths, cures]);
+
+  function handleInputChange(item, index) {
+    graphFilter[index].selected = !item.selected;
+
+    setGraphFilter([...graphFilter]);
+  }
 
   return (
     <StyledCard
@@ -131,30 +198,16 @@ export default function DailyGrowth() {
                     }}
                     cursor={{ fill: theme.colors.backgroundTertiary }}
                   />
-                  <Line
-                    name={t('confirmedCasesShort')}
-                    type='monotone'
-                    dataKey={CASES_KEY}
-                    strokeWidth={2}
-                    stroke={theme.colors.negative}
-                    dot={false}
-                  />
-                  <Line
-                    name={t('deaths')}
-                    type='monotone'
-                    dataKey={DEATHS_KEY}
-                    strokeWidth={2}
-                    stroke={theme.colors.primary}
-                    dot={false}
-                  />
-                  <Line
-                    name={t('cured')}
-                    type='monotone'
-                    dataKey={CURES_KEY}
-                    strokeWidth={2}
-                    stroke={theme.colors.positive}
-                    dot={false}
-                  />
+                  {lineGraph.filter(filterGroups).map((item) => (
+                    <Line
+                      name={item.name}
+                      type='monotone'
+                      dataKey={item.key}
+                      strokeWidth={2}
+                      stroke={item.color}
+                      dot={false}
+                    />
+                  ))}
                 </LineChart>
               </ResponsiveContainer>
             </StyledBody>
@@ -172,30 +225,37 @@ export default function DailyGrowth() {
                     }}
                     cursor={{ fill: theme.colors.backgroundTertiary }}
                   />
-                  <Bar
-                    name={t('confirmedCasesShort')}
-                    stackId={STACK_PER_DATE_ID}
-                    dataKey={DAILY_CASES_KEY}
-                    fill={theme.colors.negative}
-                  />
-                  <Bar
-                    name={t('deaths')}
-                    stackId={STACK_PER_DATE_ID}
-                    dataKey={DAILY_DEATH_KEY}
-                    fill={theme.colors.primary}
-                  />
-                  <Bar
-                    name={t('cured')}
-                    stackId={STACK_PER_DATE_ID}
-                    dataKey={DAILY_CURES_KEY}
-                    fill={theme.colors.positive}
-                  />
+
+                  {barGraph.filter(filterGroups).map((item) => (
+                    <Bar
+                      name={item.name}
+                      stackId={STACK_PER_DATE_ID}
+                      dataKey={item.key}
+                      fill={item.color}
+                    />
+                  ))}
                 </BarChart>
               </ResponsiveContainer>
             </StyledBody>
           </ResponsiveTab>
         </Tabs>
       )}
+      <div
+        className={css({
+          display: 'flex',
+          justifyContent: 'space-evenly',
+        })}
+      >
+        {graphFilter.map((item, index) => (
+          <Checkbox
+            checked={item.selected}
+            onChange={() => handleInputChange(item, index)}
+            labelPlacement={LABEL_PLACEMENT.right}
+          >
+            {item.key}
+          </Checkbox>
+        ))}
+      </div>
     </StyledCard>
   );
 }
