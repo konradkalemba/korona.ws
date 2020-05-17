@@ -72,8 +72,7 @@ export default function Mobile() {
         <div
           className={css({
             backgroundColor: theme.colors.backgroundPrimary,
-            padding: theme.sizing.scale600,
-            paddingBottom: 0,
+            padding: `${theme.sizing.scale600} 0 0 0`,
           })}
         >
           <div
@@ -82,6 +81,7 @@ export default function Mobile() {
               flexWrap: 'nowrap',
               justifyContent: 'space-between',
               alignItems: 'center',
+              padding: `0 ${theme.sizing.scale600}`,
             })}
           >
             <HeadingSmall margin={0}>{t('coronavirusInPoland')}</HeadingSmall>
@@ -158,7 +158,10 @@ export default function Mobile() {
           <div
             className={css({
               display: 'flex',
-              justifyContent: 'space-around',
+              justifyContent: 'flex-start',
+              overflow: 'auto',
+              flex: 1,
+              padding: `0 ${theme.sizing.scale600}`,
             })}
           >
             <FlexGridItemCentered>
@@ -272,7 +275,14 @@ export default function Mobile() {
                 height: 'auto',
               })}
             >
-              <FlexGrid flexGridColumnCount={2}>
+              <FlexGrid
+                flexGridColumnCount={2}
+                className={css({
+                  margin: `0 -${theme.sizing.scale600}`,
+                  padding: `0 ${theme.sizing.scale600}`,
+                  overflowX: 'auto',
+                  flex: 1,
+                })}>
                 <FlexGridItem>
                   <Figure
                     data={hospitalizations}
