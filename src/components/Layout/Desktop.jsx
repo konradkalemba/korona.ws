@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Map,
-  Figures,
-  DailyGrowth,
-  Source,
-  VoivodeshipsSplit,
-  Contributors,
-} from '..';
+import { Map, Figures, DailyGrowth, VoivodeshipsSplit, Contributors } from '..';
 
 import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
@@ -21,11 +14,11 @@ import { switchLanguage } from '../../helpers/switchLanguage';
 
 import { useTheme } from '../../contexts/ThemeContext';
 import { StyledLink } from 'baseui/link';
+import { ArrowUpRight } from 'tabler-icons-react';
 
 export default function Desktop() {
   const { t, i18n } = useTranslation();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-  const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [css] = useStyletron();
 
@@ -157,7 +150,10 @@ export default function Desktop() {
           </Button>
           <Button
             size={SIZE.mini}
-            onClick={() => setIsSourceModalOpen(true)}
+            $as='a'
+            target='_blank'
+            href='http://bit.ly/covid19-poland'
+            endEnhancer={() => <ArrowUpRight size={16} />}
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
@@ -248,26 +244,6 @@ export default function Desktop() {
 
               <Label2 margin='20px 0 10px'>{t('contributors')}</Label2>
               <Contributors />
-            </ModalBody>
-          </Modal>
-          <Modal
-            onClose={() => setIsSourceModalOpen(false)}
-            closeable
-            isOpen={isSourceModalOpen}
-            animate
-            role={ROLE.dialog}
-            overrides={{
-              Dialog: {
-                style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200,
-                }),
-              },
-            }}
-          >
-            <ModalHeader>{t('source')}</ModalHeader>
-            <ModalBody>
-              <Paragraph3>{t('sourceInfo')}</Paragraph3>
-              <Source />
             </ModalBody>
           </Modal>
         </Block>

@@ -8,10 +8,8 @@
     "REACT_APP_FIREBASE_MESSAGING_SENDER_ID": "@firebase-messaging-sender-id",
     "REACT_APP_FIREBASE_APP_ID": "@firebase-app-id",
     "REACT_APP_FIREBASE_MEASUREMENT_ID": "@firebase-measurement-id",
-    "REACT_APP_STITCH_APP_ID": "@stitch-app-id",
-    "REACT_APP_STITCH_SERVICE_NAME": "@stitch-service-name",
-    "REACT_APP_MONGO_DB_NAME": "@mongo-db-name",
-    "API_KEY": "@api-key"
+    "API_KEY": "@api-key",
+    "REACT_APP_DATA_ENDPOINT": "@data-endpoint"
   },
   "build": {
     "env": {
@@ -23,10 +21,8 @@
       "REACT_APP_FIREBASE_MESSAGING_SENDER_ID": "@firebase-messaging-sender-id",
       "REACT_APP_FIREBASE_APP_ID": "@firebase-app-id",
       "REACT_APP_FIREBASE_MEASUREMENT_ID": "@firebase-measurement-id",
-      "REACT_APP_STITCH_APP_ID": "@stitch-app-id",
-      "REACT_APP_STITCH_SERVICE_NAME": "@stitch-service-name",
-      "REACT_APP_MONGO_DB_NAME": "@mongo-db-name",
-      "API_KEY": "@api-key"
+      "API_KEY": "@api-key",
+      "REACT_APP_DATA_ENDPOINT": "@data-endpoint"
     }
   }
 }
