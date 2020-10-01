@@ -1,18 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { connect, db } from '../helpers/stitch';
 import { useConnection } from './ConnectionContext';
-
-const COLLECTIONS = [
-  'voivodeships',
-  'cases',
-  'deaths',
-  'cures',
-  'hospitalizations',
-  'quarantines',
-  'supervisions',
-  'tests',
-];
 
 const DataContext = createContext();
 
@@ -35,30 +23,9 @@ export function DataProvider(props) {
     }
 
     async function fetchData() {
-      await connect();
-      const fetchedData = {};
+      const response = await fetch(process.env.REACT_APP_DATA_ENDPOINT);
 
-      async function registerCollection(collectionName) {
-        const collection = db.collection(collectionName);
-
-        fetchedData[collectionName] = await collection.find().toArray();
-
-        // Set up a watcher
-        const stream = await collection.watch();
-
-        // Watch for the changes
-        stream.onNext(async () => {
-          fetchedData[collectionName] = await collection.find().toArray();
-
-          setData({
-            ...fetchedData,
-          });
-        });
-      }
-
-      await Promise.all(
-        COLLECTIONS.map((collectionName) => registerCollection(collectionName))
-      );
+      const fetchedData = await response.json();
 
       setData(fetchedData);
       setIsLoading(false);

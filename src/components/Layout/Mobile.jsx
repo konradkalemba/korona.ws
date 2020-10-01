@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Map, VoivodeshipsSplit, Source, Contributors } from '../../components';
+import { Map, VoivodeshipsSplit, Contributors } from '../../components';
 
 import { useStyletron } from 'baseui';
 import { Layer } from 'baseui/layer';
@@ -55,7 +55,6 @@ export default function Mobile() {
   } = useData();
   const { t, i18n } = useTranslation();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-  const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [activeKey, setActiveKey] = useState('0');
   const [css, theme] = useStyletron();
@@ -98,7 +97,9 @@ export default function Mobile() {
                     },
                     {
                       label: t('source'),
-                      onClick: () => setIsSourceModalOpen(true),
+                      onClick: () => {
+                        window.open('http://bit.ly/covid19-poland');
+                      },
                     },
                     {
                       label:
@@ -362,26 +363,6 @@ export default function Mobile() {
 
               <Label2 margin='20px 0 10px'>{t('contributors')}</Label2>
               <Contributors />
-            </ModalBody>
-          </Modal>
-          <Modal
-            onClose={() => setIsSourceModalOpen(false)}
-            closeable
-            isOpen={isSourceModalOpen}
-            animate
-            role={ROLE.dialog}
-            overrides={{
-              Dialog: {
-                style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200,
-                }),
-              },
-            }}
-          >
-            <ModalHeader>{t('source')}</ModalHeader>
-            <ModalBody>
-              <Paragraph3>{t('sourceInfo')}</Paragraph3>
-              <Source />
             </ModalBody>
           </Modal>
         </Block>

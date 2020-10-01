@@ -8,7 +8,8 @@
     "REACT_APP_FIREBASE_MESSAGING_SENDER_ID": "@firebase-messaging-sender-id",
     "REACT_APP_FIREBASE_APP_ID": "@firebase-app-id",
     "REACT_APP_FIREBASE_MEASUREMENT_ID": "@firebase-measurement-id",
-    "API_KEY": "@api-key"
+    "API_KEY": "@api-key",
+    "REACT_APP_DATA_ENDPOINT": "@data-endpoint",
   },
   "build": {
     "env": {
@@ -20,7 +21,8 @@
       "REACT_APP_FIREBASE_MESSAGING_SENDER_ID": "@firebase-messaging-sender-id",
       "REACT_APP_FIREBASE_APP_ID": "@firebase-app-id",
       "REACT_APP_FIREBASE_MEASUREMENT_ID": "@firebase-measurement-id",
-      "API_KEY": "@api-key"
+      "API_KEY": "@api-key",
+      "REACT_APP_DATA_ENDPOINT": "@data-endpoint",
     }
   }
 }
