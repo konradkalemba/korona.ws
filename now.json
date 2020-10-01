@@ -9,7 +9,7 @@
     "REACT_APP_FIREBASE_APP_ID": "@firebase-app-id",
     "REACT_APP_FIREBASE_MEASUREMENT_ID": "@firebase-measurement-id",
     "API_KEY": "@api-key",
-    "REACT_APP_DATA_ENDPOINT": "@data-endpoint",
+    "REACT_APP_DATA_ENDPOINT": "@data-endpoint"
   },
   "build": {
     "env": {
@@ -22,7 +22,7 @@
       "REACT_APP_FIREBASE_APP_ID": "@firebase-app-id",
       "REACT_APP_FIREBASE_MEASUREMENT_ID": "@firebase-measurement-id",
       "API_KEY": "@api-key",
-      "REACT_APP_DATA_ENDPOINT": "@data-endpoint",
+      "REACT_APP_DATA_ENDPOINT": "@data-endpoint"
     }
   }
 }
