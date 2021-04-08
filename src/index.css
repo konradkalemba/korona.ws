@@ -95,3 +95,50 @@ svg.marker text {
 [data-theme='light'] *::-webkit-scrollbar-thumb {
   background-color: #cccccc;
 }
+
+.button {
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  font-family: Rubik;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 8px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  cursor: pointer;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1);
+  outline: none;
+  background-color: rgb(0, 0, 0);
+  padding-left: 8px;
+  font-weight: 500;
+  margin-top: 0px;
+  margin-right: 0px;
+  display: inline-flex;
+  border-left-width: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-style: none;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  outline-offset: -3px;
+  text-decoration: none;
+  appearance: none;
+  transition-property: background;
+  margin-bottom: 0px;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-right: 8px;
+  margin-left: 10px;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  right: 20px;
+  bottom: 60px;
+}

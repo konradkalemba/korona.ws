@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
@@ -21,8 +21,10 @@ import { Block } from 'baseui/block';
 import { Layer } from 'baseui/layer';
 import { StyledLink } from 'baseui/link';
 
-import { Layout } from '../../components';
+import { Contributors, Layout } from '../../components';
 import useWindowDimensions from '../../hooks/window-dimensions';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'baseui/modal';
+import { ParagraphMedium } from 'baseui/typography';
 
 const engine = new Styletron();
 
@@ -39,6 +41,7 @@ const darkTheme = createTheme(
 
 export default function App() {
   const { t } = useTranslation();
+  const [isEolModalOpen, setIsEolModalOpen] = useState(true);
   const { width } = useWindowDimensions();
 
   return (
@@ -132,6 +135,40 @@ export default function App() {
                           </Block>
                         </Layer>
                       )}
+
+                      <Layer>
+                        <Modal
+                          isOpen={isEolModalOpen}
+                          closeable
+                          onClose={() => setIsEolModalOpen(false)}
+                        >
+                          <ModalHeader>End-of-life</ModalHeader>
+                          <ModalBody>
+                            <ParagraphMedium $style={{ textAlign: 'justify' }}>
+                              Projekt zakonczył swą działalność i nie jest już
+                              rozwijany. Dane prezentowane na mapie są
+                              nieaktualne i nieaktualizowane. Do śledzenia
+                              obecnej sytuacji dot. koronawirusa w Polsce
+                              polecam oficjalną stronę Ministerstwa Zdrowia
+                              dostępną{' '}
+                              <StyledLink
+                                target='_blank'
+                                rel='nofollow'
+                                href='https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2'
+                              >
+                                tutaj
+                              </StyledLink>
+                              .
+                              <br />
+                              <br />
+                              Dziękuję wszystkim kontrybutorom!
+                            </ParagraphMedium>
+
+                            <Contributors />
+                          </ModalBody>
+                          <ModalFooter></ModalFooter>
+                        </Modal>
+                      </Layer>
                     </BaseProvider>
                   )}
                 </ThemeContext.Consumer>
