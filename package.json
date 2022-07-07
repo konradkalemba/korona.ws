@@ -12,7 +12,7 @@
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "lodash.groupby": "^4.6.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "^16.13.0",
     "react-content-loader": "^5.0.2",
     "react-dom": "^16.13.0",
