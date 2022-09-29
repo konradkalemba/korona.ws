@@ -20,7 +20,7 @@
     "react-leaflet": "^2.6.1",
     "react-leaflet-markercluster": "2.0.0-rc3",
     "react-scripts": "^3.4.3",
-    "recharts": "^2.0.0-beta.1",
+    "recharts": "^2.1.14",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7",
     "tabler-icons-react": "^1.0.0"
